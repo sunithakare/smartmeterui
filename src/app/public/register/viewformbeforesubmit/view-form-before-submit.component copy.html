@@ -1,0 +1,518 @@
+<app-register-header heading="User Registration"></app-register-header>
+<div fxLayout="column" #content class="mat-body-2">
+  <form [formGroup]="userdetails" autocomplete="off">
+    <mat-card>
+      <!-- <mat-card-subtitle  style="color: white; background-color: #014b88;">User Details</mat-card-subtitle> -->
+      <mat-card-title style="color: white; background-color: #014b88"
+        ><h4 style="margin-left: 10px">User Details</h4></mat-card-title
+      >
+      <div
+        fxLayout="row"
+        fxLayoutAlign="space-around center"
+        class="mat-elevation-z8"
+      >
+        <mat-form-field appearance="outline">
+          <mat-label>Salutation</mat-label>
+          <input type="text" matInput formControlName="salutation" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>First Name</mat-label>
+          <input type="text" matInput formControlName="firstName" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Last Name</mat-label>
+          <input type="text" matInput formControlName="lastName" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Email</mat-label>
+          <input type="text" matInput formControlName="email" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Mobile No</mat-label>
+          <input type="text" matInput formControlName="mobileNo" />
+        </mat-form-field>
+      </div>
+    </mat-card>
+  </form>
+  <mat-divider></mat-divider>
+
+  <form [formGroup]="employmentDetails" autocomplete="off">
+    <mat-card>
+      <!-- <mat-card-subtitle  style="color: white; background-color: #014b88;">Employment Details</mat-card-subtitle> -->
+      <mat-card-title style="color: white; background-color: #014b88"
+        ><h4 style="margin-left: 10px">Employment Details</h4></mat-card-title
+      >
+      <div
+        fxLayout="row"
+        fxLayoutAlign="center center"
+        fxLayoutGap="20px"
+        class="mat-elevation-z8"
+      >
+        <mat-form-field appearance="outline">
+          <mat-label>Employee Id</mat-label>
+          <input type="text" matInput formControlName="employeeId" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Designation</mat-label>
+          <input type="text" matInput formControlName="designation" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Department</mat-label>
+          <input type="text" matInput formControlName="department" />
+        </mat-form-field>
+      </div>
+    </mat-card>
+  </form>
+
+  <mat-divider></mat-divider>
+  <form [formGroup]="locationDetails" autocomplete="off">
+    <mat-card>
+      <!-- <mat-card-subtitle  style="color: white; background-color: #014b88;">Location Details</mat-card-subtitle> -->
+      <mat-card-title style="color: white; background-color: #014b88"
+        ><h4 style="margin-left: 10px">Location Details</h4></mat-card-title
+      >
+      <div
+        fxLayout="row"
+        fxLayoutAlign="space-around  center"
+        class="mat-elevation-z8"
+      >
+        <mat-form-field appearance="outline">
+          <mat-label>Discom Name</mat-label>
+          <input type="text" matInput formControlName="discomName" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>City</mat-label>
+          <input type="text" matInput formControlName="city" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Zone</mat-label>
+          <input type="text" matInput formControlName="zone" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Circle</mat-label>
+          <input type="text" matInput formControlName="circle" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Division</mat-label>
+          <input type="text" matInput formControlName="division" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Sub-Division</mat-label>
+          <input type="text" matInput formControlName="subdivision" />
+        </mat-form-field>
+      </div>
+    </mat-card>
+  </form>
+  <mat-divider></mat-divider>
+
+  <form [formGroup]="applicationDetails" autocomplete="off">
+    <mat-card>
+      <!-- <mat-card-subtitle  style="color: white; background-color: #014b88;">Application Details</mat-card-subtitle> -->
+      <mat-card-title style="color: white; background-color: #014b88"
+        ><h4 style="margin-left: 10px">Application Details</h4></mat-card-title
+      >
+      <div
+        fxLayout="column"
+        fxLayoutAlign="space-around  center"
+        class="mat-elevation-z8"
+      >
+        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="20px">
+          <mat-form-field appearance="outline">
+            <mat-label>User Type</mat-label>
+            <input type="text" matInput formControlName="userType" />
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Request For</mat-label>
+            <input type="text" matInput formControlName="requestFor" />
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Existing VPN User Name</mat-label>
+            <input type="text" matInput formControlName="existingVPNName" />
+          </mat-form-field>
+        </div>
+
+        <div
+          fxLayout="row"
+          fxLayoutAlign="center center"
+          fxLayoutGap="20px"
+          fxFlex
+        >
+          <mat-form-field appearance="outline">
+            <mat-label>State</mat-label>
+            <input type="text" matInput formControlName="state" />
+          </mat-form-field>
+        </div>
+        <div
+          fxLayout="row"
+          fxLayoutAlign="center center"
+          fxLayoutGap="20px"
+          fxFlex
+        >
+          <mat-form-field appearance="outline" fxFlex="40">
+            <mat-label>Discoms</mat-label>
+            <mat-chip-list
+              #chipList
+              aria-label="State  selection"
+              multiple
+              formControlName="discomList"
+            >
+              <mat-chip *ngFor="let state of selectedDiscoms">
+                {{ state.shortDescription }}
+              </mat-chip>
+              <!--
+                (matChipInputTokenEnd)="addState($event)"> -->
+            </mat-chip-list>
+          </mat-form-field>
+        </div>
+      </div>
+    </mat-card>
+  </form>
+
+  <mat-divider></mat-divider>
+  <mat-card>
+    <!-- <mat-card-subtitle style="color: white; background-color: #014b88;">Application Access</mat-card-subtitle> -->
+    <mat-card-title style="color: white; background-color: #014b88"
+      ><h4 style="margin-left: 10px">Application Access</h4></mat-card-title
+    >
+
+    <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="20px">
+      <mat-table
+        matSort
+        [dataSource]="appAccessDataSource"
+        class="mat-elevation-z8"
+        fxFlex
+      >
+        <!-- <ng-container [matColumnDef]="column" *ngFor="let column of displayedColumns">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> {{column}} </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element[column]}} </mat-cell>
+        </ng-container> -->
+        <ng-container matColumnDef="sNo">
+          <mat-header-cell
+            fxLayoutAlign="center center"
+            *matHeaderCellDef
+            mat-sort-header
+            class="TableHeader"
+            >S.No</mat-header-cell
+          >
+          <mat-cell
+            fxLayoutAlign="center center"
+            *matCellDef="let element; let i = index"
+            class="TableDataCell"
+          >
+            {{ i + 1 }}
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="applciationName">
+          <mat-header-cell
+            fxLayoutAlign="center center"
+            *matHeaderCellDef
+            mat-sort-header
+            class="TableHeader"
+            >Application Name</mat-header-cell
+          >
+          <mat-cell
+            fxLayoutAlign="center center"
+            *matCellDef="let element; let i = index"
+            class="TableDataCell"
+            [formGroup]="element"
+          >
+            <!-- <mat-select formControlName="state" (selectionChange)="fetchPermissions($event)"  required> -->
+            <mat-form-field appearance="outline">
+              <input
+                matInput
+                placeholder="Application Name"
+                formControlName="applicationName"
+              />
+            </mat-form-field>
+            <!-- <mat-form-field  appearance="outline">
+              <mat-label>State</mat-label>
+
+                <mat-select formControlName="state"  required (selectionChange)="getDiscomDataForStateChange($event,i)" >
+
+                <mat-option *ngFor="let item of stateList" [value]="item.state">{{item.state}}</mat-option>
+              </mat-select>
+            </mat-form-field> -->
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="accesType">
+          <mat-header-cell
+            fxLayoutAlign="center center"
+            *matHeaderCellDef
+            mat-sort-header
+            class="TableHeader"
+            >Access Type</mat-header-cell
+          >
+          <mat-cell
+            *matCellDef="let element; let i = index"
+            class="TableDataCell"
+            [formGroup]="element"
+            fxLayoutAlign="center center"
+          >
+            <mat-form-field appearance="outline">
+              <mat-label>Discom Name</mat-label>
+              <mat-select formControlName="accesType" required>
+                <mat-option value="ADMIN">ADMIN</mat-option>
+                <mat-option value="MANAGER">MANAGER</mat-option>
+                <mat-option value="VIEWER">VIEWER</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="range">
+          <mat-header-cell
+            fxLayoutAlign="center center"
+            *matHeaderCellDef
+            mat-sort-header
+            class="TableHeader"
+            >Range</mat-header-cell
+          >
+          <mat-cell
+            fxLayoutAlign="center center"
+            *matCellDef="let element; let i = index"
+            class="TableDataCell"
+            [formGroup]="element"
+          >
+            <!-- <mat-date-range-input  [rangePicker]="picker" [min]="minDate"> -->
+            <mat-date-range-input [rangePicker]="picker" [min]="minDate">
+              <input
+                matStartDate
+                formControlName="start"
+                placeholder="Start date"
+              />
+              <input matEndDate formControlName="end" placeholder="End date" />
+            </mat-date-range-input>
+
+            <mat-error
+              *ngIf="element.controls['start'].hasError('matDatepickerMin')"
+            >
+              Check Date Range
+            </mat-error>
+            <mat-error
+              *ngIf="element.controls['end'].hasError('matDatepickerMin')"
+            >
+              Check Date Range
+            </mat-error>
+
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="picker"
+            ></mat-datepicker-toggle>
+            <mat-date-range-picker #picker></mat-date-range-picker>
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="action">
+          <mat-header-cell
+            fxLayoutAlign="center center"
+            *matHeaderCellDef
+            mat-sort-header
+            class="TableHeader"
+            >Required</mat-header-cell
+          >
+          <mat-cell
+            fxLayoutAlign="center center"
+            *matCellDef="let element; let i = index"
+            class="TableDataCell"
+            [formGroup]="element"
+          >
+            <mat-checkbox
+              color="primary"
+              formControlName="isRequired"
+            ></mat-checkbox>
+          </mat-cell>
+        </ng-container>
+        <mat-header-row
+          *matHeaderRowDef="displayedColumns; sticky: true"
+        ></mat-header-row>
+        <!-- <mat-row
+              matRipple
+              *matRowDef="let row; columns: displayedColumns"
+              (click)="showDetails(row)">
+            </mat-row> -->
+        <mat-row
+          matRipple
+          *matRowDef="let row; columns: displayedColumns; let i = index"
+        ></mat-row>
+      </mat-table>
+    </div>
+  </mat-card>
+  <mat-divider></mat-divider>
+  <form [formGroup]="VPNDetails" autocomplete="off">
+    <mat-card>
+      <!-- <mat-card-subtitle  style="color: white; background-color: #014b88;">VPN Details</mat-card-subtitle> -->
+      <mat-card-title style="color: white; background-color: #014b88"
+        ><h4 style="margin-left: 10px">VPN Details</h4></mat-card-title
+      >
+      <div
+        fxLayout="row"
+        fxLayoutAlign="center center"
+        fxLayoutGap="20px"
+        class="mat-elevation-z8"
+      >
+        <mat-form-field appearance="fill">
+          <mat-label>LAN MAC Address</mat-label>
+          <input type="text" matInput formControlName="lanMACAddress" />
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Wifi MAC Address</mat-label>
+          <input type="text" matInput formControlName="wifiMACAddress" />
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>VPN Access From India</mat-label>
+
+          <input type="text" matInput formControlName="vpnAccessFromIndia" />
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Country Name</mat-label>
+          <input type="text" matInput formControlName="countryName" />
+        </mat-form-field>
+      </div>
+    </mat-card>
+  </form>
+  <mat-divider></mat-divider>
+
+  <div></div>
+
+  <mat-card>
+    <mat-card-title style="color: white; background-color: #014b88"
+      ><h4 style="margin-left: 10px">GENERAL RULES</h4></mat-card-title
+    >
+
+    <mat-card-content class="mat-elevation-z8">
+      <p style="margin-left: 10px; color: black">
+        <span
+          >a)The use of remote access services (e.g. TeamViewer, LogMeIn,
+          GoToMyPC, peer-to-peer networking, etc.) is prohibited when connected
+          to requested VPN.</span
+        >
+      </p>
+      <p style="margin-left: 10px; color: black">
+        <span
+          >b)It is critical that your computer has the most recent security
+          patches for your operating systems. Anti-virus software installed and
+          the latest definition file and updates.</span
+        >
+      </p>
+      <p style="margin-left: 10px; color: black">
+        <span>c)All accesses to VPN/HES/MDM are monitored and logged.</span>
+      </p>
+      <p style="margin-left: 10px; color: black">
+        <span
+          >d)Any unauthorized access due to the unauthorized sharing of
+          VPN/HES/MDM/ or any other software&apos;s and/or its credentials will
+          lead to serious consequences</span
+        ><span>&nbsp; &nbsp; &nbsp;&nbsp;</span>
+      </p>
+      <p style="margin-left: 10px; color: black">
+        <span
+          >e)Application partners cannot be held responsible for any misuse of
+          the system by this user. This access is strictly personal and must not
+          be shared with other people</span
+        ><span>&nbsp; &nbsp; &nbsp;&nbsp;</span>
+      </p>
+      <p style="margin-left: 10px; color: black">
+        <span
+          >f)Account type: Administrator (can create, edit &amp; delete meters/
+          groups; run tasks) and Guest/ Read only (only view option)</span
+        ><span>&nbsp; &nbsp; &nbsp;&nbsp;</span>
+      </p>
+      <p style="margin-left: 10px; color: black">
+        <span
+          >g)The use of remote access services (e.g. TeamViewer, LogMeIn,
+          GoToMyPC, peer-to-peer networking, etc.) is prohibited when connected
+          to requested VPN.</span
+        ><span>&nbsp; &nbsp; &nbsp;&nbsp;</span>
+      </p>
+      <p style="margin-left: 10px; color: black">
+        <span
+          >h)It is critical that your computer has the most recent security
+          patches for your operating systems. Anti-virus software installed and
+          the latest definition file and updates.</span
+        ><span>&nbsp; &nbsp; &nbsp;&nbsp;</span>
+      </p>
+      <p style="margin-left: 10px; color: black">
+        <span>i)All accesses to and through VPN are monitored and logged.</span
+        ><span>&nbsp; &nbsp; &nbsp;&nbsp;</span>
+      </p>
+      <p style="margin-left: 10px; color: black">
+        <span
+          >j)Any unauthorized access due to the unauthorized sharing of VPN
+          software and/or its credentials will lead to serious
+          consequences.</span
+        ><span>&nbsp;&nbsp;</span>
+      </p>
+      <p style="margin-left: 10px; color: black">
+        <span
+          >k)Incomplete form without required details will be subject to
+          rejection or delays in access approval.</span
+        >
+      </p>
+      <p><br /></p>
+      <p><br /></p>
+    </mat-card-content>
+
+    <mat-card-actions class="mat-elevation-z8">
+      <mat-checkbox
+        [(ngModel)]="accepted"
+        labelPosition="after"
+        disabled="false"
+        style="margin-left: 10px; color: black"
+      >
+        <p style="margin-left: 10px; color: black">
+          <span>
+            I confirm that I have read and agree the above terms and conditions
+            and will use the VPN responsibly. I also authorize EESL and L&T to
+            collect</span
+          >
+        </p>
+        <p style="margin-left: 10px; color: black">
+          <span>
+            and store my personal information for the purpose of VPN, System and
+            application (logical) access management process.</span
+          >
+        </p>
+      </mat-checkbox>
+    </mat-card-actions>
+  </mat-card>
+
+  <div fxLayout="row" fxLayoutAlign="center center" style="margin: 20px">
+    <button
+      mat-raised-button
+      type="button"
+      color="primary"
+      (click)="saveData()"
+      [disabled]="!accepted"
+    >Submit
+    </button>
+    <!-- <button
+      mat-raised-button
+      type="button"
+      color="primary"
+      (click)="SavePDF()"
+      [disabled]="!accepted"
+    >SavePDF
+    </button> -->
+  </div>
+</div>
+
+<div class="overlay" *ngIf="spinner">
+  <div class="spinner">
+    <mat-progress-spinner diameter="50" mode="indeterminate" color="accent">
+    </mat-progress-spinner>
+  </div>
+</div>

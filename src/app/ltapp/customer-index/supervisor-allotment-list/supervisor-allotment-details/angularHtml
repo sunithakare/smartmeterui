@@ -1,0 +1,107 @@
+<form [formGroup]="oldMeterInwardForm"  autocomplete="off" (ngSubmit)="saveOldMeterInward()" (keydown.enter)="$event.preventDefault()"
+    (keydown.shift.enter)="$event.preventDefault()">
+    <mat-card>
+      <div fxLayout="column" >
+        <div fxLayout="row" fxLayoutAlign="space-between center">
+          <mat-form-field appearance="fill">
+            <mat-label>Discom</mat-label>
+            <mat-select formControlName="discom">
+                <mat-option *ngFor="let item of discoms" [value]="item.name">{{item.name}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Warehouse</mat-label>
+            <mat-select formControlName="warehouseName">
+                <mat-option *ngFor="let item of warehouses" [value]="item.name">{{item.name}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Subcontractor Type</mat-label>
+            <mat-select formControlName="subcontractorType">
+                <mat-option *ngFor="let item of subcontractorTypes" [value]="item.name">{{item.name}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Subcontractor</mat-label>
+            <mat-select formControlName="subcontractor">
+                <mat-option *ngFor="let item of subcontractors" [value]="item.name">{{item.name}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="space-between center">
+          <mat-form-field appearance="fill">
+            <mat-label>Doc No</mat-label>
+            <input type="text" matInput formControlName="docNo">
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Invoice date</mat-label>
+            <input matInput [matDatepicker]="invoicePicker" formControlName="invoiceDate">
+            <mat-datepicker-toggle matSuffix [for]="invoicePicker"></mat-datepicker-toggle>
+            <mat-datepicker #invoicePicker></mat-datepicker>
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Gin no</mat-label>
+            <input type="text" matInput formControlName="ginNo">
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>GRN Date</mat-label>
+            <input matInput [matDatepicker]="grnPicker" formControlName="grnDate">
+            <mat-datepicker-toggle matSuffix [for]="grnPicker"></mat-datepicker-toggle>
+            <mat-datepicker #grnPicker></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="space-between center">
+          <mat-form-field appearance="fill">
+            <mat-label>Item Status</mat-label>
+            <mat-select formControlName="itemStatus">
+                <mat-option *ngFor="let item of itemstatus" [value]="item.name">{{item.name}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Quantity</mat-label>
+            <input type="text" matInput formControlName="qty">
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Transporter</mat-label>
+            <input type="text" matInput formControlName="transporter">
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>LR No</mat-label>
+            <input type="text" matInput formControlName="lrNo">
+          </mat-form-field>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="space-between center">
+          <mat-form-field appearance="fill">
+            <mat-label>Vehicle No</mat-label>
+            <input type="text" matInput formControlName="vehicleNo">
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Driver Name</mat-label>
+            <input type="text" matInput formControlName="driverName">
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Contact No</mat-label>
+            <input type="text" matInput formControlName="contactNo">
+          </mat-form-field>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="space-between center">
+          <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Remark</mat-label>
+            <textarea matInput rows="4" cols="80" formControlName="remark"></textarea>
+          </mat-form-field>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="space-between center">
+          <input hidden type="file" #uploader (change)="uploadFile($event)" />
+          <button mat-raised-button type="button" color="primary" (click)="uploader.click()" >
+            Upload <mat-icon>upload</mat-icon>
+          </button>
+        </div>
+
+      </div>
+      <mat-card-actions fxLayout="row" fxLayoutAlign="end start" >
+        <button mat-raised-button type="submit" color="primary" dir="rtl"  fxFlex="10">Import</button>
+        <button mat-raised-button type="submit" color="primary" dir="rtl" fxFlex="10">Cancle</button>
+    </mat-card-actions>
+    </mat-card>
+
+  </form>

@@ -1,0 +1,292 @@
+<div class="mat-typography" fxLayoutAlign="center center" *ngIf="!isNavigation">
+  <h1>Approver Creation</h1>
+</div>
+
+<form
+  [formGroup]="approverForm"
+  autocomplete="off"
+  (ngSubmit)="saveApproverData()"
+>
+  <mat-card fxLayout="column">
+    <div fxLayout="row" fxLayoutAlign="space-around center">
+      <mat-form-field appearance="fill">
+        <mat-label>User Name</mat-label>
+        <input
+          type="text"
+          matInput
+          formControlName="userName"
+          (change)="getApproverData(approverForm.value.userName)"
+        />
+        <!-- <input type="text" matInput formControlName="userName"  > -->
+        <mat-error
+          *ngIf="approverForm.controls['userName'].hasError('required')"
+        >
+          User Name is <strong>required</strong>
+        </mat-error>
+        <mat-error
+          *ngIf="approverForm.controls['userName'].hasError('invalid')"
+        >
+          User Name is <strong>incorrect</strong>
+        </mat-error>
+      </mat-form-field>
+
+      <!-- <mat-form-field appearance="fill" >
+          <mat-label>Approver Type</mat-label>
+          <mat-select formControlName="approverIdentity" [disabled]="!isEditable  || isNavigation">
+            <mat-option *ngFor="let type of approverTypeList" [value]="type.shortCode">{{type.shortCode}}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="approverForm.controls['approverIdentity'].hasError('required')">
+            Approver Type is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" >
+          <mat-label>Approver For</mat-label>
+          <mat-select [disabled]="!isEditable  || isNavigation">
+            <mat-option value="City">City</mat-option>
+            <mat-option value="Discom">Discom</mat-option>
+          </mat-select>
+          <mat-error *ngIf="approverForm.controls['approverFilter'].hasError('required')">
+            Approver For is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field  appearance="fill">
+          <mat-label>Approver For</mat-label>
+          <input type="text" matInput formControlName="approverFilter"  >
+          <mat-error *ngIf="approverForm.controls['approverFilter'].hasError('required')">
+            User Name is <strong>required</strong>
+          </mat-error>
+        </mat-form-field> -->
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="end end">
+      <button
+        mat-raised-button
+        color="primary"
+        type="button"
+        (click)="addNewApproverData()"
+        *ngIf="isEditable"
+      >
+        Add Approver Level
+      </button>
+    </div>
+
+    <mat-table matSort [dataSource]="dataSource" class="mat-elevation-z8">
+      <!-- <ng-container [matColumnDef]="column" *ngFor="let column of displayedColumns">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> {{column}} </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element[column]}} </mat-cell>
+    </ng-container> -->
+      <ng-container matColumnDef="sNo">
+        <mat-header-cell
+          fxLayoutAlign="center center"
+          *matHeaderCellDef
+          mat-sort-header
+          class="TableHeader"
+          >S.No</mat-header-cell
+        >
+        <mat-cell
+          fxLayoutAlign="center center"
+          *matCellDef="let element; let i = index"
+          class="TableDataCell"
+        >
+          {{ i + 1 }}
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="approverType">
+        <mat-header-cell
+          fxLayoutAlign="center center"
+          *matHeaderCellDef
+          mat-sort-header
+          class="TableHeader"
+          >Approver Type</mat-header-cell
+        >
+        <mat-cell
+          fxLayoutAlign="center center"
+          *matCellDef="let element; let i = index"
+          class="TableDataCell"
+          [formGroup]="element"
+        >
+          <!-- <input matInput placeholder="state" formControlName="state" required> -->
+          <!-- <mat-select formControlName="state" (selectionChange)="fetchPermissions($event)"  required> -->
+
+          <mat-form-field appearance="fill">
+            <mat-label>Approver Type</mat-label>
+
+            <mat-select formControlName="approverIdentity" required
+            (selectionChange)="checkDisableSelection($event, i)">
+              <mat-option
+                *ngFor="let type of approverTypeList"
+                [value]="type.shortCode"
+                >{{ type.shortDescription }}</mat-option
+              >
+            </mat-select>
+
+            <mat-error
+              *ngIf="element.controls['approverIdentity'].hasError('required')"
+            >
+              Approver Type is <strong>Required</strong>
+            </mat-error>
+          </mat-form-field>
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="approverFor">
+        <mat-header-cell
+          fxLayoutAlign="center center"
+          *matHeaderCellDef
+          mat-sort-header
+          class="TableHeader"
+          >Approver For</mat-header-cell
+        >
+        <mat-cell
+          *matCellDef="let element; let i = index"
+          class="TableDataCell"
+          [formGroup]="element"
+          fxLayoutAlign="center center"
+        >
+          <mat-form-field appearance="fill">
+            <mat-label>Approver For</mat-label>
+            <mat-select
+              formControlName="approvalFor"
+
+              (selectionChange)="changeApproverFilter($event, i)"
+            >
+              <mat-option
+                value="City"
+                (selected)="(element.value.approvalFor == 'City')"
+                >City</mat-option
+              >
+              <mat-option
+                value="Discom"
+                (selected)="(element.value.approvalFor == 'Discom')"
+                >Discom</mat-option
+              >
+            </mat-select>
+
+            <!-- <mat-error
+              *ngIf="element.controls['approvalFor'].hasError('required')"
+            >
+              Approver For is <strong>Required</strong>
+            </mat-error> -->
+          </mat-form-field>
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="approverFilter">
+        <mat-header-cell
+          fxLayoutAlign="center center"
+          *matHeaderCellDef
+          mat-sort-header
+          class="TableHeader"
+          >Name</mat-header-cell
+        >
+        <mat-cell
+          *matCellDef="let element; let i = index"
+          class="TableDataCell"
+          [formGroup]="element"
+          fxLayoutAlign="center center"
+        >
+          <mat-form-field appearance="fill">
+            <mat-label *ngIf="element.value.approvalFor == 'City'"
+              >City Name</mat-label
+            >
+            <mat-label *ngIf="element.value.approvalFor == 'Discom'"
+              >Discom Name</mat-label
+            >
+            <mat-select formControlName="approverFilter" >
+              <ng-container *ngIf="element.value.approvalFor == 'Discom'">
+                <mat-option
+                  *ngFor="let item of approverFilterList[i].discom"
+                  [value]="item.shortCode"
+                  >{{ item.shortDescription }}</mat-option
+                >
+              </ng-container>
+              <ng-container *ngIf="element.value.approvalFor == 'City'">
+                <mat-option
+                  *ngFor="let item of approverFilterList[i].city"
+                  [value]="item.shortCode"
+                  >{{ item.shortDescription }}</mat-option
+                >
+              </ng-container>
+            </mat-select>
+
+            <!-- <mat-error
+              *ngIf="element.controls['approverFilter'].hasError('required')"
+            >
+              Approver Filter is <strong>Required</strong>
+            </mat-error> -->
+          </mat-form-field>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="action">
+        <mat-header-cell
+          fxLayoutAlign="center center"
+          *matHeaderCellDef
+          mat-sort-header
+          class="TableHeader"
+          >Action</mat-header-cell
+        >
+        <mat-cell
+          fxLayoutAlign="center center"
+          *matCellDef="let element; let i = index"
+          class="TableDataCell"
+          [formGroup]="element"
+        >
+          <button
+            mat-raised-button
+            type="button"
+            color="warn"
+            (click)="removeApproverData(i)"
+          >
+            Remove
+          </button>
+        </mat-cell>
+      </ng-container>
+      <mat-header-row
+        *matHeaderRowDef="displayedColumns; sticky: true"
+      ></mat-header-row>
+      <!-- <mat-row
+          matRipple
+          *matRowDef="let row; columns: displayedColumns"
+          (click)="showDetails(row)">
+        </mat-row> -->
+      <mat-row
+        matRipple
+        *matRowDef="let row; columns: displayedColumns; let i = index"
+      ></mat-row>
+    </mat-table>
+
+    <mat-card-actions
+      fxLayout="row"
+      fxLayoutAlign="space-evenly start"
+      *ngIf="isEditable"
+    >
+      <div dir="ltr" fxFlexOffset="20" fxFlex="10" *ngIf="isNavigation">
+        <button
+          mat-raised-button
+          type="button"
+          color="warn"
+          (click)="deleteApprover()"
+        >
+          Delete
+        </button>
+      </div>
+      <div dir="rtl" fxFlexOffset="20" fxFlex="10">
+        <button
+          mat-raised-button
+          type="submit"
+          color="primary"
+          [disabled]="approverForm.getRawValue().approverDataList.length == 0"
+        >
+          Save
+        </button>
+      </div>
+    </mat-card-actions>
+  </mat-card>
+  <div class="overlay" *ngIf="spinner">
+    <div class="spinner">
+      <mat-progress-spinner diameter="50" mode="indeterminate" color="accent">
+      </mat-progress-spinner>
+    </div>
+  </div>
+</form>

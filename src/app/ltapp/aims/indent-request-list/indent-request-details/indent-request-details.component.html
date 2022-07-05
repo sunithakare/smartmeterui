@@ -1,0 +1,193 @@
+<form [formGroup]="simIndentForm"  autocomplete="off" (ngSubmit)="saveAimsWareHouse()" (keydown.enter)="$event.preventDefault()"
+    (keydown.shift.enter)="$event.preventDefault()">
+  <mat-card>
+    <div fxLayout="column" >
+      <div fxLayout="row" fxLayoutAlign="space-around center">
+
+        <mat-form-field *ngIf="makeReadOnly==false" appearance="outline">
+          <mat-label>Agency Type</mat-label>
+          <mat-select formControlName="agencyType">
+              <mat-option *ngFor="let s of agencyTypeValuesDD" [value]="s.codeType">{{s.shortCode}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field *ngIf="makeReadOnly==true" appearance="outline">
+          <mat-label>Agency Type</mat-label>
+          <input type="text" matInput formControlName="agencyType" [readonly]="true">
+        </mat-form-field>
+
+        <mat-form-field  *ngIf="makeReadOnly==true" appearance="outline">
+            <mat-label>Agency Name</mat-label>
+            <input type="text" matInput formControlName="agencyName" [readonly]="true">
+          </mat-form-field>
+
+          <mat-form-field  *ngIf="makeReadOnly==false" appearance="outline">
+            <mat-label>Agency Name</mat-label>
+            <input type="text" matInput formControlName="agencyName">
+          </mat-form-field>
+
+
+           <mat-form-field *ngIf="makeReadOnly==false" appearance="outline">
+            <mat-label>Ware House</mat-label>
+            <mat-select formControlName="warehouse">
+                <mat-option value="warehouse1">warehouse1</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field *ngIf="makeReadOnly==true" appearance="outline">
+            <mat-label>Ware House</mat-label>
+            <input type="text" matInput formControlName="warehouse" [readonly]="true">
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Indent Date</mat-label>
+            <input matInput [matDatepicker]="indentDate" formControlName="indentDate">
+            <mat-datepicker-toggle matSuffix [for]="indentDate"></mat-datepicker-toggle>
+            <mat-datepicker #indentDate></mat-datepicker>
+        </mat-form-field>
+
+        </div>
+
+          <div fxLayout="row" fxLayoutAlign="space-around center">
+
+            <mat-form-field appearance="outline">
+            <mat-label>Auth Person</mat-label>
+            <input type="text" matInput formControlName="authPerson">
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Contact No</mat-label>
+            <input type="text" matInput formControlName="contactNo">
+
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" style="margin-right: 450px;">
+            <mat-label>Approver</mat-label>
+            <input matInput formControlName="approver">
+          </mat-form-field>
+
+          <!-- <mat-form-field appearance="outline">
+            <mat-label>Remarks</mat-label>
+            <textarea matInput formControlName="remarks"></textarea>
+          </mat-form-field>  -->
+          </div>
+      </div>
+
+      <div fxLayout="row" fxLayoutAlign="end end" fxLayoutGap="20px">
+        <!-- <button mat-raised-button  color="primary" type='button'  (click)="createApprover()" *ngIf="isEditable && isNavigation " >Create Approver <mat-icon>forward</mat-icon></button> -->
+        <button mat-raised-button  color="primary" type='button'  (click)="addNewIndentReq()"> <mat-icon>add</mat-icon> Add Warehouse</button>
+      </div>
+      <div fxLayout="row" fxLayoutAlign="center center">
+      <mat-table  [dataSource]="dataSource" class="mat-elevation-z8" fxFlex >
+
+        <ng-container matColumnDef="sNo" >
+          <mat-header-cell fxLayoutAlign="center center" *matHeaderCellDef  class="TableHeader">S.No</mat-header-cell>
+          <mat-cell fxLayoutAlign="center center" *matCellDef="let element; let i = index;" class="TableDataCell" >
+            {{i+1}}
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="itemGroup">
+            <mat-header-cell fxLayoutAlign="center center" *matHeaderCellDef  class="TableHeader">Item Group</mat-header-cell>
+            <mat-cell *matCellDef="let element;let i = index" class="TableDataCell" [formGroup]="element" fxLayoutAlign="center center">
+
+              <mat-form-field appearance="outline">
+                <mat-label>Item Group</mat-label>
+                <mat-select (selectionChange)="getItemCategoryByGroup($event)" formControlName="itemGroup" required >
+                    <mat-option *ngFor="let s of groupValues" [value]="s.itemGroup">{{s.itemGroup}}</mat-option>
+                </mat-select>
+
+              </mat-form-field>
+
+          </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="itemCategory">
+            <mat-header-cell fxLayoutAlign="center center" *matHeaderCellDef  class="TableHeader">Item Category</mat-header-cell>
+            <mat-cell *matCellDef="let element;let i = index" class="TableDataCell" [formGroup]="element" fxLayoutAlign="center center">
+
+              <mat-form-field appearance="outline">
+                <mat-label>Item Category</mat-label>
+                <mat-select (selectionChange)="getItemModelByItemCategory($event)" formControlName="itemCategory" required >
+                    <mat-option *ngFor="let s of itemCategoryValues" [value]="s.itemCategory">{{s.itemCategory}}</mat-option>
+                </mat-select>
+
+              </mat-form-field>
+
+          </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="itemModelName">
+            <mat-header-cell fxLayoutAlign="center center" *matHeaderCellDef  class="TableHeader">Item Model Name</mat-header-cell>
+            <mat-cell *matCellDef="let element;let i = index" class="TableDataCell" [formGroup]="element" fxLayoutAlign="center center">
+
+              <mat-form-field appearance="outline">
+                <mat-label>Item Model Name</mat-label>
+                <mat-select (selectionChange)="getSupplierByItemModelName($event)" formControlName="itemModelName" required >
+                    <mat-option *ngFor="let s of itemModelValues" [value]="s.itemModelName">{{s.itemModelName}}</mat-option>
+                </mat-select>
+
+              </mat-form-field>
+
+          </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="supplier">
+            <mat-header-cell fxLayoutAlign="center center" *matHeaderCellDef  class="TableHeader">Supplier</mat-header-cell>
+            <mat-cell *matCellDef="let element;let i = index" class="TableDataCell" [formGroup]="element" fxLayoutAlign="center center">
+
+              <mat-form-field appearance="outline">
+                <mat-label>Supplier</mat-label>
+                    <input matInput formControlName="supplier" required [value]="itemSupplierValues">
+
+              </mat-form-field>
+
+          </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="approvQuantity">
+            <mat-header-cell fxLayoutAlign="center center" *matHeaderCellDef  class="TableHeader">QTY</mat-header-cell>
+            <mat-cell *matCellDef="let element;let i = index" class="TableDataCell" [formGroup]="element" fxLayoutAlign="center center">
+
+              <mat-form-field appearance="outline">
+                <mat-label>QTY</mat-label>
+                <input matInput formControlName="approvQuantity" required >
+
+
+              </mat-form-field>
+
+          </mat-cell>
+          </ng-container>
+
+
+
+
+          <ng-container matColumnDef="action">
+
+            <mat-header-cell fxLayoutAlign="center center" *matHeaderCellDef  class="TableHeader">Action</mat-header-cell>
+            <mat-cell fxLayoutAlign="center center" *matCellDef="let element;let i = index" class="TableDataCell" [formGroup]="element">
+              <button mat-raised-button type="button" color="warn" (click)="removeSupplier(i)" title="Remove Data"><mat-icon>delete_forever</mat-icon></button>
+            </mat-cell>
+
+          </ng-container>
+          <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true" ></mat-header-row>
+          <!-- <mat-row
+            matRipple
+            *matRowDef="let row; columns: displayedColumns"
+            (click)="showDetails(row)">
+          </mat-row> -->
+          <mat-row
+            matRipple
+            *matRowDef="let row; columns: displayedColumns;let i = index"
+          ></mat-row>
+        </mat-table>
+
+    </div>
+
+
+    <mat-card-actions fxLayout="row" fxLayoutAlign="center start">
+       <button mat-raised-button type="submit" color="primary" dir="rtl"  fxFlex="10"  *ngIf="makeReadOnly==false">Import</button>
+       <button mat-raised-button type="submit" (click)="backToList()" color="primary" dir="rtl" fxFlex="10">Cancel</button>
+    </mat-card-actions>
+      <!-- </mat-card> -->
+      <!-- </form> -->

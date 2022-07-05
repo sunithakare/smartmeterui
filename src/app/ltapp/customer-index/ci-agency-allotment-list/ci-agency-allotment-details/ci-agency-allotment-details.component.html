@@ -1,0 +1,122 @@
+<form [formGroup]="ciAgencyForm" (ngSubmit)="saveCiAgency()" autocomplete="off">
+    <!-- {{discomList | json}} -->
+    <!-- {{allocationDataStore|json}} -->
+<mat-card>
+    <div fxLayout="row" fxLayoutAlign="space-around center">
+<div fxLayout="column" fxLayoutAlign="space-around center">
+    <!-- allocationDataStore:any[]=['CI','MI','ENH','O&M']; -->
+    <mat-form-field appearance="fill">
+        <mat-label>Allocation Data Type</mat-label>
+        <mat-select formControlName="allocationData">
+        <mat-option  value="CI">CI</mat-option>
+        <mat-option  value="MI">MI</mat-option>
+        <mat-option  value="ENH">ENH</mat-option>
+        <mat-option  value="O&M">O&M</mat-option>
+        </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+        <mat-label>Agency</mat-label>
+        <input type="text" matInput formControlName="agency">
+    </mat-form-field>
+
+    <ng-container>
+<mat-form-field appearance="fill">
+<mat-label>State</mat-label>
+<mat-select formControlName="state" (selectionChange)="agencyStatePermission($event)">
+    <mat-option *ngFor="let st of stateList" [value]="st.shortCode">{{st.shortCode}}</mat-option>
+    </mat-select>
+<mat-error *ngIf="ciAgencyForm.controls['state'].hasError('required')">
+    State is <strong>required</strong>
+</mat-error>
+    </mat-form-field>
+
+
+
+<mat-form-field appearance="fill">
+    <mat-label>Discom</mat-label>
+    <mat-select formControlName="discom" (selectionChange)="agencyDiscomPermission($event)">
+        <mat-option *ngFor="let ct of allDiscomList" [value]="ct.shortCode">{{ct.shortCode}}</mat-option>
+        </mat-select>
+    <mat-error *ngIf="ciAgencyForm.controls['discom'].hasError('required')">
+        Discom is <strong>required</strong>
+    </mat-error>
+        </mat-form-field>
+    </ng-container>
+    
+         <div fxLayout="row" fxLayoutAlign="space-evenly end">
+       <mat-form-field appearance="fill">
+            <mat-label appearance="fill">Division</mat-label> 
+            
+                
+                    <!-- <mat-che  *ngFor="let s of divisionStore">{{s.divCode}}:{{s.count}}</mat-checkbox> -->
+                    
+                        <mat-select formControlName="division" (selectionChange)="agencyDivisionPermission([$event])" multiple>
+                            <mat-option *ngFor="let item of allDivisionS" [value]="item.shortCode+':'+item.shortDescription" >{{item.shortCode}}</mat-option>
+
+                          
+                        </mat-select>
+            
+            
+        </mat-form-field>
+    </div>
+    </div>
+    <div fxLayout="column" fxLayoutAlign="space-around center">
+        <!-- <mat-form-field appearance="fill">
+            <mat-label>City</mat-label>
+            <mat-select formControlName="city" (selectionChange)="ngOnselect($event)" >
+                <mat-option *ngFor="let ct of cityList" [value]="ct.shortCode">{{ct.shortCode}}</mat-option>
+                </mat-select>
+            <mat-error *ngIf="ciAgencyForm.controls['city'].hasError('required')">
+                City is <strong>required</strong>
+            </mat-error>
+                </mat-form-field> -->
+                <mat-form-field appearance="fill">
+                    <mat-label>City</mat-label>
+                    <mat-select formControlName="city" (selectionChange)="agencyCityPermission($event)">
+                        <mat-option *ngFor="let st of allDiv" [value]="st.city">{{st.city}}</mat-option>
+                        </mat-select>
+                    <mat-error *ngIf="ciAgencyForm.controls['city'].hasError('required')">
+                        City is <strong>required</strong>
+                    </mat-error>
+                        </mat-form-field>
+
+<mat-form-field appearance="fill">
+    <mat-label>Allocation</mat-label>
+    <mat-select formControlName="allocation">
+        <mat-option value="fresh">Fresh</mat-option>
+        <mat-option value="reallocation">Reallocation</mat-option>
+        </mat-select>
+    <mat-error *ngIf="ciAgencyForm.controls['allocation'].hasError('required')">
+        Allocation is <strong>required</strong>
+    </mat-error>
+        </mat-form-field>
+
+        
+</div>
+</div>
+            <!-- <mat-label>Division</mat-label>
+            {{divisionStore | json}}
+            {{nameFor}} -->
+        <!-- <mat-form-field appearance="fill">
+            <mat-label>Division</mat-label>
+            <mat-selection-list formControlName="division" >
+                hello
+
+            </mat-selection-list>
+
+        </mat-form-field> -->
+        
+
+
+
+
+
+<mat-card-actions fxLayout="row" fxLayoutAlign="space-evenly start" >
+ <button mat-raised-button type="submit" color="primary" dir="rtl" fxFlexOffset="10" fxFlex="10">Save</button>
+</mat-card-actions>
+
+</mat-card>
+
+
+
+</form>

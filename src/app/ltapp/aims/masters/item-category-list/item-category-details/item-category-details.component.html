@@ -1,0 +1,60 @@
+<form [formGroup]="itemcategoryform" (submit)="saveItemTypeData()" autocomplete="off" (keydown.enter)="$event.preventDefault()"
+(keydown.shift.enter)="$event.preventDefault()">
+<mat-card>
+<div fxLayout="column">
+<div fxLayout="row" fxLayoutAlign="space-around center">
+
+    <mat-form-field appearance="fill">
+      <mat-label>Group Name</mat-label>
+       <mat-select formControlName="itemGroup" required>
+        <mat-option *ngFor="let item of storeCode" [value]="item.itemGroup">{{item.itemGroup}}</mat-option>
+    </mat-select>
+    <mat-error
+            *ngIf="itemcategoryform.controls['itemGroup'].hasError('required')">
+            Item Group Name is <strong>required</strong>
+          </mat-error>
+  </mat-form-field>
+
+    <mat-form-field appearance="fill">
+        <mat-label>Category Name</mat-label>
+        <input type="text" matInput formControlName="itemCategory">
+        <mat-error
+            *ngIf="itemcategoryform.controls['itemCategory'].hasError('required')">
+            Item Category Name is <strong>required</strong>
+          </mat-error>
+          <mat-error
+        *ngIf="itemcategoryform.controls['itemCategory'].hasError('pattern')">
+        Item Category Name not allowed <strong>WhiteSpases</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" style="width: 300px; margin-top: 20px;">
+        <mat-label>Remark</mat-label>
+        <textarea matInput rows="2" cols="80" formControlName="remark"></textarea>
+        <mat-error
+            *ngIf="itemcategoryform.controls['remark'].hasError('required')">
+            Remark is <strong>required</strong>
+          </mat-error>
+          <mat-error
+        *ngIf="itemcategoryform.controls['remark'].hasError('pattern')">
+        Remark not allowed <strong>WhiteSpases</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" >
+      <mat-label>Status</mat-label>
+      <mat-select formControlName="status">
+        <mat-option  value="Active">Active</mat-option>
+        <mat-option  value="Inactive">Inactive</mat-option>
+      </mat-select>
+  </mat-form-field>
+
+</div>
+</div>
+
+ <mat-card-actions fxLayout="row" fxLayoutAlign="center start" style="margin-top: 30px" fxLayoutGap="10px">
+    <button mat-raised-button type="button" (click)="backToList()" color="primary" dir="rtl" fxFlex="8">Cancel</button>
+    <button mat-raised-button type="submit" color="primary" dir="rtl"  fxFlex="8">Save</button>
+</mat-card-actions>
+</mat-card>
+</form>

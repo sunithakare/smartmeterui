@@ -1,0 +1,340 @@
+<mat-stepper [linear]="true" #stepper  fxFlexFill>
+  <mat-step [stepControl]="userForm"  label="User Details" >
+
+<form [formGroup]="userForm" autocomplete="off" >
+  <mat-card>
+      <div fxLayout="row" fxLayoutAlign="space-around center">
+        <div fxLayout="column" fxLayoutAlign="space-around center">
+          <mat-form-field  appearance="fill">
+            <mat-label>First Name</mat-label>
+            <input type="text" matInput formControlName="firstName" >
+            <mat-error *ngIf="userForm.controls['firstName'].hasError('required')">
+              First Name is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field  appearance="fill">
+            <mat-label>Last Name</mat-label>
+            <input type="text" matInput formControlName="lastName" >
+            <mat-error *ngIf="userForm.controls['lastName'].hasError('required')">
+              Last Name is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div fxLayout="column" fxLayoutAlign="space-around center">
+
+          <mat-form-field  appearance="fill">
+            <mat-label>E-mail</mat-label>
+            <input type="text" matInput formControlName="email" >
+            <mat-error *ngIf="userForm.controls['email'].hasError('required')">
+              E-mail is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field  appearance="fill">
+            <mat-label>Mobile No</mat-label>
+            <input type="text"  matInput formControlName="phonoNo" >
+            <mat-error *ngIf="userForm.controls['phonoNo'].hasError('required')">
+              Mobile No is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+
+        </div>
+
+
+        <div fxLayout="column" fxLayoutAlign="space-around center">
+          <mat-form-field  appearance="fill">
+            <mat-label>Organization Name</mat-label>
+            <input type="text" matInput formControlName="orgName"  >
+            <mat-error *ngIf="userForm.controls['orgName'].hasError('required')">
+              Organization Name is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field  appearance="fill">
+            <mat-label>Employee Id</mat-label>
+            <input type="text" matInput formControlName="employeeId" >
+            <mat-error *ngIf="userForm.controls['employeeId'].hasError('required')">
+              Employee Id is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+
+        <div fxLayout="column" fxLayoutAlign="space-around center">
+          <mat-form-field  appearance="fill">
+            <mat-label>User Name</mat-label>
+            <input type="text" matInput formControlName="userId" (change)="checkUserNameAlreadyExists()"  [readonly]="!isEditable || isNavigation">
+
+            <mat-error *ngIf="userForm.controls['userId'].hasError('required')">
+              User Name is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+            <!-- <input type="text" matInput formControlName="password"   [readonly]="!isEditable || isNavigation"> -->
+
+          <mat-form-field  appearance="fill">
+            <mat-label>Password</mat-label>
+            <input type="text" matInput formControlName="password" >
+            <mat-error *ngIf="userForm.controls['password'].hasError('required')">
+              Password is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <!-- <ng-container *ngIf="isEditable">
+          <mat-form-field appearance="fill" >
+            <mat-label>Module</mat-label> -->
+            <!-- <mat-select formControlName="module" (selectionChange)="fetchPermissions($event)" > -->
+            <!-- <mat-select formControlName="module"  >
+              <mat-option *ngFor="let mod of moduleList" [value]="mod.module">{{mod.module}}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="userForm.controls['module'].hasError('required')">
+              Module is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+      </ng-container>
+
+        <mat-form-field appearance="fill" >
+          <mat-label>Role Type</mat-label>
+          <mat-select formControlName="roleType" [disabled]="!isEditable  || isNavigation">
+            <mat-option *ngFor="let type of roleTypeList" [value]="type.shortCode">{{type.shortCode}}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="userForm.controls['roleType'].hasError('required')">
+            Role Type is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+      </div> -->
+
+        <!-- <div cdkDropListGroup  fxLayout="row" fxLayoutAlign="center start" >
+
+          <mat-divider></mat-divider>
+          <ng-container *ngIf="isEditable">
+          <div class="multiselect-container" >
+            <h2>Permission List</h2>
+
+            <div style="max-height: 500px;overflow-y:auto;"
+              cdkDropList
+              [cdkDropListData]="permissionsList"
+              class="multiselect-list"
+
+              (cdkDropListDropped)="drop($event)">
+              <div class="multiselect-box" *ngFor="let item of permissionsList" cdkDrag>{{item.privilegeType}}:{{item.privilegeName}}</div>
+            </div>
+          </div>
+
+          </ng-container>
+          <div class="multiselect-container">
+            <h2>Asigned Permission</h2>
+
+            <div style="max-height: 500px;overflow-y:auto;"
+              cdkDropList
+              [cdkDropListData]="asignedPermission"
+              class="multiselect-list"
+              (cdkDropListDropped)="drop($event)">
+              <div class="multiselect-box" *ngFor="let item of asignedPermission" cdkDrag>{{item.privilegeType}}:{{item.privilegeName}}</div>
+            </div>
+          </div>
+        </div> -->
+        </div>
+        <div fxLayout="row" fxLayoutAlign="end end">
+          <button mat-raised-button  color="primary" type='button'  (click)="addNewDiscom()" *ngIf="isEditable ">Add Discom</button>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="center center">
+        <mat-table matSort [dataSource]="dataSource" class="mat-elevation-z8" fxFlex >
+          <!-- <ng-container [matColumnDef]="column" *ngFor="let column of displayedColumns">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> {{column}} </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element[column]}} </mat-cell>
+      </ng-container> -->
+          <ng-container matColumnDef="sNo" >
+            <mat-header-cell fxLayoutAlign="center center" *matHeaderCellDef mat-sort-header class="TableHeader">S.No</mat-header-cell>
+            <mat-cell fxLayoutAlign="center center" *matCellDef="let element; let i = index;" class="TableDataCell" >
+              {{i+1}}
+            </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="state">
+            <mat-header-cell fxLayoutAlign="center center" *matHeaderCellDef mat-sort-header class="TableHeader">State</mat-header-cell>
+            <mat-cell  fxLayoutAlign="center center" *matCellDef="let element; let i = index;" class="TableDataCell" [formGroup]="element">
+              <!-- <input matInput placeholder="state" formControlName="state" required> -->
+             <!-- <mat-select formControlName="state" (selectionChange)="fetchPermissions($event)"  required> -->
+
+          <mat-form-field  appearance="fill">
+            <mat-label>State</mat-label>
+
+              <mat-select formControlName="state"  required (selectionChange)="getDiscomDataForStateChange($event,i)" >
+
+              <mat-option *ngFor="let item of stateList" [value]="item.state">{{item.state}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+            </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="discomName">
+            <mat-header-cell fxLayoutAlign="center center" *matHeaderCellDef mat-sort-header class="TableHeader">Discom</mat-header-cell>
+            <mat-cell *matCellDef="let element;let i = index" class="TableDataCell" [formGroup]="element" fxLayoutAlign="center center">
+
+          <mat-form-field  appearance="fill">
+            <mat-label>Discom Name</mat-label>
+            <mat-select formControlName="discomName"  required >
+
+              <mat-option *ngFor="let item of discomArray[i].discomList" [value]="item.discomCode">{{item.discomCode}}</mat-option>
+            </mat-select>
+
+          </mat-form-field>
+          </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="isDefault">
+            <mat-header-cell fxLayoutAlign="center center" *matHeaderCellDef mat-sort-header class="TableHeader">Default</mat-header-cell>
+            <mat-cell fxLayoutAlign="center center" *matCellDef="let element;let i = index" class="TableDataCell" [formGroup]="element">
+
+            <mat-checkbox (change)="changeDefault(element,i,$event)" [disabled]="selected >-1 && !(selected ===i) "
+              formControlName="userDefault" >
+            </mat-checkbox>
+            </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="range">
+
+            <mat-header-cell fxLayoutAlign="center center" *matHeaderCellDef mat-sort-header class="TableHeader">Range</mat-header-cell>
+            <mat-cell fxLayoutAlign="center center" *matCellDef="let element;let i = index" class="TableDataCell" [formGroup]="element">
+              <!-- <mat-date-range-input  [rangePicker]="picker" [min]="minDate"> -->
+              <mat-date-range-input  [rangePicker]="picker" [min]="minDate">
+                <input matStartDate formControlName="start" placeholder="Start date">
+                <input matEndDate formControlName="end" placeholder="End date">
+
+              </mat-date-range-input>
+
+              <mat-error *ngIf="element.controls['start'].hasError('matDatepickerMin')">
+                check Date Range
+              </mat-error>
+              <mat-error *ngIf="element.controls['end'].hasError('matDatepickerMin')">
+                check Date Range
+              </mat-error>
+
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-date-range-picker #picker></mat-date-range-picker>
+            </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="action">
+
+            <mat-header-cell fxLayoutAlign="center center" *matHeaderCellDef mat-sort-header class="TableHeader">Action</mat-header-cell>
+            <mat-cell fxLayoutAlign="center center" *matCellDef="let element;let i = index" class="TableDataCell" [formGroup]="element">
+              <button mat-raised-button type="button" color="warn" (click)="removeDiscom(i)" >Remove</button>
+            </mat-cell>
+
+          </ng-container>
+          <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true" ></mat-header-row>
+          <!-- <mat-row
+            matRipple
+            *matRowDef="let row; columns: displayedColumns"
+            (click)="showDetails(row)">
+          </mat-row> -->
+          <mat-row
+            matRipple
+            *matRowDef="let row; columns: displayedColumns;let i = index"
+          ></mat-row>
+        </mat-table>
+
+</div>
+
+      <mat-card-actions fxLayout="row" fxLayoutAlign="end start" >
+        <button mat-raised-button type="button" color="primary" dir="rtl" fxFlexOffset="5" fxFlex="5" matStepperNext>Next</button>
+        </mat-card-actions>
+    </mat-card>
+    <div class="overlay" *ngIf="spinner">
+      <div class="spinner">
+          <mat-progress-spinner diameter=50
+                              mode="indeterminate"
+                    color="accent">
+        </mat-progress-spinner>
+      </div>
+      </div>
+  </form>
+
+  </mat-step>
+  <mat-step  label="Asign Roles To user">
+    <form >
+      <mat-card>
+      <div fxLayout="row" fxLayoutGap="10" fxLayoutAlign="center center"  *ngIf="isEditable">
+        <div fxLayout="column" fxLayoutGap="10">
+
+          <mat-form-field appearance="fill" >
+          <mat-label>Role Type</mat-label>
+          <mat-select  (selectionChange)="fetchRolesForType($event)" >
+            <mat-option *ngFor="let type of roleTypeList" [value]="type.shortCode">{{type.shortCode}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <!-- <button mat-raised-button (click)="drawer.toggle()">Show Avaialble Roles</button> -->
+
+      </div>
+
+      </div>
+      <div cdkDropListGroup  fxLayout="row" fxLayoutAlign="center start" >
+
+        <mat-divider></mat-divider>
+        <ng-container *ngIf="isEditable">
+        <div class="multiselect-container" >
+          <h2>Roles List</h2>
+
+          <div style="max-height: 500px;overflow-y:auto;"
+            cdkDropList
+            [cdkDropListData]="rolesList"
+            class="multiselect-list"
+
+            (cdkDropListDropped)="drop($event)">
+            <div class="multiselect-box"
+            matTooltip={{item.roleDesc}}  *ngFor="let item of rolesList" cdkDrag>{{item.roleName}}:{{item.roleType}}</div>
+          </div>
+        </div>
+
+      </ng-container>
+        <div class="multiselect-container">
+          <h2>Asigned Roles</h2>
+
+          <div style="max-height: 500px;overflow-y:auto;"
+            cdkDropList
+            [cdkDropListData]="asignedRoles"
+            class="multiselect-list"
+            (cdkDropListDropped)="drop($event)">
+            <div class="multiselect-box" *ngFor="let item of asignedRoles" cdkDrag>{{item.roleName}}:{{item.roleType}}</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- <div fxLayout="row" fxLayoutAlign="space-around center">
+      <mat-drawer-container  [hasBackdrop]="false">
+        <mat-drawer style="  z-index:    10;margin-top: 10%;position: fixed;align-items: center;height:100%;width:20%;" #drawer mode="side" position="end">
+          <ng-container >
+            <div class="multiselect-container"fxLayout="column"  fxLayoutAlign="center">
+              <h2>Permission List</h2>
+              <div style="max-height: 500px;overflow-y:auto;"
+                cdkDropList
+                [cdkDropListData]="permissionsList"
+                class="multiselect-list"
+                (cdkDropListDropped)="drop($event)">
+                <div class="multiselect-box" *ngFor="let item of permissionsList" cdkDrag>{{item.roleName}}:{{item.roleType}}</div>
+              </div>
+            </div>
+          </ng-container>
+        </mat-drawer>
+      </mat-drawer-container>
+    </div> -->
+
+    <mat-card-actions fxLayout="row" fxLayoutAlign="end start" >
+      <!-- <button mat-raised-button type="button" color="primary" dir="rtl" fxFlexOffset="5" fxFlex="5" matStepperNext>Next</button> -->
+
+      <div>
+        <button  mat-raised-button type="button" color="primary" dir="rtl" fxFlexOffset="5" fxFlex="5" matStepperPrevious>Back</button>
+        <button *ngIf="isEditable " mat-raised-button type="button" color="primary" dir="rtl" fxFlexOffset="5" fxFlex="5" matStepperNext>Next</button>
+      </div>
+
+    </mat-card-actions>
+  </mat-card>
+    </form>
+  </mat-step>
+  <mat-step *ngIf="isEditable ">
+    <ng-template matStepLabel>Save</ng-template>
+    <p>Save Data to Server</p>
+    <div>
+      <button  mat-raised-button type="button" color="primary" dir="rtl" fxFlexOffset="5" fxFlex="5" matStepperPrevious>Back</button>
+      <button  mat-raised-button type="button" color="primary" dir="rtl" fxFlexOffset="5" fxFlex="5" (click)="saveUserData(stepper)">Save</button>
+    </div>
+  </mat-step>
+</mat-stepper>

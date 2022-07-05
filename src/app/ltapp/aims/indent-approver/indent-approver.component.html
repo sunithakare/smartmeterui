@@ -1,0 +1,117 @@
+<div class="mat-typography" fxLayoutAlign="center center">
+  <h1>INDENT APPROVER</h1>
+</div>
+<mat-tab-group mat-stretch-tabs color="primary"  [(selectedIndex)]="selectedIndex" #tabGroup class="mat-elevation-z8"  >
+  <mat-tab label="List" style=" border-right: 2px outset rgba(21, 1, 136, 0.27);">
+    <ng-template matTabContent>
+      <mat-accordion>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>Table Filter</mat-panel-title>
+            <mat-panel-description>Expand Table Filter</mat-panel-description>
+          </mat-expansion-panel-header>
+          <ng-template matExpansionPanelContent>
+
+            <div  fxLayout='row' fxLayoutAlign="center center" >
+
+              <mat-form-field appearance="fill" style="margin-left: 10px;">
+                <mat-label> Discom </mat-label>
+                <input matInput type="text"[(ngModel)]="discom">
+              </mat-form-field>
+
+              <button mat-stroked-button color="primary"  style="margin-left: 10px;"> <mat-icon>search</mat-icon> </button>
+
+            </div>
+          </ng-template>
+        </mat-expansion-panel>
+      </mat-accordion>
+
+      <div fxLayout="column">
+        <mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
+        <mat-table matSort [dataSource]="dataSource" class="mat-elevation-z8" style="width: 200%;">
+          <ng-container matColumnDef="warehouse">
+            <mat-header-cell *matHeaderCellDef mat-sort-header class="TableHeader">Warehouse</mat-header-cell>
+            <mat-cell *matCellDef="let element" class="TableDataCell">{{element["warehouse"]}}</mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="id">
+            <mat-header-cell *matHeaderCellDef mat-sort-header class="TableHeader">indentNo</mat-header-cell>
+            <mat-cell *matCellDef="let element" class="TableDataCell">{{element["id"]}}</mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="indentDate">
+            <mat-header-cell *matHeaderCellDef mat-sort-header class="TableHeader">indentDate</mat-header-cell>
+            <mat-cell *matCellDef="let element" class="TableDataCell">{{element["indentDate"]}}</mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="agencyName">
+            <mat-header-cell *matHeaderCellDef mat-sort-header class="TableHeader">requestedBy</mat-header-cell>
+            <mat-cell *matCellDef="let element" class="TableDataCell">{{element["agencyName"]}}</mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="agencyType">
+            <mat-header-cell *matHeaderCellDef mat-sort-header class="TableHeader">requestedFor</mat-header-cell>
+            <mat-cell *matCellDef="let element" class="TableDataCell">{{element["agencyType"]}}</mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="authPerson">
+            <mat-header-cell *matHeaderCellDef mat-sort-header class="TableHeader">authPerson</mat-header-cell>
+            <mat-cell *matCellDef="let element" class="TableDataCell">{{element["authPerson"]}}</mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="itemGroup">
+            <mat-header-cell *matHeaderCellDef mat-sort-header class="TableHeader">itemGroup</mat-header-cell>
+            <mat-cell *matCellDef="let element" class="TableDataCell">{{element["itemGroup"]}}</mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="itemName">
+            <mat-header-cell *matHeaderCellDef mat-sort-header class="TableHeader">itemName</mat-header-cell>
+            <mat-cell *matCellDef="let element" class="TableDataCell">{{element["itemName"]}}</mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="supplier">
+            <mat-header-cell *matHeaderCellDef mat-sort-header class="TableHeader">supplier</mat-header-cell>
+            <mat-cell *matCellDef="let element" class="TableDataCell">{{element["supplier"]}}</mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="reqQty">
+            <mat-header-cell *matHeaderCellDef mat-sort-header class="TableHeader">reqQty</mat-header-cell>
+            <mat-cell *matCellDef="let element" class="TableDataCell">{{element["reqQty"]}}</mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="appQty">
+            <mat-header-cell *matHeaderCellDef mat-sort-header class="TableHeader">appQty</mat-header-cell>
+            <mat-cell *matCellDef="let element" class="TableDataCell">{{element["appQty"]}}</mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="DispatchedQty">
+            <mat-header-cell *matHeaderCellDef mat-sort-header class="TableHeader">DispatchedQty</mat-header-cell>
+            <mat-cell *matCellDef="let element" class="TableDataCell">{{element["DispatchedQty"]}}</mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="status">
+            <mat-header-cell *matHeaderCellDef mat-sort-header class="TableHeader">status</mat-header-cell>
+            <mat-cell *matCellDef="let element" class="TableDataCell">{{element["status"]}}</mat-cell>
+          </ng-container>
+
+          <mat-header-row *matHeaderRowDef="displayedColumns;"></mat-header-row>
+          <mat-row matRipple
+            (click)="navToDetails(row)"
+            *matRowDef="let row; columns: displayedColumns">
+          </mat-row>
+        </mat-table>
+        <mat-paginator
+        [length]="totalRows"
+        [pageSize]="pageSize"
+        [pageIndex]="currentPage"
+        [pageSizeOptions]="pageSizeOptions"
+        showFirstLastButtons
+        (page)="onChangePage($event)"
+        aria-label="Select page"
+        ></mat-paginator>
+      </div>
+    </ng-template>
+  </mat-tab>
+  <mat-tab label="Detail">
+    <app-indent-approver-details [indentAproData]="indentAproData" (dataSaved)="loadListTab()"></app-indent-approver-details>
+  </mat-tab>
+</mat-tab-group>
+<div class="overlay" *ngIf="spinner">
+  <div class="spinner">
+    <mat-progress-spinner diameter="50" mode="indeterminate" color="accent">
+    </mat-progress-spinner>
+  </div>
+  </div>
+  <div style="z-index:2; position : fixed;bottom : 5%;left: 95%; margin-bottom : 1%;" *ngIf="selectedIndex==0">
+    <button mat-fab color="primary" (click)="addNewIndentApprover()" *ngIf="isEditable" title="Add New Indent Request">
+    <mat-icon>add</mat-icon>
+    </button>
+    </div>

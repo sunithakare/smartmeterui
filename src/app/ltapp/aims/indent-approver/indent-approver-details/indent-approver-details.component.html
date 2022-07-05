@@ -1,0 +1,187 @@
+<form [formGroup]="indentApproverForm"  autocomplete="off" (ngSubmit)="saveIndentApprover()" (keydown.enter)="$event.preventDefault()"
+    (keydown.shift.enter)="$event.preventDefault()">
+    <mat-card>
+      <div fxLayout="column" >
+        <div fxLayout="row" fxLayoutAlign="space-around center">
+
+          <mat-form-field appearance="outline">
+            <mat-label>Agency Type</mat-label>
+            <input type="text" matInput formControlName="agencyType">
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+              <mat-label>Agency Name</mat-label>
+              <input type="text" matInput formControlName="agencyName">
+            </mat-form-field>
+
+
+             <mat-form-field appearance="outline">
+              <mat-label>Warehouse</mat-label>
+              <input type="text" matInput formControlName="warehouse">
+            </mat-form-field>
+
+            <!-- <mat-form-field appearance="outline">
+              <mat-label>Indent Date</mat-label>
+              <input matInput formControlName="indentDate">
+            </mat-form-field> -->
+
+            <mat-form-field appearance="outline">
+              <mat-label>Indent Date</mat-label>
+              <input matInput [matDatepicker]="indentDate" formControlName="indentDate">
+              <mat-datepicker-toggle matSuffix [for]="indentDate"></mat-datepicker-toggle>
+              <mat-datepicker #indentDate></mat-datepicker>
+          </mat-form-field>
+
+          </div>
+
+            <div fxLayout="row" fxLayoutAlign="space-around center">
+
+              <mat-form-field appearance="outline">
+                <mat-label>Indent No</mat-label>
+                <input matInput formControlName="indentNo">
+              </mat-form-field>
+
+              <mat-form-field appearance="outline">
+              <mat-label>Auth Person</mat-label>
+              <input type="text" matInput formControlName="authPerson">
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Contact No</mat-label>
+              <input type="text" matInput formControlName="contactNo">
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Remarks</mat-label>
+              <textarea matInput formControlName="remark"></textarea>
+            </mat-form-field>
+            </div>
+        </div>
+
+        <div fxLayout="row" fxLayoutAlign="end end" fxLayoutGap="20px">
+          <!-- <button mat-raised-button  color="primary" type='button'  (click)="createApprover()" *ngIf="isEditable && isNavigation " >Create Approver <mat-icon>forward</mat-icon></button> -->
+          <button mat-raised-button  color="primary" type='button'  (click)="addNewIndentApprover()"> <mat-icon>add</mat-icon> Add Warehouse</button>
+        </div>
+
+        <div fxLayout="row" fxLayoutAlign="center center">
+          <mat-table  [dataSource]="dataSource" class="mat-elevation-z8" fxFlex >
+
+            <ng-container matColumnDef="sNo" >
+              <mat-header-cell fxLayoutAlign="center center" *matHeaderCellDef  class="TableHeader">Sr.No</mat-header-cell>
+              <mat-cell fxLayoutAlign="center center" *matCellDef="let element; let i = index;" class="TableDataCell" >
+                {{i+1}}
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="itemGroup">
+                <mat-header-cell fxLayoutAlign="center center" *matHeaderCellDef  class="TableHeader">Item Group</mat-header-cell>
+                <mat-cell *matCellDef="let element;let i = index" class="TableDataCell" [formGroup]="element" fxLayoutAlign="center center">
+
+                  <mat-form-field appearance="outline">
+                    <mat-label>Item Group</mat-label>
+                    <input type="text" matInput formControlName="itemGroup">
+                  </mat-form-field>
+
+              </mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="itemCategory">
+                <mat-header-cell fxLayoutAlign="center center" *matHeaderCellDef  class="TableHeader">Item Category</mat-header-cell>
+                <mat-cell *matCellDef="let element;let i = index" class="TableDataCell" [formGroup]="element" fxLayoutAlign="center center">
+
+                  <mat-form-field appearance="outline">
+                    <mat-label>Item Category</mat-label>
+                    <input type="text" matInput formControlName="itemCategory">
+                  </mat-form-field>
+
+              </mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="itemModelName">
+                <mat-header-cell fxLayoutAlign="center center" *matHeaderCellDef  class="TableHeader">Item Model Name</mat-header-cell>
+                <mat-cell *matCellDef="let element;let i = index" class="TableDataCell" [formGroup]="element" fxLayoutAlign="center center">
+
+                  <mat-form-field appearance="outline">
+                    <mat-label>Item Model Name</mat-label>
+                    <input type="text" matInput formControlName="itemModelName">
+                  </mat-form-field>
+
+              </mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="supplier">
+                <mat-header-cell fxLayoutAlign="center center" *matHeaderCellDef  class="TableHeader">Supplier</mat-header-cell>
+                <mat-cell *matCellDef="let element;let i = index" class="TableDataCell" [formGroup]="element" fxLayoutAlign="center center">
+
+                  <mat-form-field appearance="outline">
+                    <mat-label>Supplier</mat-label>
+                    <input type="text" matInput formControlName="supplier">
+
+                  </mat-form-field>
+              </mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="qty">
+                <mat-header-cell fxLayoutAlign="center center" *matHeaderCellDef  class="TableHeader">QTY</mat-header-cell>
+                <mat-cell *matCellDef="let element;let i = index" class="TableDataCell" [formGroup]="element" fxLayoutAlign="center center">
+
+                  <mat-form-field appearance="outline">
+                    <mat-label>Quantity</mat-label>
+                    <input type="text" matInput formControlName="qty">
+                  </mat-form-field>
+              </mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="approverQty">
+                <mat-header-cell fxLayoutAlign="center center" *matHeaderCellDef  class="TableHeader">APP.QTY</mat-header-cell>
+                <mat-cell *matCellDef="let element;let i = index" class="TableDataCell" [formGroup]="element" fxLayoutAlign="center center">
+
+                  <mat-form-field appearance="outline">
+                    <mat-label>Appr Quantity</mat-label>
+                    <input type="text" matInput formControlName="approverQty">
+                  </mat-form-field>
+              </mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="action">
+                <mat-header-cell fxLayoutAlign="center center" *matHeaderCellDef  class="TableHeader">Action</mat-header-cell>
+                <mat-cell *matCellDef="let element;let i = index" class="TableDataCell" [formGroup]="element" fxLayoutAlign="center center">
+
+                  <mat-form-field appearance="outline">
+                    <mat-label>Action</mat-label>
+                    <input type="text" matInput formControlName="action">
+                  </mat-form-field>
+              </mat-cell>
+              </ng-container>
+
+
+              <ng-container matColumnDef="remove">
+
+                <mat-header-cell fxLayoutAlign="center center" *matHeaderCellDef  class="TableHeader">Remove</mat-header-cell>
+                <mat-cell fxLayoutAlign="center center" *matCellDef="let element;let i = index" class="TableDataCell" [formGroup]="element">
+                  <button mat-raised-button type="button" color="warn" (click)="removeSupplier(i)" title="Remove Data"><mat-icon>delete_forever</mat-icon></button>
+                </mat-cell>
+
+              </ng-container>
+              <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true" ></mat-header-row>
+              <!-- <mat-row
+                matRipple
+                *matRowDef="let row; columns: displayedColumns"
+                (click)="showDetails(row)">
+              </mat-row> -->
+              <mat-row
+                matRipple
+                *matRowDef="let row; columns: displayedColumns;let i = index"
+              ></mat-row>
+            </mat-table>
+
+        </div>
+
+        <mat-card-actions fxLayout="row" fxLayoutAlign="center start">
+          <button mat-raised-button type="submit" color="primary" dir="rtl"  fxFlex="10">Import</button>
+          <button mat-raised-button type="button" (click)="backToList()" color="primary" dir="rtl" fxFlex="10">Cancel</button>
+       </mat-card-actions>
+    </mat-card>
+
+</form>
+{{this.indentApproverForm.getRawValue() | json}}

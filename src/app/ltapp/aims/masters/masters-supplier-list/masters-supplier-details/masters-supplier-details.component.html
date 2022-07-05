@@ -1,0 +1,184 @@
+<form [formGroup]="supplierForm" (submit)="saveSupplierMapping()"  autocomplete="off" (keydown.enter)="$event.preventDefault()" (keydown.shift.enter)="$event.preventDefault()">
+  <mat-card>
+    <div style="margin-left: 50px;margin-right: 100px;">
+      <div fxLayout="row" fxLayoutAlign="space-around start" style="margin-top: 30px">
+        <div fxLayout="column" fxLayoutAlign="start start">
+          <mat-form-field appearance="outline">
+            <mat-label>Supplier Name</mat-label>
+            <input type="text" matInput formControlName="supplier">
+            <mat-error
+                    *ngIf="supplierForm.controls['supplier'].hasError('required')"
+                  >
+                    Supplier Name <strong>required</strong>
+                  </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>State</mat-label>
+            <mat-select formControlName="state" required>
+              <mat-option *ngFor="let item of totalStatesList" [value]="item.shortCode">{{item.shortDescription}}</mat-option>
+          </mat-select>
+            <mat-error
+            *ngIf="supplierForm.controls['state'].hasError('required')"
+          >
+          State <strong>required</strong>
+          </mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Supplier Code</mat-label>
+            <input type="text" matInput formControlName="supplierCode">
+          </mat-form-field>
+        </div>
+        <div fxLayout="column" fxLayoutAlign="start start">
+          <mat-form-field appearance="outline">
+            <mat-label>Contact Person</mat-label>
+            <input type="text" matInput formControlName="contactPerson">
+            <mat-error
+            *ngIf="supplierForm.controls['contactPerson'].hasError('required')"
+          >
+          Contact Person <strong>required</strong>
+          </mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>City</mat-label>
+            <input type="text" matInput formControlName="city">
+          </mat-form-field>
+          <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Remark</mat-label>
+            <textarea matInput rows="4" cols="80" formControlName="remark" ></textarea>
+
+          </mat-form-field>
+
+        </div>
+        <div fxLayout="column" fxLayoutAlign="start">
+          <mat-form-field appearance="outline">
+            <mat-label>mobile No</mat-label>
+            <input type="number"   matInput formControlName="mobileNumber"  maxlength="10">
+
+            <mat-error
+                    *ngIf="supplierForm.controls['mobileNumber'].hasError('pattern')"
+                  >
+                    Enter 10 digit Number <strong>Start with [6-9]</strong>
+                  </mat-error>
+                  <mat-error
+            *ngIf="supplierForm.controls['mobileNumber'].hasError('pattern')">
+            Mobile No not allowed <strong>WhiteSpases</strong>
+          </mat-error>
+
+        </mat-form-field>
+          <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Address</mat-label>
+            <textarea matInput rows="4" cols="80" formControlName="address" required></textarea>
+            <mat-error
+            *ngIf="supplierForm.controls['address'].hasError('required')"
+          >
+            Address is <strong>required</strong>
+          </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Status</mat-label>
+            <mat-select formControlName="status">
+                <mat-option value="Active">Active</mat-option>
+                <mat-option value="Inactive">Inactive</mat-option>
+
+            </mat-select>
+
+            <mat-error
+            *ngIf="supplierForm.controls['status'].hasError('required')"
+          >
+          Status <strong>required</strong>
+          </mat-error>
+          </mat-form-field>
+        </div>
+        <div fxLayout="column" fxLayoutAlign="space-around start">
+          <mat-form-field appearance="outline">
+            <mat-label>Email</mat-label>
+            <input type="text" matInput formControlName="email">
+            <mat-error
+            *ngIf="supplierForm.controls['email'].hasError('required')"
+          >
+          Email <strong>required</strong>
+          </mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>GSTIN No</mat-label>
+            <input type="text" matInput formControlName="gstinNo">
+            <mat-error
+            *ngIf="supplierForm.controls['gstinNo'].hasError('required')"
+          >
+          GSTIN No <strong>required</strong>
+          </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+
+
+
+    <div fxLayout="row" fxLayoutAlign="end end" fxLayoutGap="20px">
+      <!-- <button mat-raised-button  color="primary" type='button'  (click)="createApprover()" *ngIf="isEditable && isNavigation " >Create Approver <mat-icon>forward</mat-icon></button> -->
+      <button mat-raised-button  color="primary" type='button'  (click)="addNewSupplier()"> <mat-icon>add</mat-icon> Add </button>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="center center">
+    <mat-table  [dataSource]="dataSource" class="mat-elevation-z8" fxFlex >
+
+      <ng-container matColumnDef="sNo" >
+        <mat-header-cell fxLayoutAlign="center center" *matHeaderCellDef  class="TableHeader">S.No</mat-header-cell>
+        <mat-cell fxLayoutAlign="center center" *matCellDef="let element; let i = index;" class="TableDataCell" >
+          {{i+1}}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="groupName">
+        <mat-header-cell fxLayoutAlign="center center" *matHeaderCellDef  class="TableHeader">Item Group Name</mat-header-cell>
+        <mat-cell *matCellDef="let element;let i = index" class="TableDataCell" [formGroup]="element" fxLayoutAlign="center center">
+      <mat-form-field appearance="fill">
+        <mat-label>Item Group Name</mat-label>
+         <mat-select formControlName="groupName" required>
+          <mat-option *ngFor="let item of storeCode" [value]="item.itemGroup">{{item.itemGroup}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+      </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="action">
+
+        <mat-header-cell fxLayoutAlign="center center" *matHeaderCellDef  class="TableHeader">Action</mat-header-cell>
+        <mat-cell fxLayoutAlign="center center" *matCellDef="let element;let i = index" class="TableDataCell" [formGroup]="element">
+          <button mat-raised-button type="button" color="warn" (click)="removeSupplier(i)" title="Remove Discom"><mat-icon>delete_forever</mat-icon></button>
+        </mat-cell>
+
+      </ng-container>
+      <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true" ></mat-header-row>
+      <!-- <mat-row
+        matRipple
+        *matRowDef="let row; columns: displayedColumns"
+        (click)="showDetails(row)">
+      </mat-row> -->
+      <mat-row
+        matRipple
+        *matRowDef="let row; columns: displayedColumns;let i = index"
+      ></mat-row>
+    </mat-table>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+    <mat-card-actions fxLayout="row" fxLayoutAlign="center start" style="margin-top: 30px" >
+
+      <button mat-raised-button type="button" (click)="backToList()" color="primary" dir="rtl" fxFlex="8">Cancel</button>
+      <button mat-raised-button type="submit" color="primary" dir="rtl"  fxFlex="8">Save</button>
+  </mat-card-actions>
+  </mat-card>
+</form>
+

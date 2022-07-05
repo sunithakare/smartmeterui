@@ -1,0 +1,126 @@
+  <div class="overlay" *ngIf="spinner">
+    <div class="spinner">
+        <mat-progress-spinner diameter=50
+                            mode="indeterminate"
+                  color="accent">
+      </mat-progress-spinner>
+    </div>
+    </div>
+<div   fxLayout='row'  fxLayoutAlign="center center"  style="margin-top: 10px;">
+  <form >
+    <mat-form-field appearance="fill" style="margin-left: 10px;">
+      <mat-label>State</mat-label>
+      <mat-select [(ngModel)]="selectedState" name="state">
+        <mat-option *ngFor="let item of stateList" [value]="item.state" >
+          {{item.state}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="fill" style="margin-left: 10px;">
+      <mat-label>Discom</mat-label>
+      <mat-select [(ngModel)]="selectedDiscom" name="discomname">
+        <mat-option *ngFor="let discom of discomList" [value]="discom.discomName">
+          {{discom.discomName}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" style="margin-left: 10px;">
+      <mat-label>Report Month</mat-label>
+      <input matInput [matDatepicker]="dp" [formControl]="reportdate"  [max]="maxDate" >
+      <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+      <mat-datepicker #dp
+                      startView="multi-year"
+                      (yearSelected)="chosenYearHandler($event)"
+                      (monthSelected)="chosenMonthHandler($event, dp)">
+      </mat-datepicker>
+    </mat-form-field>
+    <mat-form-field appearance="fill" style="margin-left: 10px;">
+      <mat-label>Billing Month</mat-label>
+      <input matInput [matDatepicker]="dp1" [formControl]="billdate"  [max]="maxDate">
+      <mat-datepicker #dp1
+      startView="multi-year"
+      (yearSelected)="chosenYearHandler($event)"
+      (monthSelected)="chosenMonthHandler($event, dp)">
+</mat-datepicker>
+    </mat-form-field>
+
+  </form>
+</div>
+<mat-divider></mat-divider>
+
+<mat-accordion>
+  <mat-expansion-panel hideToggle>
+    <mat-expansion-panel-header >
+      <mat-panel-title>
+        Table Filter
+      </mat-panel-title>
+      <mat-panel-description>
+         Click For Table Filter
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <div  fxLayout='row' fxLayoutAlign="center center" >
+      <mat-form-field  appearance="fill" style="margin-left: 10px;">
+        <mat-label>Rfp No</mat-label>
+        <input matInput type="text" [(ngModel)]="rfpNoSearch">
+      </mat-form-field>
+      <mat-form-field  appearance="fill" style="margin-left: 10px;">
+        <mat-label>Report Name</mat-label>
+        <input matInput type="text" [(ngModel)]="reportNameoSearch">
+      </mat-form-field>
+      <button mat-stroked-button color="primary"  style="margin-left: 10px;" (click)="fetchFilteredData()"> <mat-icon>search</mat-icon> </button>
+    </div>
+  </mat-expansion-panel>
+</mat-accordion>
+
+
+<div   fxLayout='column' >
+  <mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
+  <mat-table matSort [dataSource]="dataSource" class="mat-elevation-z8">
+    <!-- <ng-container [matColumnDef]="column" *ngFor="let column of displayedColumns">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> {{column}} </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element[column]}} </mat-cell>
+    </ng-container> -->
+    <ng-container matColumnDef="module" >
+      <mat-header-cell *matHeaderCellDef mat-sort-header  class="TableHeader">Service Name </mat-header-cell>
+      <mat-cell *matCellDef="let element" class="TableDataCell"> {{element["module"]}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="rfpNoType" >
+      <mat-header-cell *matHeaderCellDef mat-sort-header class="TableHeader" >RFP No. Type </mat-header-cell>
+      <mat-cell *matCellDef="let element" class="TableDataCell"> {{element["rfpNoType"]}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="reportName" >
+      <mat-header-cell *matHeaderCellDef mat-sort-header  class="TableHeader">Report Name </mat-header-cell>
+      <mat-cell *matCellDef="let element" class="TableDataCell"> {{element["reportName"]}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="timeframe" >
+      <mat-header-cell *matHeaderCellDef mat-sort-header  class="TableHeader">Report Type </mat-header-cell>
+      <mat-cell *matCellDef="let element" class="TableDataCell"> {{element["timeframe"]}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="action" >
+      <mat-header-cell *matHeaderCellDef  class="TableHeader" >Action</mat-header-cell>
+      <mat-cell *matCellDef="let element" class="TableDataCell">
+
+    <button mat-raised-button color="accent" (click)="openPdf(element)" >View</button>
+
+    <button mat-raised-button color="primary" (click)="downloadPdf(element)">Download</button>
+
+      </mat-cell>
+    </ng-container>
+    <mat-header-row  *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+    <mat-row  matRipple   *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+
+  <mat-paginator [length]="totalRows"  [pageSize]="pageSize" [pageIndex]="currentPage" [pageSizeOptions]="pageSizeOptions" showFirstLastButtons  (page)="onChangePage($event)" aria-label="Select page"></mat-paginator>
+  <!-- <pdf-viewer
+  src="../../assets/WHOLE LIFE ASSURANCES_PLI.pdf"
+
+  [show-all]="true"
+
+></pdf-viewer> -->
+<!-- <button mat-button (click)="openDialog()">Open dialog</button> -->
+<!--
+<app-pdfdialog></app-pdfdialog> -->
+
+
+</div>

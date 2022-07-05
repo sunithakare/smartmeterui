@@ -1,0 +1,116 @@
+
+<mat-tab-group mat-stretch-tabs
+  color="primary"
+  backgroundColor="accent"
+  [(selectedIndex)]="selectedIndex"
+  #tabGroup
+  class="mat-elevation-z8"
+>
+
+
+  <mat-tab label="List">
+    <mat-accordion>
+      <!-- <mat-expansion-panel hideToggle > -->
+      <mat-expansion-panel (opened)="fetchRoleTypeList()" >
+        <mat-expansion-panel-header >
+          <mat-panel-title>
+            Table Filter
+          </mat-panel-title>
+          <mat-panel-description>
+            Expand Table Filter
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <ng-template matExpansionPanelContent>
+        <div  fxLayout='row' fxLayoutAlign="center center" >
+          <mat-form-field  appearance="fill" style="margin-left: 10px;">
+            <mat-label>Role Name</mat-label>
+            <input matInput type="text" [(ngModel)]="roleNameSearch">
+          </mat-form-field>
+          <mat-form-field  appearance="fill" style="margin-left: 10px;">
+            <mat-label>Role Type</mat-label>
+            <mat-select [(value)]="roleTypeSearch">
+              <mat-option *ngFor="let code of roleTypeSelector" [value]="code.shortCode">
+                {{code.shortCode}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <button mat-stroked-button color="primary"  style="margin-left: 10px;" (click)="searchWithFilter()"> <mat-icon>search</mat-icon> </button>
+        </div>
+
+  </ng-template>
+      </mat-expansion-panel>
+    </mat-accordion>
+
+    <div fxLayout="column">
+      <mat-progress-bar
+        mode="indeterminate"
+        *ngIf="isLoading"
+      ></mat-progress-bar>
+      <mat-table matSort [dataSource]="dataSource" class="mat-elevation-z8">
+        <!-- <ng-container [matColumnDef]="column" *ngFor="let column of displayedColumns">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> {{column}} </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element[column]}} </mat-cell>
+    </ng-container> -->
+        <ng-container matColumnDef="roleName">
+          <mat-header-cell *matHeaderCellDef mat-sort-header class="TableHeader"
+            >Role Name</mat-header-cell
+          >
+          <mat-cell *matCellDef="let element" class="TableDataCell">
+            {{ element["roleName"] }}
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="roleType">
+          <mat-header-cell *matHeaderCellDef mat-sort-header class="TableHeader"
+            >Role Type
+          </mat-header-cell>
+          <mat-cell *matCellDef="let element" class="TableDataCell">
+            {{ element["roleType"] }}
+          </mat-cell>
+        </ng-container>
+        <mat-header-row
+          *matHeaderRowDef="displayedColumns; sticky: true"
+        ></mat-header-row>
+        <mat-row
+          matRipple
+          *matRowDef="let row; columns: displayedColumns"
+          (click)="showDetails(row)"
+        ></mat-row>
+      </mat-table>
+
+      <mat-paginator
+        [length]="totalRows"
+        [pageSize]="pageSize"
+        [pageIndex]="currentPage"
+        [pageSizeOptions]="pageSizeOptions"
+        showFirstLastButtons
+        (page)="onChangePage($event)"
+        aria-label="Select page"
+      ></mat-paginator>
+      <!-- <pdf-viewer
+  src="../../assets/WHOLE LIFE ASSURANCES_PLI.pdf"
+
+  [show-all]="true"
+
+></pdf-viewer> -->
+      <!-- <button mat-button (click)="openDialog()">Open dialog</button> -->
+      <!--
+<app-pdfdialog></app-pdfdialog> -->
+    </div>
+  </mat-tab>
+
+  <mat-tab label="Detail">
+    <app-roledetails [roledetails]="detailResponse" [isEditable]="isDetailsEditable" [isNavigation]="isNavigation" (dataSaved)="loadListTab()"></app-roledetails>
+  </mat-tab>
+</mat-tab-group>
+<div class="overlay" *ngIf="spinner">
+  <div class="spinner">
+    <mat-progress-spinner diameter="50" mode="indeterminate" color="accent">
+    </mat-progress-spinner>
+  </div>
+</div>
+
+<div style="z-index:2; position : fixed;bottom : 5%;left: 95%; margin-bottom : 1%;" *ngIf="selectedIndex==0">
+<button mat-fab color="accent" (click)="addNewRole()" *ngIf="isDetailsEditable" >
+  <mat-icon>add</mat-icon>
+</button>
+</div>

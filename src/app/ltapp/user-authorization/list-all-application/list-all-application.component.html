@@ -1,0 +1,126 @@
+
+  <div class="mat-typography" fxLayoutAlign="center center">
+    <h1>{{title}}</h1>
+  </div>
+  <mat-tab-group mat-stretch-tabs color="primary"  [(selectedIndex)]="selectedIndex" #tabGroup class="mat-elevation-z8" >
+
+
+    <mat-tab label="List" style=" border-right: 2px outset rgba(1,75,136,0.27);">
+
+
+    <ng-template matTabContent>
+
+    <mat-accordion>
+      <mat-expansion-panel  >
+        <mat-expansion-panel-header >
+          <mat-panel-title>
+            Table Filter
+          </mat-panel-title>
+          <mat-panel-description>
+            Expand Table Filter
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <ng-template matExpansionPanelContent>
+        <div  fxLayout='row' fxLayoutAlign="center center" fxLayoutGap="20px" >
+          <mat-form-field  appearance="fill" style="margin-left: 10px;">
+            <mat-label>Reference Id</mat-label>
+            <input matInput type="text" [(ngModel)]="refId">
+          </mat-form-field>
+
+          <mat-form-field appearance="fill" *ngIf="!listview && statusList.length>1">
+            <mat-label>Status</mat-label>
+            <mat-select  [(ngModel)]="statusSearch">
+                <mat-option *ngFor="let item of statusList" [value]="item" >{{ item }}</mat-option >
+            </mat-select>
+
+          </mat-form-field>
+
+          <button mat-stroked-button color="primary"  style="margin-left: 10px;" (click)="searchWithFilter()"> <mat-icon>search</mat-icon> </button>
+        </div>
+
+  </ng-template>
+      </mat-expansion-panel>
+    </mat-accordion>
+
+    <div fxLayout="column">
+      <mat-progress-bar
+        mode="indeterminate"
+        *ngIf="isLoading"
+      ></mat-progress-bar>
+
+
+
+      <mat-table matSort [dataSource]="dataSource" class="mat-elevation-z8">
+
+        <ng-container matColumnDef="referenceId">
+          <mat-header-cell *matHeaderCellDef mat-sort-header class="TableHeader">Reference Id</mat-header-cell
+          >
+          <mat-cell *matCellDef="let element" class="TableDataCell">
+            {{ element["referenceId"] }}
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="firstName">
+          <mat-header-cell *matHeaderCellDef mat-sort-header class="TableHeader">Name</mat-header-cell
+          >
+          <mat-cell *matCellDef="let element" class="TableDataCell">
+            {{ element["firstName"] }}
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="employeeId">
+          <mat-header-cell *matHeaderCellDef mat-sort-header class="TableHeader">Employee Id</mat-header-cell
+          >
+          <mat-cell *matCellDef="let element" class="TableDataCell">
+            {{ element["employeeId"] }}
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="userType">
+          <mat-header-cell *matHeaderCellDef mat-sort-header class="TableHeader">User Type</mat-header-cell
+          >
+          <mat-cell *matCellDef="let element" class="TableDataCell">
+            {{ element["userType"] }}
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="createdDate">
+          <mat-header-cell *matHeaderCellDef mat-sort-header class="TableHeader">Created Date</mat-header-cell
+          >
+          <mat-cell *matCellDef="let element" class="TableDataCell">
+            {{ element["createdDate"] |date}}
+          </mat-cell>
+        </ng-container>
+        <mat-header-row
+        *matHeaderRowDef="displayedColumns; sticky: true"
+      ></mat-header-row>
+      <mat-row
+        matRipple
+        *matRowDef="let row; columns: displayedColumns"
+        (click)="showDetails(row)"
+      ></mat-row>
+      </mat-table>
+
+      <mat-paginator
+        [length]="totalRows"
+        [pageSize]="pageSize"
+        [pageIndex]="currentPage"
+        [pageSizeOptions]="pageSizeOptions"
+        showFirstLastButtons
+        (page)="onChangePage($event)"
+        aria-label="Select page"
+      ></mat-paginator>
+    </div>
+  </ng-template>
+</mat-tab>
+
+<mat-tab label="Details" style=" border-right: 2px outset rgba(1,75,136,0.27);">
+
+<app-view-uam-data  [inputForm]="detailsData"  [refId]="refId" [listview]="listview"  (dataSaved)="loadListTab()"></app-view-uam-data>
+
+</mat-tab>
+
+</mat-tab-group>
+<div class="overlay" *ngIf="spinner">
+  <div class="spinner">
+    <mat-progress-spinner diameter="50" mode="indeterminate" color="accent">
+    </mat-progress-spinner>
+  </div>
+</div>
+

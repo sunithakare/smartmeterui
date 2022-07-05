@@ -1,0 +1,52 @@
+<form [formGroup]="indentWiseOutwordImportDetailsForm" (ngSubmit)="savereturnToSupplierDetails()"  autocomplete="off" (keydown.enter)="$event.preventDefault()" (keydown.shift.enter)="$event.preventDefault()">
+  <mat-card>
+    <div fxLayout="row" fxLayoutAlign="space-around center">
+      <div fxLayout="column" fxLayoutAlign="space-around center">
+        <mat-form-field appearance="outline">
+          <mat-label>Discom</mat-label>
+          <mat-select formControlName="discom">
+            <mat-option *ngFor="let item of discom" [value]="item.name">{{item.name}}</mat-option>
+        </mat-select>
+        </mat-form-field>
+      </div>
+      <div fxLayout="column" fxLayoutAlign="space-around center">
+        <mat-form-field appearance="outline">
+          <mat-label>Warehouse Name</mat-label>
+          <mat-select formControlName="warehouseName">
+            <mat-option *ngFor="let item of warehouseName" [value]="item.name">{{item.name}}</mat-option>
+        </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="center center" style="margin-top: 30px">
+      <div fxLayout="column" fxLayoutAlign="start start">
+        <input hidden type="file" #uploader (change)="uploadFile($event)" />
+        <button
+          mat-raised-button
+          type="button"
+          color="primary"
+          (click)="uploader.click()"
+        >
+          Upload <mat-icon>upload</mat-icon>
+        </button>
+      </div>
+    </div>
+
+    <mat-card-actions
+    fxLayout="row"
+    fxLayoutAlign="center start"
+    style="margin-top: 30px"
+  >
+    <button mat-raised-button type="submit" color="primary" fxFlex="8">Import</button>
+    <button
+      mat-raised-button
+      type="submit"
+      (click)="backToList()" fxFlex="8"
+      color="primary"
+    >
+      Cancel
+    </button>
+  </mat-card-actions>
+  </mat-card>
+</form>

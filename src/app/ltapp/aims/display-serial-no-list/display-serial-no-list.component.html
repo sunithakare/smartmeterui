@@ -1,0 +1,53 @@
+
+<div class="mat-typography" fxLayoutAlign="center center">
+<h1>Serial No List</h1>
+</div>
+<div fxLayoutAlign="end end">
+<button mat-raised-button type="button" color="primary" (click)="returnToDetailsTab(1)">Cancel </button>
+</div>
+<div fxLayout="column">
+<mat-table matSort [dataSource]="dataSource" class="mat-elevation-z8">
+
+  <ng-container matColumnDef="srNo">
+    <mat-header-cell *matHeaderCellDef mat-sort-header class="TableHeader">Sr No</mat-header-cell>
+    <mat-cell *matCellDef="let element" class="TableDataCell">{{ element["srNo"] }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="boxNumber">
+    <mat-header-cell *matHeaderCellDef mat-sort-header class="TableHeader">Box Number</mat-header-cell>
+    <mat-cell *matCellDef="let element" class="TableDataCell">{{ element["boxNumber"] }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="internalSrNo">
+      <mat-header-cell *matHeaderCellDef mat-sort-header class="TableHeader">Internal Sr No</mat-header-cell>
+      <mat-cell *matCellDef="let element" class="TableDataCell">{{ element["internalSrNo"] }}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="latestSrNo">
+      <mat-header-cell *matHeaderCellDef mat-sort-header class="TableHeader">Latest Sr No</mat-header-cell>
+      <mat-cell *matCellDef="let element" class="TableDataCell">{{ element["latestSrNo"] }}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="remarks">
+      <mat-header-cell *matHeaderCellDef mat-sort-header class="TableHeader">Remark</mat-header-cell>
+      <mat-cell *matCellDef="let element" class="TableDataCell">{{ element["remarks"] }}</mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+
+    <mat-row matRipple
+    *matRowDef="let row; columns: displayedColumns">
+  </mat-row>
+</mat-table>
+<mat-paginator
+   [length]="totalRows"
+   [pageSize]="pageSize"
+   [pageIndex]="currentPage"
+   [pageSizeOptions]="pageSizeOptions"
+   showFirstLastButtons
+   (page)="onChangePage($event)"
+   aria-label="Select page"
+ ></mat-paginator>
+
+</div>
+
+<!-- <button mat-raised-button type="button" color="primary" (click)="returnToDetailsTab(1)">Cancel </button> -->
+
+
+

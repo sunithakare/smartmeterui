@@ -1,0 +1,163 @@
+<div class="mat-typography" fxLayoutAlign="center center">
+  <h1>Agency Creation</h1>
+</div>
+<!-- <mat-tab-group mat-stretch-tabs color="primary" backgroundColor="accent" [(selectedIndex)]="selectedIndex" #tabGroup class="mat-elevation-z8" >  -->
+<mat-tab-group mat-stretch-tabs color="primary"  [(selectedIndex)]="selectedIndex" #tabGroup class="mat-elevation-z8" >
+
+
+<mat-tab label="List" style=" border-right: 2px outset rgba(21, 1, 136, 0.27);">
+
+
+    <ng-template matTabContent>
+
+    <mat-accordion>
+      <!-- <mat-expansion-panel hideToggle > -->
+      <mat-expansion-panel >
+        <mat-expansion-panel-header >
+          <mat-panel-title>
+            Table Filter
+          </mat-panel-title>
+          <mat-panel-description>
+            Expand Table Filter
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <ng-template matExpansionPanelContent>
+        <div  fxLayout='row' fxLayoutAlign="center center" >
+          <mat-form-field  appearance="fill" style="margin-left: 10px;">
+            <mat-label>Agency Code</mat-label>
+            <input matInput type="text" [(ngModel)]="agencyCodeSearch">
+          </mat-form-field>
+
+          <mat-form-field appearance="fill" style="margin-right: 10px;">
+            <mat-label>Agency Type</mat-label>
+            <input matInput type="text"[(ngModel)]="agencyTypeSearch">
+          </mat-form-field>
+
+          <mat-form-field appearance="fill" style="margin-left: 10px;">
+            <mat-label>Agency Name</mat-label>
+            <input matInput type="text"[(ngModel)]="agencyNameSearch">
+          </mat-form-field>
+          </div>
+
+          <div  fxLayout='row' fxLayoutAlign="center center" >
+          <mat-form-field appearance="fill" style="margin-left: 10px;">
+            <mat-label> Agency Manager </mat-label>
+            <input matInput type="text"[(ngModel)]="agencyManager">
+          </mat-form-field>
+
+
+          <mat-form-field appearance="fill" style="margin-left: 10px;">
+            <mat-label> Mobile </mat-label>
+            <input matInput type="text"[(ngModel)]="mobile">
+          </mat-form-field>
+
+
+          <mat-form-field appearance="fill"  style="margin-left: 10px;">
+            <mat-label> Status </mat-label>
+          <mat-select [(ngModel)]="status"  >
+            <mat-option value="active">Active</mat-option>
+            <mat-option value="inactive">Inactive</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+
+        <!-- <mat-form-field appearance="fill">
+          <mat-label>Status</mat-label>
+          <mat-select  (selectionChange)="fetchStatus()" [(ngModel)]="searcher.status">
+            <mat-option *ngFor="let item of statusList" [value]="item.status">{{item.status}}</mat-option>
+          </mat-select>
+          </mat-form-field> -->
+
+
+        
+          <button mat-stroked-button color="primary"  style="margin-left: 10px;" (click)="searchWithFilter()"> <mat-icon>search</mat-icon> </button>
+        
+        </div>
+
+  </ng-template>
+      </mat-expansion-panel>
+    </mat-accordion>
+
+    <div fxLayout="column">
+      <mat-progress-bar
+        mode="indeterminate"
+        *ngIf="isLoading"
+      ></mat-progress-bar>
+      <mat-table matSort [dataSource]="dataSource" class="mat-elevation-z8">
+
+        <ng-container matColumnDef="agencyType">
+          <mat-header-cell *matHeaderCellDef mat-sort-header class="TableHeader">Agency Type</mat-header-cell>
+          <mat-cell *matCellDef="let element" class="TableDataCell">{{ element["agencyType"] }}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="agencyCode">
+          <mat-header-cell *matHeaderCellDef mat-sort-header class="TableHeader">Agency Code</mat-header-cell>
+          <mat-cell *matCellDef="let element" class="TableDataCell">{{ element["agencyCode"] }}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="agencyName">
+          <mat-header-cell *matHeaderCellDef mat-sort-header class="TableHeader">Agency Name</mat-header-cell>
+          <mat-cell *matCellDef="let element" class="TableDataCell">{{ element["agencyName"] }}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="agencyManager">
+          <mat-header-cell *matHeaderCellDef mat-sort-header class="TableHeader">Agency Manager</mat-header-cell>
+          <mat-cell *matCellDef="let element" class="TableDataCell">{{ element["agencyManager"] }}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="mobile">
+          <mat-header-cell *matHeaderCellDef mat-sort-header class="TableHeader">Mobile</mat-header-cell>
+          <mat-cell *matCellDef="let element" class="TableDataCell">{{ element["mobile"] }}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="status">
+          <mat-header-cell *matHeaderCellDef mat-sort-header class="TableHeader">Status</mat-header-cell>
+          <mat-cell *matCellDef="let element" class="TableDataCell">{{ element["status"] }}</mat-cell>
+        </ng-container>
+
+
+        <mat-header-row
+          *matHeaderRowDef="displayedColumns;"
+        ></mat-header-row>
+        <mat-row
+          matRipple
+          *matRowDef="let row; columns: displayedColumns"
+          (click)="showAgencyDetails(row)"
+        ></mat-row>
+      </mat-table>
+
+      <mat-paginator
+        [length]="totalRows"
+        [pageSize]="pageSize"
+        [pageIndex]="currentPage"
+        [pageSizeOptions]="pageSizeOptions"
+        showFirstLastButtons
+        (page)="onChangePage($event)"
+        aria-label="Select page"
+      ></mat-paginator>
+      <!-- <pdf-viewer
+  src="../../assets/WHOLE LIFE ASSURANCES_PLI.pdf"
+
+  [show-all]="true"
+
+></pdf-viewer> -->
+      <!-- <button mat-button (click)="openDialog()">Open dialog</button> -->
+      <!--
+<app-pdfdialog></app-pdfdialog> -->
+    </div>
+  </ng-template>
+</mat-tab>
+
+<mat-tab label="Detail">
+  <!-- <ng-template matTabContent> -->
+  <app-ci-agency-details [isEditable]="isEditable" [isNavigation]="isNavigation" [agencyDetails]="CIAgencyDetailsResponse"></app-ci-agency-details>
+<!-- </ng-template> -->
+</mat-tab>
+</mat-tab-group>
+<div class="overlay" *ngIf="spinner">
+<div class="spinner">
+  <mat-progress-spinner diameter="50" mode="indeterminate" color="accent">
+  </mat-progress-spinner>
+</div>
+</div>
+
+<div style="z-index:2; position : fixed;bottom : 5%;left: 95%; margin-bottom : 1%;" *ngIf="selectedIndex==0">
+<button mat-fab color="primary" (click)="addNewAgency()" *ngIf="isDetailsEditable" title="Add New Agency">
+<mat-icon>add</mat-icon>
+</button>
+</div>

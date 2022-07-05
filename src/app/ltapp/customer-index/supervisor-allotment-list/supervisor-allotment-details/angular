@@ -1,0 +1,70 @@
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component, Input, OnInit } from '@angular/core';
+
+@Component({
+  selector: 'app-old-meter-inward-details',
+  templateUrl: './old-meter-inward-details.component.html',
+  styleUrls: ['./old-meter-inward-details.component.css']
+})
+export class OldMeterInwardDetailsComponent implements OnInit {
+
+  @Input()
+  isNavigation: boolean = false;
+  @Input()
+  isEditable: boolean = false;
+
+  oldMeterInwardForm: FormGroup;
+
+discoms:DiscomList[] = [ { name: "DVVNL" }, { name: "PVVNL" }, { name: "MVVNL" },{ name: "PUVNL" },];
+warehouses:WarehouseList[]=[{name:"warehouse1"},{name:"warehouse2"}];
+subcontractorTypes:subcontractorTypeList[]=[{name:'SubConType1'},{name:'SubConType2'}];
+subcontractors:subcontractorList[]=[{name:'SubCon1'},{name:'SubCon2'}];
+itemstatus:ItemStatusList[]=[{name:'OLD METER'},{name:'NEW METER'}];
+
+
+  constructor() { }
+
+  ngOnInit(): void {
+    this.oldMeterInwardForm = new FormGroup({
+     discom: new FormControl('',Validators.required),
+     warehouseName: new FormControl('',Validators.required),
+     subcontractorType: new FormControl('',Validators.required),
+     subcontractor: new FormControl('',Validators.required),
+     docNo: new FormControl('',Validators.required),
+     invoiceDate: new FormControl('',Validators.required),
+     ginNo:new FormControl('',Validators.required),
+     grnDate:new FormControl('',Validators.required),
+     itemStatus: new FormControl('',Validators.required),
+     qty: new FormControl('',Validators.required),
+     transporter: new FormControl('',Validators.required),
+     lrNo: new FormControl('',Validators.required),
+     vehicleNo: new FormControl('',Validators.required),
+     driverName: new FormControl('',Validators.required),
+     contactNo: new FormControl('',[Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]),
+     remark: new FormControl('',Validators.required),
+    });
+  }
+
+  saveOldMeterInward(){
+    alert('Data Imported..!')
+  }
+
+  uploadFile(event: any) {}
+
+}
+
+export interface DiscomList{
+  name: string;
+}
+export interface WarehouseList{
+  name:string;
+}
+export interface subcontractorTypeList{
+  name: string;
+}
+export interface subcontractorList{
+  name: string;
+}
+export interface ItemStatusList{
+  name:string;
+}

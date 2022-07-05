@@ -1,0 +1,78 @@
+<form [formGroup]="agencyCreationForm" (ngSubmit)="saveagencyCreationData()" autocomplete="off" (keydown.enter)="$event.preventDefault()"
+    (keydown.shift.enter)="$event.preventDefault()">
+    <mat-card>
+        <div fxLayout="row" fxLayoutAlign="space-around center">
+            <div fxLayout="column" fxLayoutAlign="space-around center">
+                <mat-form-field appearance="fill">
+                    <mat-label>Agency Type</mat-label>
+                    <mat-select formControlName="agencyType" multiple>
+                        <mat-option value="CI">CI Agency</mat-option>
+                        <mat-option value="MI">MI Agency</mat-option>
+                        <mat-option value="O&M">O&M Agency</mat-option>
+                        <mat-option value="ENH">ENH Agency</mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field appearance="fill">
+                    <mat-label>Agency Name</mat-label>
+                    <input type="text" matInput formControlName="agencyName" (change)="fetchdataforlookup()">
+                </mat-form-field>
+
+                <mat-form-field appearance="fill">
+                    <mat-label>Mobile</mat-label>
+                    <input type="text" matInput formControlName="mobile" maxlength="10" pattern="[0-9]+">
+                </mat-form-field>
+
+                <mat-form-field appearance="fill">
+                    <mat-label>Email</mat-label>
+                    <input type="text" matInput formControlName="email">
+                </mat-form-field>
+
+                <mat-form-field appearance="fill">
+                    <mat-label>Landmark</mat-label>
+                    <input type="text" matInput formControlName="landmark">
+                </mat-form-field>
+            </div>
+
+            <div fxLayout="column" fxLayoutAlign="space-around center">
+                <mat-form-field appearance="fill">
+                    <mat-label>Agency Manager</mat-label>
+                    <input type="text" matInput formControlName="agencyManager">
+                </mat-form-field>
+
+                <mat-form-field appearance="fill">
+                    <mat-label>Agency Code</mat-label>
+                    <input type="text" matInput formControlName="agencyCode">
+                </mat-form-field>
+                
+            </div>
+
+                <div fxLayout="row" fxLayoutAlign="start center" >
+
+                    <mat-checkbox
+                    labelPosition="before"
+                    [disabled]="false"
+                    formControlName="active">
+                      Active
+                    </mat-checkbox>
+          
+                  </div>
+                <!-- <mat-form-field appearance="fill">
+                    <mat-label>Status</mat-label>
+                   <mat-select formControlName="status">
+                        <mat-option value="active">Active</mat-option>
+                        <mat-option value="Inactive">Inactive</mat-option>
+                    </mat-select>
+                </mat-form-field> -->
+           
+        </div>
+        <!-- <mat-card-actions fxLayout="row" fxLayoutAlign="space-evenly start" *ngIf="isEditable" >
+        <div  dir="rtl" fxFlexOffset="20" fxFlex="10">
+            <button mat-raised-button type="submit" color="primary" >Save</button>
+          </div>
+          </mat-card-actions> -->
+          <div fxLayout="row" fxLayoutAlign="space-evenly start">
+          <button mat-raised-button type="submit" color="primary" >Save</button>
+          </div>
+    </mat-card>
+</form>

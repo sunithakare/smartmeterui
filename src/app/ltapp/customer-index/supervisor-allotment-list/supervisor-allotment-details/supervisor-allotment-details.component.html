@@ -1,0 +1,69 @@
+<form [formGroup]="supervisorCreationForm" (ngSubmit)="savesupervisorCreation()" (submit)="savesupervisorallotment()" autocomplete="off" (keydown.enter)="$event.preventDefault()" (keydown.shift.enter)="$event.preventDefault()">
+  <mat-card>
+    <div fxLayout="row" fxLayoutAlign="space-around center">
+      <div fxLayout="column" fxLayoutAlign="space-around center">
+
+
+<mat-form-field appearance="fill">
+  <mat-label>AllocationDataType</mat-label>
+  <mat-select formControlName="allocationDataType">
+      <mat-option *ngFor="let item of allocationDataTypes" [value]="item.name">{{item.name}}</mat-option>
+  </mat-select>
+</mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Agency</mat-label>
+          <input type="text" matInput formControlName="#">
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Mobile No.</mat-label>
+          <input type="number" matInput formControlName="#">
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>User Id</mat-label>
+          <input type="text" matInput formControlName="#">
+        </mat-form-field>
+        <!-- <mat-form-field appearance="fill">
+          <mat-label>Division</mat-label>
+          <mat-select formControlName="Division">
+            <mat-option value="#">Division 1</mat-option>
+            <mat-option value="#">Division 2</mat-option>
+            <mat-option value="#">Division 3</mat-option>
+          </mat-select>
+        </mat-form-field> -->
+        <mat-form-field appearance="fill">
+          <mat-label>Division</mat-label>
+          <mat-select formControlName="Division">
+              <mat-option *ngFor="let item of division" [value]="item.name">{{item.name}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div fxLayout="column" fxLayoutAlign="space-around center">
+        <mat-form-field appearance="fill">
+          <mat-label>Supervisor</mat-label>
+          <input type="text" matInput formControlName="#">
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>User Full Name</mat-label>
+          <input type="text" matInput formControlName="#">
+        </mat-form-field>
+        <!-- <mat-form-field appearance="fill">
+          <mat-label>Allocation</mat-label>
+          <mat-select formControlName="Allocation">
+            <mat-option value="#">Fresh</mat-option>
+            <mat-option value="#">Reallocation</mat-option>
+          </mat-select>
+        </mat-form-field> -->
+        <mat-form-field appearance="fill">
+          <mat-label>Allocation</mat-label>
+          <mat-select formControlName="Allocation">
+              <mat-option *ngFor="let item of allocation" [value]="item.name">{{item.name}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+    <mat-card-actions fxLayout="row" fxLayoutAlign="end start" >
+      <button mat-raised-button type="submit" color="primary" fxFlex="10" >Save</button>
+      </mat-card-actions>
+  </mat-card>
+</form>

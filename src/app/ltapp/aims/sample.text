@@ -1,0 +1,410 @@
+<form
+  [formGroup]="inwardImportForm"
+  autocomplete="off"
+  (ngSubmit)="saveInwardImport()"
+  (keydown.enter)="$event.preventDefault()"
+  (keydown.shift.enter)="$event.preventDefault()"
+>
+  <mat-card>
+    <div style="margin-left: 50px;margin-right: 100px;">
+    <div fxLayout="row"fxLayoutAlign="space-between start">
+      <div fxLayout="column" fxLayoutAlign="start start">
+        <mat-form-field appearance="outline" [style.width.px]="420">
+          <mat-label>Discom</mat-label>
+          <mat-select formControlName="discom">
+            <mat-option *ngFor="let item of discoms" [value]="item.name">{{
+              item.name
+            }}</mat-option>
+          </mat-select>
+          <mat-error
+            *ngIf="inwardImportForm.controls['discom'].hasError('required')"
+          >
+            Discom is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div fxLayout="column" fxLayoutAlign="start start">
+        <mat-form-field appearance="outline" [style.width.px]="500">
+          <mat-label>Warehouse</mat-label>
+          <mat-select formControlName="warehouseName">
+            <mat-option *ngFor="let item of warehouses" [value]="item.name">{{
+              item.name
+            }}</mat-option>
+          </mat-select>
+          <mat-error
+            *ngIf="
+              inwardImportForm.controls['warehouseName'].hasError('required')
+            "
+          >
+            Warehouse is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div fxLayout="column" fxLayoutAlign="start start">
+        <mat-form-field appearance="outline" [style.width.px]="500">
+          <mat-label>Supplier</mat-label>
+          <mat-select formControlName="supplier">
+            <mat-option *ngFor="let item of suppliers" [value]="item.name">{{
+              item.name
+            }}</mat-option>
+          </mat-select>
+          <mat-error
+            *ngIf="inwardImportForm.controls['supplier'].hasError('required')"
+          >
+            Supplier is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div
+      fxLayout="row"
+     fxLayoutAlign="space-between start"
+      style="margin-top: 30px"
+    >
+      <div fxLayout="column" fxLayoutAlign="start start">
+        <mat-form-field appearance="outline">
+          <mat-label>Invoice No</mat-label>
+          <input
+            type="text"
+            matInput
+            formControlName="invoiceNo"
+            placeholder="Invoice No"
+          />
+          <mat-error
+            *ngIf="inwardImportForm.controls['invoiceNo'].hasError('required')"
+          >
+            Invoice No is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div fxLayout="column" fxLayoutAlign="start start">
+        <mat-form-field appearance="outline">
+          <mat-label>Invoice Date</mat-label>
+          <input
+            matInput
+            [matDatepicker]="invoicePicker"
+            formControlName="invoiceDate"
+            placeholder="Invoice Date"
+          />
+          <mat-error
+            *ngIf="
+              inwardImportForm.controls['invoiceDate'].hasError('required')
+            "
+          >
+            Invoice Date is <strong>required</strong>
+          </mat-error>
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="invoicePicker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker
+            #invoicePicker
+            startView="multi-year"
+          ></mat-datepicker>
+        </mat-form-field>
+      </div>
+
+      <div fxLayout="column" fxLayoutAlign="start start">
+        <mat-form-field appearance="outline">
+          <mat-label>Gin No</mat-label>
+          <input
+            type="text"
+            matInput
+            formControlName="ginNo"
+            placeholder="Gin No"
+          />
+          <mat-error
+            *ngIf="inwardImportForm.controls['ginNo'].hasError('required')"
+          >
+            Gin No is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div fxLayout="column" fxLayoutAlign="start start">
+        <mat-form-field appearance="outline">
+          <mat-label>Gin Date</mat-label>
+          <input
+            matInput
+            [matDatepicker]="ginPicker"
+            formControlName="ginDate"
+            placeholder="Gin Date"
+          />
+          <mat-error
+            *ngIf="inwardImportForm.controls['ginDate'].hasError('required')"
+          >
+            Gin Date is <strong>required</strong>
+          </mat-error>
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="ginPicker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #ginPicker></mat-datepicker>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div
+      fxLayout="row"
+     fxLayoutAlign="space-between start"
+      style="margin-top: 30px"
+    >
+      <div fxLayout="column" fxLayoutAlign="start start">
+        <mat-form-field appearance="outline">
+          <mat-label>Item Group</mat-label>
+          <mat-select formControlName="itemGroup">
+            <mat-option *ngFor="let item of itemGroups" [value]="item.name">{{
+              item.name
+            }}</mat-option>
+          </mat-select>
+          <mat-error
+            *ngIf="inwardImportForm.controls['itemGroup'].hasError('required')"
+          >
+            Item Group is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div fxLayout="column" fxLayoutAlign="start start">
+        <mat-form-field appearance="outline">
+          <mat-label>Item Name</mat-label>
+          <mat-select formControlName="itemName">
+            <mat-option *ngFor="let item of itemNames" [value]="item.name">{{
+              item.name
+            }}</mat-option>
+          </mat-select>
+          <mat-error
+            *ngIf="inwardImportForm.controls['itemName'].hasError('required')"
+          >
+            Item Name is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div fxLayout="column" fxLayoutAlign="start start">
+        <mat-form-field appearance="outline">
+          <mat-label>Item Make</mat-label>
+          <input type="text" matInput formControlName="itemMake" />
+          <mat-error
+            *ngIf="inwardImportForm.controls['itemMake'].hasError('required')"
+          >
+            Item Make is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div fxLayout="column" fxLayoutAlign="start start">
+        <mat-form-field appearance="outline">
+          <mat-label>Item Type</mat-label>
+          <input type="text" matInput formControlName="itemType" />
+          <mat-error
+            *ngIf="inwardImportForm.controls['itemType'].hasError('required')"
+          >
+            Item Type is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div
+      fxLayout="row"
+     fxLayoutAlign="space-between start"
+      style="margin-top: 30px"
+    >
+      <div fxLayout="column" fxLayoutAlign="start start">
+        <mat-form-field appearance="outline">
+          <mat-label>Quantity</mat-label>
+          <input type="text" matInput formControlName="qty" />
+          <mat-error
+            *ngIf="inwardImportForm.controls['qty'].hasError('required')"
+          >
+            Quantity is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div fxLayout="column" fxLayoutAlign="start start">
+        <mat-form-field appearance="outline">
+          <mat-label>Item Status</mat-label>
+          <mat-select formControlName="itemStatus">
+            <mat-option *ngFor="let item of itemstatus" [value]="item.name">{{
+              item.name
+            }}</mat-option>
+          </mat-select>
+          <mat-error
+            *ngIf="inwardImportForm.controls['itemStatus'].hasError('required')"
+          >
+            Item Status is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div fxLayout="column" fxLayoutAlign="start start">
+        <mat-form-field appearance="outline">
+          <mat-label>Transporter</mat-label>
+          <input type="text" matInput formControlName="transporter" />
+          <mat-error
+            *ngIf="
+              inwardImportForm.controls['transporter'].hasError('required')
+            "
+          >
+            Transporter is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div fxLayout="column" fxLayoutAlign="start start">
+        <mat-form-field appearance="outline">
+          <mat-label>LR No</mat-label>
+          <input type="text" matInput formControlName="lrNo" />
+          <mat-error
+            *ngIf="inwardImportForm.controls['lrNo'].hasError('required')"
+          >
+            LR No is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div
+      fxLayout="row"
+     fxLayoutAlign="space-between start"
+      style="margin-top: 30px"
+    >
+      <div fxLayout="column" fxLayoutAlign="start start">
+        <mat-form-field appearance="outline">
+          <mat-label>Vehicle No</mat-label>
+          <input type="text" matInput formControlName="vehicleNo" />
+          <mat-error
+            *ngIf="inwardImportForm.controls['vehicleNo'].hasError('required')"
+          >
+            Vehicle No is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div fxLayout="column" fxLayoutAlign="start start">
+        <mat-form-field appearance="outline">
+          <mat-label>Driver Name</mat-label>
+          <input type="text" matInput formControlName="driverName" />
+          <mat-error
+            *ngIf="inwardImportForm.controls['driverName'].hasError('required')"
+          >
+            Driver Name is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div fxLayout="column" fxLayoutAlign="start start">
+        <mat-form-field appearance="outline">
+          <mat-label>Contact No</mat-label>
+          <input type="text" matInput formControlName="contactNo" />
+          <mat-error
+            *ngIf="inwardImportForm.controls['contactNo'].hasError('required')"
+          >
+            Contact No is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div fxLayout="column" fxLayoutAlign="start start">
+        <mat-form-field appearance="outline">
+          <mat-label>PDI Date</mat-label>
+          <input
+            matInput
+            [matDatepicker]="pdiPicker"
+            formControlName="pdiDate"
+          />
+          <mat-error
+            *ngIf="inwardImportForm.controls['pdiDate'].hasError('required')"
+          >
+            PDI Date is <strong>required</strong>
+          </mat-error>
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="pdiPicker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #pdiPicker></mat-datepicker>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div
+
+    fxLayout="row"
+    fxLayoutAlign="start start"
+    style="margin-top: 30px ;"
+    >
+    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
+        <mat-form-field appearance="outline" [style.width.px]="500">
+          <mat-label>Remark</mat-label>
+          <textarea
+            matInput
+            rows="5"
+            cols="100"
+            formControlName="remark"
+          ></textarea>
+        </mat-form-field>
+
+        <mat-checkbox class="example-margin"
+          >Skip File Upload</mat-checkbox
+        >
+      </div>
+
+    </div>
+
+  </div>
+    <!-- <div fxLayout="row" fxLayoutAlign="center center" style="margin-top: 30px; ">
+        <div fxLayout="column" fxLayoutAlign="start start">
+
+        <mat-checkbox class="example-margin" #fileUpload>Skip File Upload</mat-checkbox>
+        </div>
+      </div> -->
+    <div fxLayout="row" fxLayoutAlign="center center" style="margin-top: 30px">
+      <div fxLayout="column" fxLayoutAlign="start start">
+        <input hidden type="file" #uploader (change)="uploadFile($event)" />
+        <button
+          mat-raised-button
+          type="button"
+          color="primary"
+          (click)="uploader.click()"
+        >
+          Upload <mat-icon>upload</mat-icon>
+        </button>
+        <!--
+          <mat-form-field appearance="legacy" *ngIf="fileUpload">
+            <mat-label>File Upload</mat-label>
+            <input type="text" matInput disabled/>
+            <button matPrefix
+            mat-raised-button
+            type="button"
+            color="primary"
+            (click)="uploader.click()"
+          >
+            Upload <mat-icon>upload</mat-icon>
+          </button>
+          </mat-form-field> -->
+
+        <!-- <button
+          mat-raised-button
+          type="button"
+          color="primary"
+          (click)="uploader.click()"
+        >
+          Upload <mat-icon>upload</mat-icon>
+        </button> -->
+      </div>
+    </div>
+
+    <mat-card-actions
+      fxLayout="row"
+      fxLayoutAlign="center start"
+      style="margin-top: 30px"
+    >
+      <button mat-raised-button type="submit" color="primary" fxFlex="8">Import</button>
+      <button
+        mat-raised-button
+        type="submit"
+        (click)="backToList()" fxFlex="8"
+        color="primary"
+      >
+        Cancel
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</form>

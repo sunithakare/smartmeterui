@@ -1,0 +1,165 @@
+<form [formGroup]="employeeForm" autocomplete="off" (submit)="saveEmployeeData()">
+  <mat-card>
+      <div fxLayout="row" fxLayoutAlign="space-around center">
+        <div fxLayout="column" fxLayoutAlign="space-around center">
+          <mat-form-field  appearance="fill">
+            <mat-label>Employee Name</mat-label>
+            <input type="text" matInput formControlName="empName" >
+            <mat-error *ngIf="employeeForm.controls['empName'].hasError('required')">
+              Employee Name is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field  appearance="fill">
+            <mat-label>Employee Id</mat-label>
+            <input type="text" matInput formControlName="empId" >
+            <mat-error *ngIf="employeeForm.controls['empId'].hasError('required')">
+              Emp Id is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div fxLayout="column" fxLayoutAlign="space-around center">
+
+          <mat-form-field  appearance="fill">
+            <mat-label>Role Category</mat-label>
+            <mat-select  formControlName="roleCategory" (selectionChange)="fetchRoles($event)">
+              <mat-option *ngFor="let type of roleCategoryList" [value]="type.shortCode">{{type.shortCode}}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="employeeForm.controls['roleCategory'].hasError('required')">
+              Role Category is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field  appearance="fill">
+            <mat-label>Role</mat-label>
+            <mat-select  formControlName="role">
+              <mat-option *ngFor="let type of roleList" [value]="type.roleName">{{type.roleName}}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="employeeForm.controls['role'].hasError('required')">
+              Role is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+
+        </div>
+
+
+        <div fxLayout="column" fxLayoutAlign="space-around center">
+          <mat-form-field appearance="fill">
+            <mat-label>DOJ</mat-label>
+            <input matInput [matDatepicker]="picker"  formControlName="doj">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+            <mat-error *ngIf="employeeForm.controls['doj'].hasError('required')">
+              DOJ is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>DOR</mat-label>
+            <input matInput [matDatepicker]="picker1"  formControlName="dor">
+            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+            <mat-datepicker #picker1></mat-datepicker>
+            <!-- <mat-error *ngIf="employeeForm.controls['dor'].hasError('required')">
+              DOR is <strong>required</strong>
+            </mat-error> -->
+          </mat-form-field>
+        </div>
+
+
+
+        <div fxLayout="column" fxLayoutAlign="space-around center" >
+          <mat-form-field  appearance="fill">
+            <mat-label>State</mat-label>
+            <mat-select  formControlName="state" (selectionChange)="fetchRoles($event)">
+              <mat-option *ngFor="let type of allStatesList" [value]="type.shortCode">{{type.shortCode}}</mat-option>
+            </mat-select>
+
+            <mat-error *ngIf="employeeForm.controls['state'].hasError('required')">
+              State is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+          <mat-checkbox
+          labelPosition="before"
+          formControlName="active">
+            Active
+          </mat-checkbox>
+
+        </div>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="end end" fxLayoutGap="20px">
+
+          <button mat-raised-button  color="primary" type='button'  (click)="addNewQualification()" *ngIf="isEditable "> <mat-icon>add</mat-icon> Add New</button>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="center center">
+        <mat-table matSort [dataSource]="dataSource" class="mat-elevation-z8" fxFlex >
+
+          <ng-container matColumnDef="sNo" >
+            <mat-header-cell fxLayoutAlign="center center" *matHeaderCellDef mat-sort-header class="TableHeader">S.No</mat-header-cell>
+            <mat-cell fxLayoutAlign="center center" *matCellDef="let element; let i = index;" class="TableDataCell" >
+              {{i+1}}
+            </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="documentType">
+            <mat-header-cell fxLayoutAlign="center center" *matHeaderCellDef mat-sort-header class="TableHeader">Document Type</mat-header-cell>
+            <mat-cell  fxLayoutAlign="center center" *matCellDef="let element; let i = index;" class="TableDataCell" [formGroup]="element" >
+
+          <mat-form-field  appearance="fill">
+            <mat-label>Document Type</mat-label>
+            <input type="text" matInput formControlName="documentType">
+
+          </mat-form-field>
+            </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="documentName">
+            <mat-header-cell fxLayoutAlign="center center" *matHeaderCellDef mat-sort-header class="TableHeader">Document Name</mat-header-cell>
+            <mat-cell *matCellDef="let element;let i = index" class="TableDataCell"  fxLayoutAlign="center center">
+
+
+
+          <button mat-button type="button" color="primary" (click)="downloadDocument(element.getRawValue().documnetId, element.getRawValue().documentName)" *ngIf="element.getRawValue().documentName" > {{  element.getRawValue().documentName}}<mat-icon>download</mat-icon></button>
+
+          <mat-error *ngIf="element.controls['documentName'].hasError('required')">
+            Please Upload Document
+          </mat-error>
+          </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="action">
+
+            <mat-header-cell fxLayoutAlign="center center" *matHeaderCellDef mat-sort-header class="TableHeader">Action</mat-header-cell>
+            <mat-cell fxLayoutAlign="center center" *matCellDef="let element;let i = index" class="TableDataCell" >
+              <input hidden type="file" #uploader (change)="uploadFile($event,element)" />
+              <button mat-raised-button type="button" color="primary" (click)="uploader.click()" >
+                Upload <mat-icon>upload</mat-icon>
+            </button>
+              <button mat-raised-button type="button" color="warn" (click)="removeDocument(i)" title="Remove Discom" style="margin-left: 10px;"><mat-icon>delete_forever</mat-icon></button>
+            </mat-cell>
+
+          </ng-container>
+          <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true" ></mat-header-row>
+          <!-- <mat-row
+            matRipple
+            *matRowDef="let row; columns: displayedColumns"
+            (click)="showDetails(row)">
+          </mat-row> -->
+          <mat-row
+            matRipple
+            *matRowDef="let row; columns: displayedColumns;let i = index"
+          ></mat-row>
+        </mat-table>
+
+</div>
+
+      <mat-card-actions fxLayout="row" fxLayoutAlign="end start" >
+        <button mat-raised-button type="submit" color="primary" dir="rtl" fxFlexOffset="5" fxFlex="5" >Save</button>
+        </mat-card-actions>
+    </mat-card>
+    <div class="overlay" *ngIf="spinner">
+      <div class="spinner">
+          <mat-progress-spinner diameter=50
+                              mode="indeterminate"
+                    color="accent">
+        </mat-progress-spinner>
+      </div>
+      </div>
+  </form>

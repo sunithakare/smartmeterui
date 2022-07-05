@@ -1,0 +1,27 @@
+<div fxLayout="row" fxLayoutAlign="center center">
+  <mat-card-header>{{data.option}}</mat-card-header>
+</div>
+<div fxLayout="row" fxLayoutAlign="center center" style="margin-top: 20px;">
+
+  <mat-form-field  appearance="fill" style="margin-left: 10px;">
+    <mat-label>Role Name</mat-label>
+    <input matInput type="text" [(ngModel)]="data.roleName" [disabled]="data.option=='DELETE'">
+  </mat-form-field>
+  <mat-form-field  appearance="fill" style="margin-left: 10px;">
+    <mat-label>Role Category</mat-label>
+
+    <mat-select  [(ngModel)]="data.roleCategory" [disabled]="data.option=='DELETE'">
+      <mat-option *ngFor="let type of roleTypeList" [value]="type.shortCode">{{type.shortCode}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field  appearance="fill" style="margin-left: 10px;">
+    <mat-label>Role Desc</mat-label>
+    <input matInput type="text" [(ngModel)]="data.roleDesc" [disabled]="data.option=='DELETE'">
+  </mat-form-field>
+</div>
+
+<div mat-dialog-actions dir="rtl" fxLayoutGap="20px">
+  <button mat-button mat-raised-button mat-dialog-close>Close</button>
+  <button mat-button  mat-raised-button (click)="save()" color="primary"  *ngIf="data.option!='DELETE'">Save</button>
+  <button mat-button  mat-raised-button (click)="deleteRole()" color="primary" *ngIf="data.option=='DELETE'">Delete</button>
+</div>

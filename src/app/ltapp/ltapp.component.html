@@ -1,0 +1,159 @@
+
+
+<div class=" container pagebackground" fxFlexFill fxLayout='column' >
+
+  <mat-sidenav-container fxFlex >
+    <!-- <mat-sidenav #sidenav mode="side" opened [fixedInViewport]="true" [fixedTopGap]="40"
+    [fixedBottomGap]="40"  fxLayout="column"  style="height: 100; width: 200px; display: inline-block;"> -->
+
+    <!-- <mat-sidenav #sidenav mode="side" opened  class="mat-elevation-z8" fxLayoutAlign="center center"  style="height: 100;  display: inline-block;  background-color: #efc27b;"> -->
+
+    <mat-sidenav-content fxLayout='column' style="height: 100%;">
+
+
+<!-- <div (click)="sidenav.toggle()">  <img
+  style="max-width: 250px;max-height: 50px;"
+  src="../../assets/lntlogoNoBg.png"
+/></div> -->
+
+      <!-- <mat-sidenav #sidenav mode="side" opened  class="mat-elevation-z8" fxLayout="column"  style="height: 100;  display: inline-block; margin-top: 1%;margin-bottom: 1%;border-radius: 20px;color:#117692;
+      background-color: #efc27b;
+      ">
+
+
+		<mat-nav-list fxLayout="column" fxLayoutAlign="start start">
+      <ng-container  *ngFor="let menu of sideMenuList" >
+        <mat-list-item>
+
+        <mat-icon mat-list-icon>{{menu.icon}}</mat-icon>
+        <h4  (click)="changeHeader(menu)">{{menu.label}} </h4>
+        </mat-list-item>
+      </ng-container>
+
+    </mat-nav-list>
+    </mat-sidenav> -->
+
+  <div class="container" fxLayout="column" fxLayout.md="row" >
+
+  <mat-toolbar  color="primary"  fxLayout="row " fxLayoutAlign="start center"  >
+    <!-- <div fxShow="true" fxHide.gt-sm="true"> -->
+
+
+    <!-- <div >  <img
+      mat-card-image
+      style="max-width: 250px"
+      src="../../assets/LTWhiteRemovebg.png"
+    /></div> -->
+    <div mat-button  fxHide fxShow.gt-md="true" fxShow.md="true"  routerLink="./dashboard" routerLinkActive="active"   >
+      <img
+        style="max-width: 150px;"
+        src="../../assets/FUSION_nobg.png"
+      />
+      <img
+        style="max-width: 200px;"
+        src="../../assets/lnt_white.png"
+      />
+    </div>
+
+    <div mat-button  fxHide fxShow.lt-md="true"  routerLink="./dashboard" routerLinkActive="active"   >
+      <img
+        style="max-width: 100px"
+        src="../../assets/FUSION_nobg.png"
+      />
+      <img
+        style="max-width: 150px"
+        src="../../assets/lnt_white.png"
+      />
+    </div>
+
+    <!-- <div (click)="sidenav.toggle()">  <img
+      style="max-width: 250px;max-height: 50px;"
+      src="../../assets/lntlogoNoBg.png"
+    /></div> -->
+
+    <!-- <div  (click)="sidenav.toggle()" style="text-align: justify;"><mat-icon style="color: white;font-size:xx-large">menu</mat-icon></div> -->
+
+
+    <div   fxHide.lt-md="true"    fxLayoutAlign="start stretch" >
+      <mat-menu #appMenu="matMenu">
+        <ng-template matMenuContent let-childs="data">
+          <ng-container  *ngFor="let child of childs" >
+              <button mat-menu-item *ngIf="checkPermission(child.role,child.permission)"  routerLink="./{{child.pageLink}}"  routerLinkActive="active">{{child.label}} </button>
+        </ng-container>
+        </ng-template>
+      </mat-menu>
+
+        <ng-container  *ngFor="let menu of topMenuList" >
+
+          <ng-container *ngIf="menu.isParent">
+
+            <button  class="customNav" *ngIf="checkPermission(menu.role,menu.permission)" mat-button [matMenuTriggerFor]="appMenu"   [matMenuTriggerData]="{data: menu.child}" style="color: white;" > {{menu.label}} </button >
+              <!-- <ng-container  *ngFor="let child of menu.child" >
+                <mat-menu #{{menu.label}}="matMenu">
+                  <button mat-menu-item>Item 1</button>
+                  <button mat-menu-item>Item 2</button>
+                </mat-menu>
+              </ng-container> -->
+          </ng-container>
+
+          <ng-container *ngIf="!menu.isParent">
+            <button  class="customNav" *ngIf="checkPermission(menu.role,menu.permission)"  routerLink="./{{menu.pageLink}}" mat-button routerLinkActive="active" style="color: white;" > {{menu.label}} </button >
+          </ng-container>
+        </ng-container>
+      </div>
+
+    <!-- <div  fxFlexAlign="right" dir="rtl" fxFlexOffset="2" fxFlexOffset.md="5" fxFlexOffset.sm="40" fxFlexOffset.xs="30"> -->
+    <div   dir="rtl" fxLayoutGap="20px" fxFlex>
+    <!-- <div fxFlex   fxLayoutGap="20px"> -->
+      <!-- The following menu items will be hidden on both SM and XS screen sizes -->
+
+      <!-- <a (click)="logout()"   mat-button mat-raised-button color="warn">Logout</a> -->
+      <button mat-button [matMenuTriggerFor]="aboveMenu" fxFlexOffset="2" style="border: 1px solid #FFFFFF;"> {{ userName}}<mat-icon>person_outline</mat-icon> </button>
+    </div>
+
+    <mat-menu #aboveMenu="matMenu" xPosition="before" fxFlexFill >
+      <!-- <div mat-menu-item  style="text-align: left;">Welcome, {{ userName}}</div> -->
+      <div mat-menu-item style="text-align: center;">{{ today|date}}</div>
+      <button mat-button  fxFlexFill routerLink="./dashboard" routerLinkActive="active">
+        <mat-icon>home</mat-icon>
+        <span  >Home</span>
+      </button>
+
+      <button (click)="logout()"  mat-button  color="warn" fxFlexFill>
+        <mat-icon>exit_to_app</mat-icon>
+        <span>Logout</span>
+      </button>
+    </mat-menu>
+
+  </mat-toolbar>
+
+</div>
+
+<div   fxLayout="row" fxLayoutAlign="start stretch" style="height: 100%;" >
+
+  <!-- <div fxLayout="column" fxLayoutAlign="end end">
+    <a (click)="sidenav.toggle()"  mat-button style="size: 20px;"><mat-icon>menu</mat-icon></a>
+    </div> -->
+<div class="custom-drawer">
+<!-- <mat-nav-list fxLayout="column" fxLayoutAlign="start center"  style="height: 100%; background-color: rgb(239, 194, 123)" #sidenav > -->
+<mat-nav-list fxLayout="column" fxLayoutAlign="start center"  style="border-right: 2.5em;" #sidenav >
+  <ng-container  *ngFor="let menu of sideMenuList" >
+    <mat-list-item  (click)="changeHeader(menu)">
+
+    <mat-icon mat-list-icon>{{menu.icon}}</mat-icon>
+    <h4 >{{menu.label}} </h4>
+    </mat-list-item>
+  </ng-container>
+</mat-nav-list>
+</div>
+<div style="width:100%;float:right;border-left: 2.5em;" class="mat-body-2">
+  <router-outlet></router-outlet>
+</div>
+<!-- <router-outlet></router-outlet> -->
+</div>
+    </mat-sidenav-content>
+
+
+  </mat-sidenav-container>
+
+</div>

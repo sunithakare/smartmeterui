@@ -1,0 +1,270 @@
+<form [formGroup]="oldMeterOutwardForm"  autocomplete="off"  (ngSubmit)="saveOldMeterOutward()" (keydown.enter)="$event.preventDefault()"
+    (keydown.shift.enter)="$event.preventDefault()">
+  <mat-card *ngIf="!showSerialData">
+    <div style="margin-left: 50px;margin-right: 100px;">
+    <div fxLayout="row"fxLayoutAlign="space-between start">
+      <div fxLayout="column" fxLayoutAlign="start start">
+        <mat-form-field appearance="outline" [style.width.px]="420">
+          <mat-label>Discom</mat-label>
+          <mat-select formControlName="discom" >
+              <mat-option *ngFor="let item of discoms" [value]="item.name">{{item.name}}</mat-option>
+          </mat-select>
+          <mat-error
+            *ngIf="oldMeterOutwardForm.controls['discom'].hasError('required')">
+            Discom is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div fxLayout="column" fxLayoutAlign="start start">
+        <mat-form-field appearance="outline" [style.width.px]="500">
+          <mat-label>Warehouse</mat-label>
+          <mat-select formControlName="warehouse">
+              <mat-option *ngFor="let item of warehouses" [value]="item.name">{{item.name}}</mat-option>
+          </mat-select>
+          <mat-error
+            *ngIf="oldMeterOutwardForm.controls['warehouse'].hasError('required')">
+            Warehouse is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div fxLayout="column" fxLayoutAlign="start start">
+        <mat-form-field appearance="outline" [style.width.px]="500">
+          <mat-label>Doc No</mat-label>
+          <input type="text" matInput formControlName="docNo">
+          <mat-error
+            *ngIf="oldMeterOutwardForm.controls['docNo'].hasError('required')">
+            Doc No is <strong>required</strong>
+          </mat-error>
+          <mat-error
+            *ngIf="oldMeterOutwardForm.controls['docNo'].hasError('pattern')">
+            Doc No not allowed <strong>WhiteSpases</strong>
+          </mat-error>
+        </mat-form-field>
+        </div>
+      </div>
+
+      <div fxLayout="row" fxLayoutAlign="space-between start" style="margin-top: 30px">
+        <div fxLayout="column" fxLayoutAlign="start start">
+          <mat-form-field appearance="outline">
+            <mat-label>Doc date</mat-label>
+            <input matInput [matDatepicker]="docPicker" formControlName="docDate">
+            <mat-datepicker-toggle matSuffix [for]="docPicker"></mat-datepicker-toggle>
+            <mat-datepicker #docPicker></mat-datepicker>
+            <mat-error
+            *ngIf="oldMeterOutwardForm.controls['docDate'].hasError('required')">
+            Doc date is <strong>required</strong>
+          </mat-error>
+          </mat-form-field>
+        </div>
+        <div fxLayout="column" fxLayoutAlign="start start">
+          <mat-form-field appearance="outline">
+            <mat-label>DC no</mat-label>
+            <input type="text" matInput formControlName="dcNo">
+            <mat-error
+            *ngIf="oldMeterOutwardForm.controls['dcNo'].hasError('required')">
+            DC no is <strong>required</strong>
+          </mat-error>
+          <mat-error
+          *ngIf="oldMeterOutwardForm.controls['dcNo'].hasError('pattern')">
+          DC No not allowed <strong>WhiteSpases</strong>
+        </mat-error>
+          </mat-form-field>
+        </div>
+        <div fxLayout="column" fxLayoutAlign="start start">
+          <mat-form-field appearance="outline">
+            <mat-label>DC date</mat-label>
+            <input matInput [matDatepicker]="dcPicker" formControlName="dcDate">
+            <mat-datepicker-toggle matSuffix [for]="dcPicker"></mat-datepicker-toggle>
+            <mat-datepicker #dcPicker></mat-datepicker>
+            <mat-error
+            *ngIf="oldMeterOutwardForm.controls['dcDate'].hasError('required')">
+            DC date is <strong>required</strong>
+          </mat-error>
+          </mat-form-field>
+        </div>
+        <div fxLayout="column" fxLayoutAlign="start start">
+          <mat-form-field appearance="outline">
+            <mat-label>Item Status</mat-label>
+            <mat-select formControlName="itemStatus">
+                <mat-option *ngFor="let item of itemstatus" [value]="item.name">{{item.name}}</mat-option>
+            </mat-select>
+            <mat-error
+            *ngIf="oldMeterOutwardForm.controls['itemStatus'].hasError('required')">
+            Item Status is <strong>required</strong>
+          </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div fxLayout="row" fxLayoutAlign="space-between start" style="margin-top: 30px">
+        <div fxLayout="column" fxLayoutAlign="start start">
+          <mat-form-field appearance="outline">
+            <mat-label>Quantity</mat-label>
+            <input type="text" matInput formControlName="quantity">
+            <mat-error
+            *ngIf="oldMeterOutwardForm.controls['quantity'].hasError('required')">
+            Quantity is <strong>required</strong>
+          </mat-error>
+          <mat-error
+          *ngIf="oldMeterOutwardForm.controls['quantity'].hasError('pattern')">
+          Quantity not allowed <strong>WhiteSpases</strong>
+        </mat-error>
+          </mat-form-field>
+        </div>
+        <div fxLayout="column" fxLayoutAlign="start start">
+          <mat-form-field appearance="outline">
+            <mat-label>LR No</mat-label>
+            <input type="text" matInput formControlName="lrNo">
+            <mat-error
+            *ngIf="oldMeterOutwardForm.controls['lrNo'].hasError('required')">
+            LR No is <strong>required</strong>
+          </mat-error>
+          <mat-error
+          *ngIf="oldMeterOutwardForm.controls['lrNo'].hasError('pattern')">
+          LR No not allowed <strong>WhiteSpases</strong>
+        </mat-error>
+          </mat-form-field>
+        </div>
+      <div fxLayout="column" fxLayoutAlign="start start">
+        <mat-form-field appearance="outline">
+          <mat-label>Transporter</mat-label>
+          <input type="text" matInput formControlName="transporter">
+          <mat-error
+            *ngIf="oldMeterOutwardForm.controls['transporter'].hasError('required')">
+            Transporter is <strong>required</strong>
+          </mat-error>
+          <mat-error
+          *ngIf="oldMeterOutwardForm.controls['transporter'].hasError('pattern')">
+          Transporter not allowed <strong>WhiteSpases</strong>
+        </mat-error>
+        </mat-form-field>
+      </div>
+      <div fxLayout="column" fxLayoutAlign="start start">
+        <mat-form-field appearance="outline">
+          <mat-label>Vehicle No</mat-label>
+          <input type="text" matInput formControlName="vehicleNo">
+          <mat-error
+            *ngIf="oldMeterOutwardForm.controls['vehicleNo'].hasError('required')">
+            Vehicle No is <strong>required</strong>
+          </mat-error>
+          <mat-error
+          *ngIf="oldMeterOutwardForm.controls['vehicleNo'].hasError('pattern')">
+          Vehicle No not allowed <strong>WhiteSpases</strong>
+        </mat-error>
+        </mat-form-field>
+      </div>
+      </div>
+    </div>
+
+    <div fxLayout="row"fxLayoutAlign="space-between start" style="margin-left: 50px;margin-right: 100px;">
+      <div fxLayout="row" fxLayoutAlign="space-between start" fxLayoutGap="155px" style="margin-top: 30px">
+        <div fxLayout="row" fxLayoutAlign="start start">
+          <mat-form-field appearance="outline">
+            <mat-label>Driver Name</mat-label>
+            <input type="text" matInput formControlName="driverName">
+            <mat-error
+            *ngIf="oldMeterOutwardForm.controls['driverName'].hasError('required')">
+            Driver Name is <strong>required</strong>
+          </mat-error>
+          <mat-error
+          *ngIf="oldMeterOutwardForm.controls['driverName'].hasError('pattern')">
+          Driver Name not allowed <strong>WhiteSpases</strong>
+        </mat-error>
+          </mat-form-field>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="start start">
+          <mat-form-field appearance="outline">
+            <mat-label>Contact No</mat-label>
+            <input type="text" matInput formControlName="contactNo">
+            <mat-error
+            *ngIf="oldMeterOutwardForm.controls['contactNo'].hasError('required')">
+            Contact No is <strong>required</strong>
+          </mat-error>
+          <mat-error
+          *ngIf="oldMeterOutwardForm.controls['contactNo'].hasError('pattern')">
+          Contact No not allowed <strong>WhiteSpases</strong>
+        </mat-error>
+          </mat-form-field>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="start start">
+          <button
+              mat-raised-button
+              type="button"
+              color="primary"
+              (click)="showSerialNoListDetails()"
+            >
+              Show Serial Data <mat-icon>left</mat-icon>
+            </button>
+        </div>
+      </div>
+    </div>
+
+
+    <div style="margin-left: 50px;margin-right: 100px;">
+      <div
+      fxLayout="row"
+      fxLayoutAlign="start start"
+      style="margin-top: 30px ;"
+      >
+      <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
+          <mat-form-field appearance="outline" [style.width.px]="500">
+            <mat-label>Remark</mat-label>
+            <textarea
+              matInput
+              rows="5"
+              cols="100"
+              formControlName="remark"
+            ></textarea>
+            <mat-error
+            *ngIf="oldMeterOutwardForm.controls['remark'].hasError('required')">
+            Remark is <strong>required</strong>
+          </mat-error>
+          <mat-error
+          *ngIf="oldMeterOutwardForm.controls['remark'].hasError('pattern')">
+          Remark not allowed <strong>WhiteSpases</strong>
+        </mat-error>
+          </mat-form-field>
+
+          <mat-checkbox class="example-margin"
+            >Skip File Upload</mat-checkbox
+          >
+        </div>
+      </div>
+    </div>
+
+
+    <div fxLayout="row" fxLayoutAlign="center center" style="margin-top: 30px">
+      <div fxLayout="column" fxLayoutAlign="start start">
+        <input hidden type="file" #uploader (change)="uploadFile($event)" />
+        <button
+          mat-raised-button
+          type="button"
+          color="primary"
+          (click)="uploader.click()"
+        >
+          Upload <mat-icon>upload</mat-icon>
+        </button>
+      </div>
+    </div>
+
+    <mat-card-actions
+      fxLayout="row"
+      fxLayoutAlign="center start"
+      style="margin-top: 30px"
+    >
+      <button mat-raised-button type="submit" color="primary" fxFlex="8">Import</button>
+      <button
+        mat-raised-button
+        type="submit"
+        (click)="backToList()" fxFlex="8"
+        color="primary"
+      >
+        Cancel
+      </button>
+    </mat-card-actions>
+  </mat-card>
+
+  <div *ngIf="showSerialData">
+    <app-display-serial-no-list [serialNoList]="serialNoList" (returnToDetails)="showDetailsView()"></app-display-serial-no-list>
+  </div>
+  </form>

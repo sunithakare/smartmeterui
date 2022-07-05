@@ -1,0 +1,18 @@
+<h1 mat-dialog-title>{{data.approveReject}} Request</h1>
+<!-- <div mat-dialog-content>
+    <textarea matInput (ngModel)="data.remarks" placeholder="Enter Remarks" style="width: 100%;height: 200px;border:1px solid"></textarea>
+</div> -->
+<textarea matInput [(ngModel)]="data.remarks" placeholder="Enter Remarks" style="width: 100%;height: 200px;border:1px solid"></textarea>
+
+<div mat-dialog-actions fxLayout="row" fxLayoutAlign="space-between center">
+  <button mat-button (click)="onNoClick()" mat-stroked-button color="warn">Cancel</button>
+  <button mat-button  cdkFocusInitial mat-raised-button color="primary" (click)="onsubmit()">Submit</button>
+</div>
+<div class="overlay" *ngIf="spinner">
+  <div class="spinner">
+      <mat-progress-spinner diameter=50
+                          mode="indeterminate"
+                color="accent">
+    </mat-progress-spinner>
+  </div>
+  </div>

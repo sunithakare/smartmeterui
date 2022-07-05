@@ -1,0 +1,145 @@
+<div class="mat-typography" fxLayoutAlign="center center">
+  <h1>Inward From Supplier</h1>
+</div>
+<mat-tab-group mat-stretch-tabs color="primary"  [(selectedIndex)]="selectedIndex" #tabGroup class="mat-elevation-z8"  >
+  <mat-tab label="List" style=" border-right: 2px outset rgba(21, 1, 136, 0.27);">
+    <ng-template matTabContent>
+      <mat-accordion>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>Table Filter</mat-panel-title>
+            <mat-panel-description>Expand Table Filter</mat-panel-description>
+          </mat-expansion-panel-header>
+          <ng-template matExpansionPanelContent>
+
+            <div  fxLayout='row' fxLayoutAlign="center center" >
+
+              <mat-form-field appearance="fill" style="margin-left: 10px;">
+                <mat-label> Discom </mat-label>
+                <input matInput type="text"[(ngModel)]="discomSearch">
+              </mat-form-field>
+
+              <mat-form-field appearance="fill" style="margin-left: 10px;">
+                <mat-label> Supplier </mat-label>
+                <input matInput type="text"[(ngModel)]="supplierSearch">
+              </mat-form-field>
+
+              <mat-form-field appearance="fill" style="margin-left: 10px;">
+                <mat-label> Item Group </mat-label>
+                <input matInput type="text"[(ngModel)]="itemGroupSearch">
+              </mat-form-field>
+
+              <mat-form-field appearance="fill" style="margin-left: 10px;">
+                <mat-label> Item Model Name </mat-label>
+                <input matInput type="text"[(ngModel)]="itemModelNameSearch">
+              </mat-form-field>
+
+              <button mat-stroked-button color="primary"  style="margin-left: 10px;" (click)="searchWithFilter()"> <mat-icon>search</mat-icon> </button>
+
+            </div>
+          </ng-template>
+        </mat-expansion-panel>
+      </mat-accordion>
+
+        <div fxLayout="column">
+          <mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
+          <mat-table matSort [dataSource]="dataSource" class="mat-elevation-z8" style="width: 200%;">
+            <!-- <ng-container matColumnDef="id">
+              <mat-header-cell *matHeaderCellDef mat-sort-header class="TableHeader">Sr No</mat-header-cell>
+              <mat-cell *matCellDef="let element" class="TableDataCell">{{element["id"]}}</mat-cell>
+            </ng-container> -->
+            <ng-container matColumnDef="discom">
+              <mat-header-cell *matHeaderCellDef mat-sort-header class="TableHeader">Discom</mat-header-cell>
+              <mat-cell *matCellDef="let element" class="TableDataCell">{{element["discom"]}}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="warehouseName">
+              <mat-header-cell *matHeaderCellDef mat-sort-header class="TableHeader">Warehouse Name</mat-header-cell>
+              <mat-cell *matCellDef="let element" class="TableDataCell">{{element["warehouseName"]}}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="supplier">
+              <mat-header-cell *matHeaderCellDef mat-sort-header class="TableHeader">Supplier</mat-header-cell>
+              <mat-cell *matCellDef="let element" class="TableDataCell">{{element["supplier"]}}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="id">
+              <mat-header-cell *matHeaderCellDef mat-sort-header class="TableHeader">Transaction Id</mat-header-cell>
+              <mat-cell *matCellDef="let element" class="TableDataCell">{{element["id"]}}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="invoiceNo">
+              <mat-header-cell *matHeaderCellDef mat-sort-header class="TableHeader">Invoice No</mat-header-cell>
+              <mat-cell *matCellDef="let element" class="TableDataCell">{{element["invoiceNo"]}}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="invoiceDate">
+              <mat-header-cell *matHeaderCellDef mat-sort-header class="TableHeader">Invoice Date</mat-header-cell>
+              <mat-cell *matCellDef="let element" class="TableDataCell">{{element["invoiceDate"]}}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="itemGroup">
+              <mat-header-cell *matHeaderCellDef mat-sort-header class="TableHeader">Item Group</mat-header-cell>
+              <mat-cell *matCellDef="let element" class="TableDataCell">{{element["itemGroup"]}}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="itemModelName">
+              <mat-header-cell *matHeaderCellDef mat-sort-header class="TableHeader">Item Model Name</mat-header-cell>
+              <mat-cell *matCellDef="let element" class="TableDataCell">{{element["itemModelName"]}}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="itemSupplier">
+              <mat-header-cell *matHeaderCellDef mat-sort-header class="TableHeader">Item Supplier</mat-header-cell>
+              <mat-cell *matCellDef="let element" class="TableDataCell">{{element["itemSupplier"]}}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="itemCategory">
+              <mat-header-cell *matHeaderCellDef mat-sort-header class="TableHeader">Item Category</mat-header-cell>
+              <mat-cell *matCellDef="let element" class="TableDataCell">{{element["itemCategory"]}}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="quantity">
+              <mat-header-cell *matHeaderCellDef mat-sort-header class="TableHeader">Quantity</mat-header-cell>
+              <mat-cell *matCellDef="let element" class="TableDataCell">{{element["quantity"]}}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="itemStatus">
+              <mat-header-cell *matHeaderCellDef mat-sort-header class="TableHeader">Item Status</mat-header-cell>
+              <mat-cell *matCellDef="let element" class="TableDataCell">{{element["itemStatus"]}}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="viewDoc">
+              <mat-header-cell *matHeaderCellDef mat-sort-header class="TableHeader">View Doc</mat-header-cell>
+              <mat-cell *matCellDef="let element" class="TableDataCell">{{element["viewDoc"]}}</mat-cell>
+            </ng-container>
+
+
+            <mat-header-row *matHeaderRowDef="displayedColumns;"></mat-header-row>
+            <mat-row matRipple
+            (click)="navToDetails(row)"
+            *matRowDef="let row; columns: displayedColumns">
+          </mat-row>
+          </mat-table>
+
+          <mat-paginator
+        [length]="totalRows"
+        [pageSize]="pageSize"
+        [pageIndex]="currentPage"
+        [pageSizeOptions]="pageSizeOptions"
+        showFirstLastButtons
+        (page)="onChangePage($event)"
+        aria-label="Select page"
+      ></mat-paginator>
+
+        </div>
+
+    </ng-template>
+  </mat-tab>
+
+  <mat-tab label="Detail">
+      <app-inward-import-details [inwardDetails]="inwardImportResponse" [isEditable]="isEditable" [isNavigation]="isNavigation" (dataSaved)="loadListTab()"></app-inward-import-details>
+      <!-- <app-inward-import-details></app-inward-import-details> -->
+  </mat-tab>
+</mat-tab-group>
+<div class="overlay" *ngIf="spinner">
+  <div class="spinner">
+    <mat-progress-spinner diameter="50" mode="indeterminate" color="accent">
+    </mat-progress-spinner>
+  </div>
+  </div>
+
+
+  <div style="z-index:2; position : fixed;bottom : 5%;left: 95%; margin-bottom : 1%;" *ngIf="selectedIndex==0">
+    <button mat-fab color="primary" (click)="addNewInwardImport()" *ngIf="isEditable" title="Add New Inward Import">
+    <mat-icon>add</mat-icon>
+    </button>
+    </div>

@@ -1,0 +1,108 @@
+<div class="mat-typography" fxLayoutAlign="center center">
+    <h1>Item Group </h1>
+</div>
+<mat-tab-group mat-stretch-tabs color="primary" [(selectedIndex)]="selectedIndex" class="mat-elevation-z8">
+    <mat-tab label="List" style="border-right:2px outset rgba(47, 20, 223, 0.27);">
+    <ng-template matTabContent>
+
+      <mat-accordion>
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Table Filter
+                </mat-panel-title>
+                <mat-panel-description>
+                    Expand Table Filter
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+            <ng-template matExpansionPanelContent>
+            <div fxLayout='row' fxLayoutAlign="center center ">
+
+                <mat-form-field appearance="fill" style="margin-right: 10px;">
+                    <mat-label>Item Group</mat-label>
+                    <input matInput type="text"[(ngModel)]="itemGroup">
+                  </mat-form-field>
+
+                  <!-- <mat-form-field appearance="fill" style="margin-right: 10px;">
+                    <mat-label>Transaction Mechanism</mat-label>
+                    <input matInput type="text"[(ngModel)]="transactionMechanism">
+                  </mat-form-field> -->
+
+                <!-- <mat-form-field appearance="fill">
+                    <mat-label>Status</mat-label>
+                    <mat-select [(ngModel)]="status"  >
+                        <mat-option value="true">Active</mat-option>
+                        <mat-option value="false">Inactive</mat-option>
+                      </mat-select>
+                </mat-form-field> -->
+                <button mat-stroked-button color="primary"  style="margin-left: 10px;" (click)="searchWithFilter()"> <mat-icon>search</mat-icon> </button>
+
+            </div>
+            </ng-template>
+        </mat-expansion-panel>
+    </mat-accordion>
+        <div fxLayout="column">
+            <mat-progress-bar
+               mode="indeterminate"
+               *ngIf="isLoading"
+            ></mat-progress-bar>
+            <mat-table matSort [dataSource]="dataSource" class="mat-elevation-z8">
+                <!-- <ng-container matColumnDef="srNo">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header class="TableHeader">SrNo.</mat-header-cell>
+                    <mat-cell *matCellDef="let element; let i = index;" class="TableDataCell"> {{ (paginatorRef.pageIndex * paginatorRef.pageSize) + (i + 1) }}</mat-cell>
+                  </ng-container> -->
+                  <ng-container matColumnDef="id">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header class="TableHeader">Item Group Code</mat-header-cell>
+                    <mat-cell *matCellDef="let element" class="TableDataCell">{{ element["id"] }}</mat-cell>
+                  </ng-container>
+                  <ng-container matColumnDef="itemGroup">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header class="TableHeader">Item Group Name</mat-header-cell>
+                    <mat-cell *matCellDef="let element" class="TableDataCell">{{ element["itemGroup"] }}</mat-cell>
+                  </ng-container>
+                  <ng-container matColumnDef="transactionMechnsm">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header class="TableHeader">Transaction Mechanism </mat-header-cell>
+                    <mat-cell *matCellDef="let element" class="TableDataCell">{{ element["transactionMechnsm"] }}</mat-cell>
+                  </ng-container>
+                  <!-- <ng-container matColumnDef="status">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header class="TableHeader">Status </mat-header-cell>
+                    <mat-cell *matCellDef="let element" class="TableDataCell">{{ element["status"] }}</mat-cell>
+                  </ng-container> -->
+
+                  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                  <mat-row matRipple
+                  (click)="navToDetails(row)"
+                  *matRowDef="let row; columns: displayedColumns"></mat-row>
+                 </mat-table>
+
+                  <mat-paginator
+                  #paginatorRef
+                  [length]="totalRows"
+                  [pageSize]="pageSize"
+                  [pageIndex]="currentPage"
+                  [pageSizeOptions]="pageSizeOptions"
+                  showFirstLastButtons
+                  (page)="onChangePage($event)"
+                  aria-label="Select page"
+                ></mat-paginator>
+               </div>
+
+            </ng-template>
+        </mat-tab>
+        <!-- disabled="true" -->
+                    <mat-tab label="Detail" >
+                        <app-item-group-details [isDisabled]="isDisabled" [itemGroupDetails]="itemGroupResponse" (dataSaved)="loadListTab()" [isNavigation]="isNavigation"></app-item-group-details>
+                    </mat-tab>
+                    </mat-tab-group>
+                    <div class="overlay" *ngIf="spinner">
+                        <div class="spinner">
+                          <mat-progress-spinner diameter="50" mode="indeterminate" color="accent">
+                          </mat-progress-spinner>
+                        </div>
+                        </div>
+
+                        <div style="z-index:2; position : fixed;bottom : 5%;left: 95%; margin-bottom : 1%;" *ngIf="selectedIndex==0">
+                            <button mat-fab color="primary" (click)="addNewItemGroupData()" *ngIf="isDetailsEditable" title="Add New Item Group Data">
+                            <mat-icon>add</mat-icon>
+                            </button>
+                            </div>
+

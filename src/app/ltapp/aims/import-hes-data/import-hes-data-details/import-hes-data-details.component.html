@@ -1,0 +1,24 @@
+<form [formGroup]="importhesdataFeilds" (submit)="saveImportHesData()"  autocomplete="off" (keydown.enter)="$event.preventDefault()" (keydown.shift.enter)="$event.preventDefault()">
+  <mat-card>
+    <div fxLayout="column">
+      <div fxLayout="row" fxLayoutAlign="space-between start">
+        <mat-form-field appearance="outline">
+          <mat-label>Qty</mat-label>
+          <mat-select formControlName="qty">
+            <mat-option *ngFor="let item of qty" [value]="item.name">{{item.name}}</mat-option>
+        </mat-select>
+        </mat-form-field>
+      </div>
+      <div fxLayout="row" fxLayoutAlign="space-around center">
+        <input hidden type="file" #uploader (change)="uploadFile($event)" />
+        <button mat-raised-button type="button" color="primary" (click)="uploader.click()" >
+          Upload <mat-icon>upload</mat-icon>
+        </button>
+      </div>
+    </div>
+    <mat-card-actions fxLayout="row" fxLayoutAlign="center start" >
+      <button mat-raised-button type="submit" color="primary" dir="rtl"  fxFlex="10">Import</button>
+      <button mat-raised-button type="submit" (click)="backToList()" color="primary" dir="rtl" fxFlex="10">Cancel</button>
+  </mat-card-actions>
+  </mat-card>
+</form>

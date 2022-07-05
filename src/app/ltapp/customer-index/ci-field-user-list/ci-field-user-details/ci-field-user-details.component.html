@@ -1,0 +1,75 @@
+
+<!-- <p>ci-field-user-details works!</p> -->
+<form [formGroup]="fieldUserCreationForm" (ngSubmit)="savefieldusercreation()"  autocomplete="off" (keydown.enter)="$event.preventDefault()" (keydown.shift.enter)="$event.preventDefault()">
+    <mat-card>
+        <div fxLayout="row" fxLayoutAlign="space-around center">
+        <div fxLayout="column" fxLayoutAlign="space-around center">
+            <mat-form-field appearance="fill">
+                <mat-label>Agency Name</mat-label>
+                <input type="text" matInput formControlName="agencyName">
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-label>Field User Code</mat-label>
+                <input type="text" matInput formControlName="fieldUserCode">
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-label>Mobile</mat-label>
+                <input type="text" matInput formControlName="mobile">
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-label>UserId</mat-label>
+                <input type="text" matInput formControlName="userId">
+            </mat-form-field>
+            
+              <mat-form-field appearance="fill" >
+                <mat-label>Active</mat-label>
+                <mat-select formControlName="status">
+                  <mat-option  value="active">Active</mat-option>
+                  <mat-option  value="inactive">Inactive</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+
+        </div>
+
+        <div fxLayout="column" fxLayoutAlign="space-around center">
+           
+            <mat-form-field appearance="fill">
+                <mat-label>User First Name</mat-label>
+                <input type="text" matInput formControlName="userFirstName">
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>User Last Name</mat-label>
+                <input type="text" matInput formControlName="userLastName">
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>Email</mat-label>
+                <input type="text" matInput formControlName="email">
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>Password</mat-label>
+                <input type="text" matInput formControlName="password">
+            </mat-form-field>
+            <!-- <mat-form-field appearance="fill">
+                <mat-label>ID Proof</mat-label>
+                <input type="text" matInput formControlName="idProof">
+            </mat-form-field> -->
+            
+
+                  <input hidden type="file" #uploader (change)="uploadFile($event)" />
+                  <button mat-raised-button type="button" color="primary" (click)="uploader.click()" >
+                    Upload <mat-icon>upload</mat-icon>
+                </button>
+                  <!-- <button mat-raised-button type="button" color="warn" (click)="removeDocument(i)" title="Remove Discom" style="margin-left: 10px;"><mat-icon>delete_forever</mat-icon></button> -->
+        
+
+        </div>
+    </div>
+    <mat-card-actions fxLayout="row" fxLayoutAlign="end start" >
+    <button mat-raised-button type="submit" color="primary" fxFlex="10" >Save</button>
+    </mat-card-actions>
+    </mat-card>
+</form>

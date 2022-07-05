@@ -1,0 +1,241 @@
+<form [formGroup]="WarehouseCreationForm"  autocomplete="off" (ngSubmit)="saveWarehouse()" (keydown.enter)="$event.preventDefault()"
+    (keydown.shift.enter)="$event.preventDefault()">
+    <mat-card>
+      <div fxLayout="column" >
+        <!-- <div fxLayout="row" fxLayoutAlign="space-around start" style="margin-top: 20px; margin-left: 150px;"> -->
+          <div fxLayout="row" fxLayoutAlign="space-around center" style="margin-top: 30px;">
+
+
+
+
+          <mat-form-field appearance="outline">
+            <mat-label>Warehouse Name</mat-label>
+            <input type="text" matInput formControlName="warehouseName" required>
+            <mat-error
+            *ngIf="WarehouseCreationForm.controls['warehouseName'].hasError('required')"
+          >
+            Warehouse Name is <strong>required</strong>
+          </mat-error>
+          </mat-form-field>
+
+
+
+        <!-- <div fxLayout="row" fxLayoutAlign="space-around center" style="margin-top: 30px;"> -->
+          <mat-form-field appearance="outline">
+            <mat-label>Pincode</mat-label>
+            <input type="number"   matInput formControlName="pincode" required maxlength="6">
+            <mat-error
+            *ngIf="WarehouseCreationForm.controls['pincode'].hasError('required')"
+          >
+            Pincode is <strong>required</strong>
+          </mat-error>
+          <mat-error
+            *ngIf="WarehouseCreationForm.controls['pincode'].hasError('pattern')">
+            pincode not allowed <strong>WhiteSpases</strong>
+          </mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Address</mat-label>
+            <textarea matInput rows="4" cols="80" formControlName="address" required></textarea>
+            <mat-error
+            *ngIf="WarehouseCreationForm.controls['address'].hasError('required')"
+          >
+            Address is <strong>required</strong>
+          </mat-error>
+          </mat-form-field>
+
+
+          <mat-form-field appearance="outline">
+            <mat-label>Contact Person</mat-label>
+            <input type="text" matInput formControlName="contactPerson" required>
+            <mat-error
+            *ngIf="WarehouseCreationForm.controls['contactPerson'].hasError('required')"
+          >
+            Contact Person is <strong>required</strong>
+          </mat-error>
+          </mat-form-field>
+          </div>
+
+
+          <!-- <div fxLayout="row" fxLayoutAlign="space-around center" style="margin-top: 20px; margin-left: 80px;"> -->
+            <div fxLayout="row" fxLayoutAlign="space-around center">
+
+          <mat-form-field appearance="outline">
+            <mat-label>Contact Number</mat-label>
+            <input type="number"  matInput formControlName="contactNumber" required maxlength="10">
+            <mat-error
+                    *ngIf="WarehouseCreationForm.controls['contactNumber'].hasError('pattern')"
+                  >
+                    Enter 10 digit Number <strong>Start with [6-9]</strong>
+                  </mat-error>
+                  <mat-error
+            *ngIf="WarehouseCreationForm.controls['contactNumber'].hasError('pattern')">
+            Contact No not allowed <strong>WhiteSpases</strong>
+          </mat-error>
+
+          </mat-form-field>
+
+
+
+
+
+        <!-- <div fxLayout="row" fxLayoutAlign="space-around center" style="margin-top: 30px;"> -->
+
+
+
+          <mat-form-field appearance="outline">
+            <mat-label>Email</mat-label>
+            <input type="text" matInput formControlName="emailId" required>
+            <mat-error
+            *ngIf="WarehouseCreationForm.controls['emailId'].hasError('required')"
+          >
+            Email is <strong>required</strong>
+          </mat-error>
+          <mat-error
+          *ngIf="WarehouseCreationForm.controls['emailId'].hasError('email')"
+        >
+          Email is <strong>Invalid</strong>
+        </mat-error>
+          </mat-form-field>
+
+
+
+
+
+
+
+          <mat-form-field appearance="outline">
+            <mat-label>Space</mat-label>
+            <input type="number"  matInput formControlName="space" required maxlength="4">
+            <mat-error
+            *ngIf="WarehouseCreationForm.controls['space'].hasError('required')"
+          >
+          Space is <strong>required</strong>
+          </mat-error>
+          <mat-error
+            *ngIf="WarehouseCreationForm.controls['space'].hasError('pattern')">
+            space No not allowed <strong>WhiteSpases</strong>
+          </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>UOM</mat-label>
+          <mat-select formControlName="uom" required>
+
+            <mat-option *ngFor="let v of uom" [value]="v.name">{{v.name}}</mat-option>
+
+          </mat-select>
+</mat-form-field>
+
+</div>
+<div fxLayout="row" fxLayoutAlign="start center" style="margin-top: 30px; margin-left: 120px;">
+          <!-- <mat-checkbox  style="margin-left: 200px;" formControlName="status" value="true">Status</mat-checkbox> -->
+          <mat-form-field appearance="outline">
+            <mat-label>Status</mat-label>
+          <mat-select formControlName="status" required>
+
+            <mat-option value="Active">Active</mat-option>
+            <mat-option value="InActive">InActive</mat-option>
+
+          </mat-select>
+</mat-form-field>
+</div>
+
+
+        </div>
+
+          <div fxLayout="row" fxLayoutAlign="end end" fxLayoutGap="20px">
+            <!-- <button mat-raised-button  color="primary" type='button'  (click)="createApprover()" *ngIf="isEditable && isNavigation " >Create Approver <mat-icon>forward</mat-icon></button> -->
+            <button mat-raised-button  color="primary" type='button'  (click)="addNewSupplier()"> <mat-icon>add</mat-icon> Add </button>
+          </div>
+          <div fxLayout="row" fxLayoutAlign="center center">
+          <mat-table  [dataSource]="dataSource" class="mat-elevation-z8" fxFlex >
+
+            <ng-container matColumnDef="sNo" >
+              <mat-header-cell fxLayoutAlign="center center" *matHeaderCellDef  class="TableHeader">S.No</mat-header-cell>
+              <mat-cell fxLayoutAlign="center center" *matCellDef="let element; let i = index;" class="TableDataCell" >
+                {{i+1}}
+              </mat-cell>
+            </ng-container>
+
+
+
+
+            <ng-container matColumnDef="state">
+              <mat-header-cell fxLayoutAlign="center center" *matHeaderCellDef  class="TableHeader">State</mat-header-cell>
+              <mat-cell *matCellDef="let element;let i = index" class="TableDataCell" [formGroup]="element" fxLayoutAlign="center center">
+
+                <mat-form-field appearance="outline">
+                  <mat-label>State</mat-label>
+                  <mat-select (selectionChange)="selectDiscomByState($event)" formControlName="state" required >
+                      <mat-option *ngFor="let item of stateValue" [value]="item.state">{{item.state}}</mat-option>
+                  </mat-select>
+
+                </mat-form-field>
+
+            </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="discom">
+              <mat-header-cell fxLayoutAlign="center center" *matHeaderCellDef  class="TableHeader">Discom</mat-header-cell>
+              <mat-cell *matCellDef="let element;let i = index" class="TableDataCell" [formGroup]="element" fxLayoutAlign="center center">
+
+                <mat-form-field appearance="outline">
+                  <mat-label>Discom</mat-label>
+                  <mat-select (selectionChange)="selectDiscomByDiscom($event)" formControlName="discom" required>
+                      <mat-option *ngFor="let item of discomValue" [value]="item.discomCode">{{item.discomCode}}</mat-option>
+                  </mat-select>
+
+                </mat-form-field>
+            </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="city">
+              <mat-header-cell fxLayoutAlign="center center" *matHeaderCellDef  class="TableHeader">City</mat-header-cell>
+              <mat-cell *matCellDef="let element;let i = index" class="TableDataCell" [formGroup]="element" fxLayoutAlign="center center">
+
+            <mat-form-field appearance="outline">
+            <mat-label>City</mat-label>
+            <mat-select formControlName="city" required>
+              <mat-option *ngFor="let item of cityValue" [value]="item.shortCode">{{item.shortCode}}</mat-option>
+          </mat-select>
+
+          </mat-form-field>
+            </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="action">
+
+              <mat-header-cell fxLayoutAlign="center center" *matHeaderCellDef  class="TableHeader">Action</mat-header-cell>
+              <mat-cell fxLayoutAlign="center center" *matCellDef="let element;let i = index" class="TableDataCell" [formGroup]="element">
+                <button mat-raised-button type="button" color="warn" (click)="removeSupplier(DeletePair)" title="Remove Warehouse"><mat-icon>delete_forever</mat-icon></button>
+                <input hidden matInput  #DeletePair formControlName="id"  >
+              </mat-cell>
+
+            </ng-container>
+            <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true" ></mat-header-row>
+            <!-- <mat-row
+              matRipple
+              *matRowDef="let row; columns: displayedColumns"
+              (click)="showDetails(row)">
+            </mat-row> -->
+            <mat-row
+              matRipple
+              *matRowDef="let row; columns: displayedColumns;let i = index"
+            ></mat-row>
+          </mat-table>
+
+      </div>
+
+
+
+
+      <mat-card-actions fxLayout="row" fxLayoutAlign="center start" >
+
+        <button mat-raised-button type="submit" (click)="backToList()" color="primary" dir="rtl" fxFlex="10">Cancel</button>
+        <button mat-raised-button type="submit" color="primary" dir="rtl"  fxFlex="10">Save</button>
+    </mat-card-actions>
+    </mat-card>
+
+  </form>

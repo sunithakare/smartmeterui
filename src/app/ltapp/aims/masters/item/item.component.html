@@ -1,0 +1,106 @@
+<div class="mat-typography" fxLayout="center center">
+  <h1>ITEM MODEL NAME</h1>
+</div>
+
+<mat-tab-group mat-stretch-tabs color="primary" [(selectedIndex)]="selectedIndex" #tabGroup class="mat-elevation-z8">
+  <mat-tab label="List" style="border-right: 2px outset  rgba(1,75,136,0.27);">
+    <ng-template matTabContent>
+      <mat-accordion>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Table Filter
+            </mat-panel-title>
+            <mat-panel-description>
+              Expand Table Filter
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <ng-template matExpansionPanelContent>
+            <div fxLayout="row" fxLayoutAlign="center">
+              <mat-form-field appearance="fill" style="margin-left: 10px;">
+                <mat-label>ITEM NAME</mat-label>
+                <input matInput="text" [(ngModel)]="iteamModelNameSearch">
+              </mat-form-field>
+              <button mat-stroked-button color="primary" style="margin-left: 10px;" (click)="filterItemModelName()"><mat-icon>search</mat-icon></button>
+            </div>
+          </ng-template>
+        </mat-expansion-panel>
+      </mat-accordion>
+      <div fxLayout="column">
+        <mat-table matSort [dataSource]="dataSource" class="mat-elevation-z8">
+          <ng-container matColumnDef="itemGroup">
+            <mat-header-cell *matHeaderCellDef mat-sort-header class="TableHeader">Group</mat-header-cell>
+            <mat-cell *matCellDef="let element" class="TableDataCell">{{element["itemGroup"]}}</mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="itemCategory">
+            <mat-header-cell *matHeaderCellDef mat-sort-header class="TableHeader">Item Category</mat-header-cell>
+            <mat-cell *matCellDef="let element" class="TableDataCell">{{element["itemCategory"]}}</mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="supplier">
+            <mat-header-cell *matHeaderCellDef mat-sort-header class="TableHeader">Supplier</mat-header-cell>
+            <mat-cell *matCellDef="let element" class="TableDataCell">{{element["supplier"]}}</mat-cell>
+          </ng-container>
+          
+          <ng-container matColumnDef="itemModelName">
+            <mat-header-cell *matHeaderCellDef mat-sort-header class="TableHeader">Item Model Name</mat-header-cell>
+            <mat-cell *matCellDef="let element" class="TableDataCell">{{element["itemModelName"]}}</mat-cell>
+          </ng-container>
+         
+          
+          <ng-container matColumnDef="id">
+            <mat-header-cell *matHeaderCellDef mat-sort-header class="TableHeader">Iitem Model Code</mat-header-cell>
+            <mat-cell *matCellDef="let element" class="TableDataCell">{{element["id"]}}</mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="uom">
+            <mat-header-cell *matHeaderCellDef mat-sort-header class="TableHeader">UOM</mat-header-cell>
+            <mat-cell *matCellDef="let element" class="TableDataCell">{{element["uom"]}}</mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="itemHsn">
+            <mat-header-cell *matHeaderCellDef mat-sort-header class="TableHeader">Item HSN</mat-header-cell>
+            <mat-cell *matCellDef="let element" class="TableDataCell">{{element["itemHsn"]}}</mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="warrantyMonth">
+            <mat-header-cell *matHeaderCellDef mat-sort-header class="TableHeader">Warrenty Month</mat-header-cell>
+            <mat-cell *matCellDef="let element" class="TableDataCell">{{element["warrantyMonth"]}}</mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="remarks">
+            <mat-header-cell *matHeaderCellDef mat-sort-header class="TableHeader">Remark</mat-header-cell>
+            <mat-cell *matCellDef="let element" class="TableDataCell">{{element["remarks"]}}</mat-cell>
+          </ng-container>
+          
+          <mat-header-row *matHeaderRowDef="displayedColumns;"></mat-header-row>
+          <mat-row matRipple
+          (click)='navToDetails(row)'
+          *matRowDef="let row; columns: displayedColumns"
+         
+          ></mat-row>
+        </mat-table>
+        <mat-paginator
+                  #paginatorRef
+                  [length]="totalRows"
+                  [pageSize]="pageSize"
+                  [pageIndex]="currentPage"
+                  [pageSizeOptions]="pageSizeOptions"
+                  showFirstLastButtons
+                  (page)="onChangePage($event)"
+                  aria-label="Select page"
+                ></mat-paginator>
+      </div>
+    </ng-template>
+  </mat-tab>
+  <mat-tab label="Details">
+   <app-item-details  [itemData]="itemData" (dataSaved)="loadListTab()" [isNavigation]="isNavigation"></app-item-details>
+  </mat-tab>
+  </mat-tab-group>
+  <div class="overlay" *ngIf="spinner">
+  <div class="spinner">
+    <mat-progress-spinner diameter="50" mode="indeterminate" color="accent">
+
+    </mat-progress-spinner>
+  </div>
+  </div>
+  <div style="z-index:2; position : fixed;bottom : 5%;left: 95%; margin-bottom : 1%;" *ngIf="selectedIndex==0">
+  <button mat-fab color="primary" (click)="addNewItem()" *ngIf="isDetailsEditable" title="Add New Item Model">
+  <mat-icon>add</mat-icon>
+  </button>
+  </div>

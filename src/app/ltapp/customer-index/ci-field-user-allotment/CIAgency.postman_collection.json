@@ -1,0 +1,831 @@
+{
+	"info": {
+		"_postman_id": "61124ec4-f46d-4840-aabe-966b48ae8726",
+		"name": "CIAgency",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "fetchAgencyByFilter",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var headerVal =  pm.cookies.get(\"XSRF-TOKEN\"); \r",
+							"console.log(\"headerVal:::\"+headerVal);\r",
+							"pm.environment.set(\"XSRF-TOKEN\", headerVal);\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{JWTTOKEN}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-XSRF-TOKEN",
+						"value": "{{XSRF-TOKEN}}",
+						"type": "text"
+					},
+					{
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE URL}}/filelduserallotment/fetchAgencyByFilter?page=0&size=15&agency=AGENCY&fieldUser=fi",
+					"host": [
+						"{{BASE URL}}"
+					],
+					"path": [
+						"filelduserallotment",
+						"fetchAgencyByFilter"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "0"
+						},
+						{
+							"key": "size",
+							"value": "15"
+						},
+						{
+							"key": "agency",
+							"value": "AGENCY"
+						},
+						{
+							"key": "fieldUser",
+							"value": "fi"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "fetchFieldUserAllotment",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var headerVal =  pm.cookies.get(\"XSRF-TOKEN\"); \r",
+							"console.log(\"headerVal:::\"+headerVal);\r",
+							"pm.environment.set(\"XSRF-TOKEN\", headerVal);\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{JWTTOKEN}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-XSRF-TOKEN",
+						"value": "{{XSRF-TOKEN}}",
+						"type": "text"
+					},
+					{
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE URL}}/fieldUserAllotment/fetchFieldUserAllotment?page=0&size=15",
+					"host": [
+						"{{BASE URL}}"
+					],
+					"path": [
+						"fieldUserAllotment",
+						"fetchFieldUserAllotment"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "0"
+						},
+						{
+							"key": "size",
+							"value": "15"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "findCIAllotmentData",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var headerVal =  pm.cookies.get(\"XSRF-TOKEN\"); \r",
+							"console.log(\"headerVal:::\"+headerVal);\r",
+							"pm.environment.set(\"XSRF-TOKEN\", headerVal);\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{JWTTOKEN}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-XSRF-TOKEN",
+						"value": "{{XSRF-TOKEN}}",
+						"type": "text"
+					},
+					{
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE URL}}/findCIAllotmentData",
+					"host": [
+						"{{BASE URL}}"
+					],
+					"path": [
+						"findCIAllotmentData"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getDetailsByAgency",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var headerVal =  pm.cookies.get(\"XSRF-TOKEN\"); \r",
+							"console.log(\"headerVal:::\"+headerVal);\r",
+							"pm.environment.set(\"XSRF-TOKEN\", headerVal);\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{JWTTOKEN}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-XSRF-TOKEN",
+						"value": "{{XSRF-TOKEN}}",
+						"type": "text"
+					},
+					{
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE URL}}/fieldUserAllotment/getDetailsByFieldUser?fieldUser=FILEDUSER13",
+					"host": [
+						"{{BASE URL}}"
+					],
+					"path": [
+						"fieldUserAllotment",
+						"getDetailsByFieldUser"
+					],
+					"query": [
+						{
+							"key": "fieldUser",
+							"value": "FILEDUSER13"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getDataByMobAndUserId",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var headerVal =  pm.cookies.get(\"XSRF-TOKEN\"); \r",
+							"console.log(\"headerVal:::\"+headerVal);\r",
+							"pm.environment.set(\"XSRF-TOKEN\", headerVal);\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{JWTTOKEN}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-XSRF-TOKEN",
+						"value": "{{XSRF-TOKEN}}",
+						"type": "text"
+					},
+					{
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE URL}}/fieldUserAllotment/getDataByMobAndUserId?userId=1212",
+					"host": [
+						"{{BASE URL}}"
+					],
+					"path": [
+						"fieldUserAllotment",
+						"getDataByMobAndUserId"
+					],
+					"query": [
+						{
+							"key": "userId",
+							"value": "1212"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "filterCIAllotmentUserDetails",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var headerVal =  pm.cookies.get(\"XSRF-TOKEN\"); \r",
+							"console.log(\"headerVal:::\"+headerVal);\r",
+							"pm.environment.set(\"XSRF-TOKEN\", headerVal);\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{JWTTOKEN}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-XSRF-TOKEN",
+						"value": "{{XSRF-TOKEN}}",
+						"type": "text"
+					},
+					{
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE URL}}/filterCIAllotmentUserDetails?city=city&size=1&page=10",
+					"host": [
+						"{{BASE URL}}"
+					],
+					"path": [
+						"filterCIAllotmentUserDetails"
+					],
+					"query": [
+						{
+							"key": "city",
+							"value": "city"
+						},
+						{
+							"key": "size",
+							"value": "1"
+						},
+						{
+							"key": "page",
+							"value": "10"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getAllDatawithfilter",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var headerVal =  pm.cookies.get(\"XSRF-TOKEN\"); \r",
+							"console.log(\"headerVal:::\"+headerVal);\r",
+							"pm.environment.set(\"XSRF-TOKEN\", headerVal);\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{JWTTOKEN}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-XSRF-TOKEN",
+						"value": "{{XSRF-TOKEN}}",
+						"type": "text"
+					},
+					{
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE URL}}/fieldUserAllotment/getAllDatawithfilter?size=10&page=0&stateId=UP&discomId=DVVNL&city=ALIGARH&divisionId=EUDD IV ALIGARH&agency=AGENCY16&fieldUser=FILEDUSER14",
+					"host": [
+						"{{BASE URL}}"
+					],
+					"path": [
+						"fieldUserAllotment",
+						"getAllDatawithfilter"
+					],
+					"query": [
+						{
+							"key": "size",
+							"value": "10"
+						},
+						{
+							"key": "page",
+							"value": "0"
+						},
+						{
+							"key": "stateId",
+							"value": "UP"
+						},
+						{
+							"key": "discomId",
+							"value": "DVVNL"
+						},
+						{
+							"key": "city",
+							"value": "ALIGARH"
+						},
+						{
+							"key": "divisionId",
+							"value": "EUDD IV ALIGARH"
+						},
+						{
+							"key": "agency",
+							"value": "AGENCY16"
+						},
+						{
+							"key": "fieldUser",
+							"value": "FILEDUSER14"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "saveCIAllotmentData",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var headerVal =  pm.cookies.get(\"XSRF-TOKEN\"); \r",
+							"console.log(\"headerVal:::\"+headerVal);\r",
+							"pm.environment.set(\"XSRF-TOKEN\", headerVal);\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{JWTTOKEN}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-XSRF-TOKEN",
+						"value": "{{XSRF-TOKEN}}",
+						"type": "text"
+					},
+					{
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"allocationData\":\"allocationData1\",\r\n    \"city\":\"city1\",\r\n    \"state\":\"state1\",\r\n    \"divisionCounts\":7\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE URL}}/saveCIAllotmentData",
+					"host": [
+						"{{BASE URL}}"
+					],
+					"path": [
+						"saveCIAllotmentData"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "saveFieldUserAllotment",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var headerVal =  pm.cookies.get(\"XSRF-TOKEN\"); \r",
+							"console.log(\"headerVal:::\"+headerVal);\r",
+							"pm.environment.set(\"XSRF-TOKEN\", headerVal);\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{JWTTOKEN}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-XSRF-TOKEN",
+						"value": "{{XSRF-TOKEN}}",
+						"type": "text"
+					},
+					{
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"agency\":\"MI22\",\r\n\"fieldUser\":\"tttt\",\r\n\"mobileNbr\":30303030,\r\n\"divisionId\":\"div22\",\r\n\"allocationDatatype\":\"ci12\",\r\n\"allocationId\":\"fresh\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE URL}}/fieldUserAllotment/saveFieldUserAllotment",
+					"host": [
+						"{{BASE URL}}"
+					],
+					"path": [
+						"fieldUserAllotment",
+						"saveFieldUserAllotment"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateFieldUserAllotment",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var headerVal =  pm.cookies.get(\"XSRF-TOKEN\"); \r",
+							"console.log(\"headerVal:::\"+headerVal);\r",
+							"pm.environment.set(\"XSRF-TOKEN\", headerVal);\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{JWTTOKEN}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-XSRF-TOKEN",
+						"value": "{{XSRF-TOKEN}}",
+						"type": "text"
+					},
+					{
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"agency\":\"O&M22\",\r\n\"mobileNbr\":5555555555,\r\n\"divisionId\":\"div25\",\r\n\"allocationDatatype\":\"ci33\",\r\n\"allocationId\":\"reallocation\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE URL}}/fieldUserAllotment/updateFieldUserAllotment/jkl",
+					"host": [
+						"{{BASE URL}}"
+					],
+					"path": [
+						"fieldUserAllotment",
+						"updateFieldUserAllotment",
+						"jkl"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateCIAllotmentData",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var headerVal =  pm.cookies.get(\"XSRF-TOKEN\"); \r",
+							"console.log(\"headerVal:::\"+headerVal);\r",
+							"pm.environment.set(\"XSRF-TOKEN\", headerVal);\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{JWTTOKEN}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-XSRF-TOKEN",
+						"value": "{{XSRF-TOKEN}}",
+						"type": "text"
+					},
+					{
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\":25,\r\n    \"allocationData\":\"allocationData2\",\r\n    \"city\":\"city2\",\r\n    \"state\":\"state2\",\r\n    \"divisionCounts\":8,\r\n    \"allocation\":\"abc\",\r\n    \"divisionCode\":\"xyz\"\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE URL}}/updateCIAllotmentData",
+					"host": [
+						"{{BASE URL}}"
+					],
+					"path": [
+						"updateCIAllotmentData"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer"
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

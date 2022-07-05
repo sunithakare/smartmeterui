@@ -1,0 +1,94 @@
+
+
+<div class=" container pagebackground" fxFlexFill fxLayout='column' >
+  <mat-toolbar  color="primary" class="headerGradient" fxLayout="row " fxLayoutAlign="start center"   fxFlex="initial" >
+    <!-- <div fxShow="true" fxHide.gt-sm="true"> -->
+
+
+    <!-- <div>  <img fxFlexOffset="10"
+      mat-card-image
+      style="max-width: 250px"
+      src="../../assets/lntlogoNoBg.png"
+    /></div>   -->
+    <div (click)="sidenav.toggle()">  <img
+      style="max-width: 250px"
+      src="../../assets/lntlogoNoBg.png"
+    /></div>
+
+    <!-- <div  (click)="sidenav.toggle()" style="text-align: justify;"><mat-icon style="color: white;font-size:xx-large">menu</mat-icon></div> -->
+
+
+    <div fxFlex="80" fxFlexOffset="5"  fxHide.lt-md="true" class="customScroll" style="overflow-x: scroll;"  >
+      <!-- The following menu items will be hidden on both SM and XS screen sizes -->
+        <a routerLink="./slareports"  routerLinkActive="active" mat-button [matMenuTriggerFor]="belowMenu" style="color:black" class="custombutton">Menu Item 3</a>
+        <mat-menu #belowMenu="matMenu" yPosition="below">
+          <a mat-menu-item>Item 1</a>
+          <a mat-menu-item>Item 2</a>
+        </mat-menu>
+       <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
+
+        <ng-container  *ngFor="let menu of topMenuList" >
+          <mat-button-toggle  routerLink="./{{menu.pageLink}}" routerLinkActive="active" mat-button style="color:black">{{menu.label}}</mat-button-toggle>
+        </ng-container>
+        <mat-button-toggle  routerLink="./slareports" routerLinkActive="active" mat-button style="color:black" class="custombutton">Menu Item 4</mat-button-toggle>
+        <mat-button-toggle  routerLink="./slareports" routerLinkActive="active" mat-button style="color:black" class="custombutton">Menu Item 5</mat-button-toggle>
+        <mat-button-toggle  routerLink="./slareports"  routerLinkActive="active" mat-button [matMenuTriggerFor]="belowMenu" style="color:black" class="custombutton">Menu Item 3
+          <mat-menu #belowMenu="matMenu" yPosition="below">
+            <button mat-menu-item>Item 1</button>
+            <button mat-menu-item>Item 2</button>
+          </mat-menu>
+        </mat-button-toggle>
+      </mat-button-toggle-group>
+
+
+    </div>
+
+    <div  fxFlexAlign="right" fxFlexOffset="2" fxFlexOffset.md="5" fxFlexOffset.sm="40" fxFlexOffset.xs="30">
+      <!-- The following menu items will be hidden on both SM and XS screen sizes -->
+      <a   routerLink="/login" routerLinkActive="active"   mat-button mat-raised-button color="warn">Logout</a>
+    </div>
+
+
+  </mat-toolbar>
+
+  <mat-sidenav-container fxFlex >
+    <!-- <mat-sidenav #sidenav mode="side" opened [fixedInViewport]="true" [fixedTopGap]="40"
+    [fixedBottomGap]="40"  fxLayout="column"  style="height: 100; width: 200px; display: inline-block;"> -->
+      <mat-sidenav #sidenav mode="side" opened  class="mat-elevation-z8" fxLayout="column"  style="height: 100;  display: inline-block; margin-top: 1%;margin-bottom: 1%;border-radius: 20px;color:#117692;
+      background-color: #efc27b;
+      ">
+
+      <div fxLayout="column" fxLayoutAlign="end end">
+        <a (click)="sidenav.toggle()"  mat-button style="color: red;"><mat-icon>close</mat-icon></a>
+        </div>
+      <!-- <div fxLayout="column" fxLayoutAlign="start start"> -->
+
+		<mat-nav-list fxLayout="column" fxLayoutAlign="start start">
+      <ng-container  *ngFor="let menu of sideMenuList" >
+        <a mat-button style="width: 100%;text-align: left;font-size: large;" (click)="changeHeader(menu)">{{menu.label}} <mat-divider></mat-divider></a>
+
+      </ng-container>
+
+        <!-- <a href="#" mat-button style="width: 100%;">Menu Item 2</a>
+        <a href="#" mat-button style="width: 100%;">Menu Item 3</a> -->
+    </mat-nav-list>
+    </mat-sidenav>
+
+    <mat-sidenav-content >
+      <!-- <div class="container" fxLayout="column" fxLayout.md="row" fxLayoutGap="20px">
+        <div class="cardWrap" fxLayout.lt-md="column" fxLayout.md="column"  fxLayout="row" fxFlex.md="50" fxLayoutAligmnet="space-between center" fxLayoutGap="20px" >
+          <div fxFlex.lt-md="100" fxFlex="35" >Card</div>
+          <div fxFlex.lt-md="100" fxFlex="35" >Card</div>
+          <div fxFlex.lt-md="100" fxFlex="35" >Card</div>
+        </div>
+        <div class="cardWrap" fxLayout.lt-md="column" fxLayout.md="column" fxLayout="row" fxFlex.md="50" fxLayoutAligmnet="space-between center" fxLayoutGap="20px" >
+          <div fxFlex.lt-md="100" fxFlex="35" >Card</div>
+          <div fxFlex.lt-md="100" fxFlex="35" >Card</div>
+          <div fxFlex.lt-md="100" fxFlex="35" >Card</div>
+        </div>
+      </div> -->
+
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+
+</div>

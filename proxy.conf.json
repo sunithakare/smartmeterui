@@ -1,0 +1,145 @@
+{
+  "/authenticate": {
+    "target": "http://localhost:8080",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true
+  },
+  "/logout": {
+    "target": "http://localhost:8080",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true
+  },
+  "/sladashboard/*": {
+    "target": "http://localhost:8080",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true
+  },
+  "/access/*": {
+    "target": "http://localhost:8080",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true
+  },
+  "/roles/*": {
+    "target": "http://localhost:8080",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true
+  },
+  "/user/*": {
+    "target": "http://localhost:8080",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true
+  },
+  "/common/*": {
+    "target": "http://localhost:8080",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true
+  },
+  "/approval/*": {
+    "target": "http://localhost:8080",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true
+  },
+  "/uam/*": {
+    "target": "http://localhost:8080",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true
+  },
+
+  "/fieldUserCreation/*": {
+    "target": "http://localhost:8080",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true
+  },
+
+  "/fieldUserAllotment/*": {
+    "target": "http://localhost:8080",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true
+  },
+
+  "/agencyCreation/*": {
+    "target": "http://localhost:8080",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true
+  },
+
+  "/CIAgencyAlotment/*": {
+    "target": "http://localhost:8080",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true
+  },
+
+  "/file/*": {
+    "target": "http://localhost:8080",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true
+  },
+  "/inventory/*": {
+    "target": "http://localhost:8080",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true
+  },
+  "/inventoryMasters/*": {
+    "target": "http://localhost:8080",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true
+  },
+  "/supplier/*": {
+    "target": "http://localhost:8080",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true
+  },
+  "/itemModelName/*": {
+    "target": "http://localhost:8080",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true
+  },
+  "/itemCategory/*": {
+    "target": "http://localhost:8080",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true
+  },
+  "/itemGroup/*": {
+    "target": "http://localhost:8080",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true
+  },
+  "/warehouse/*": {
+    "target": "http://localhost:8080",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true
+  },
+  "/indent/*": {
+    "target": "http://localhost:8080",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true
+  },
+  "/approver/*": {
+    "target": "http://localhost:8080",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true
+  }
+}

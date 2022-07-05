@@ -1,0 +1,532 @@
+
+
+<ng-container *ngIf="!showFinalForm">
+  <app-register-header heading="User Registration"></app-register-header>
+<mat-stepper orientation="vertical" [linear]="false" #stepper fxFlexFill>
+  <mat-step [stepControl]="userdetails" label="User Details" style="height: 100%;">
+    <form [formGroup]="userdetails" autocomplete="off">
+      <mat-card>
+            <div fxLayout="row" fxLayoutAlign="space-around center">
+                <mat-form-field appearance="fill">
+                  <mat-label>Salutation</mat-label>
+                  <input type="text" matInput formControlName="salutation" />
+                  <mat-error
+                    *ngIf="userdetails.controls['salutation'].hasError('required')"
+                  >
+                  Salutation is <strong>required</strong>
+                  </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="fill">
+                  <mat-label>First Name</mat-label>
+                  <input type="text" matInput formControlName="firstName" />
+                  <mat-error
+                    *ngIf="userdetails.controls['firstName'].hasError('required')"
+                  >
+                    First Name is <strong>required</strong>
+                  </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="fill">
+                  <mat-label>Last Name</mat-label>
+                  <input type="text" matInput formControlName="lastName" />
+                  <mat-error
+                    *ngIf="userdetails.controls['lastName'].hasError('required')"
+                  >
+                    Last Name is <strong>required</strong>
+                  </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="fill">
+                  <mat-label>Email</mat-label>
+                  <input type="text" matInput formControlName="email" />
+                  <mat-error
+                    *ngIf="userdetails.controls['email'].hasError('required')"
+                  >
+                    Email is <strong>required</strong>
+                  </mat-error>
+                  <mat-error
+                    *ngIf="userdetails.controls['email'].hasError('email')"
+                  >
+                    Email is <strong>Invalid</strong>
+                  </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="fill">
+                  <mat-label>Mobile No</mat-label>
+                  <input type="text" matInput formControlName="mobileNo" />
+                  <mat-error
+                    *ngIf="userdetails.controls['mobileNo'].hasError('required')"
+                  >
+                  Mobile No is <strong>required</strong>
+                  </mat-error>
+                  <mat-error
+                    *ngIf="userdetails.controls['mobileNo'].hasError('pattern')"
+                  >
+                  Mobile No is <strong>Invalid</strong>
+                  </mat-error>
+                </mat-form-field>
+            </div>
+
+
+            <mat-card-actions fxLayout="row" fxLayoutAlign="end start">
+              <button mat-raised-button type="button" color="primary" dir="rtl" fxFlexOffset="5" fxFlex="5" matStepperNext>Next</button>
+
+            </mat-card-actions>
+
+      </mat-card>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="employmentDetails" label="Employment Details">
+    <form [formGroup]="employmentDetails" autocomplete="off">
+      <mat-card>
+        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="20px">
+
+          <mat-form-field appearance="fill">
+            <mat-label>Employee Id</mat-label>
+            <input type="text" matInput formControlName="employeeId" />
+            <mat-error
+              *ngIf="employmentDetails.controls['employeeId'].hasError('required')"
+            >
+            Employee Id is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+            <mat-label>Designation</mat-label>
+            <input type="text" matInput formControlName="designation" />
+            <mat-error
+              *ngIf="employmentDetails.controls['designation'].hasError('required')"
+            >
+            Designation is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+
+
+          <mat-form-field appearance="fill">
+            <mat-label>Department</mat-label>
+            <input type="text" matInput formControlName="department" />
+            <mat-error
+              *ngIf="employmentDetails.controls['department'].hasError('required')"
+            >
+            Department is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+
+        </div>
+
+        <mat-card-actions fxLayout="row" fxLayoutAlign="end start">
+          <button mat-raised-button type="button" color="primary" dir="rtl" fxFlexOffset="5" fxFlex="5" matStepperPrevious>Back</button>
+          <button mat-raised-button type="button" color="primary" dir="rtl" fxFlexOffset="5" fxFlex="5" matStepperNext>Next</button>
+
+        </mat-card-actions>
+
+      </mat-card>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="locationDetails" label="Location Details">
+    <form [formGroup]="locationDetails" autocomplete="off">
+      <mat-card>
+        <div fxLayout="row" fxLayoutAlign="space-around  center">
+        <div fxLayout="column" fxLayoutAlign="space-around  center">
+
+          <mat-form-field appearance="fill">
+            <mat-label>Discom Name</mat-label>
+            <!-- <input type="text" matInput formControlName="discomName" /> -->
+
+            <mat-select formControlName="discomName"  required (selectionChange)="fetchDiscomCity($event)" >
+              <mat-option *ngFor="let item of discomList" [value]="item.shortCode">{{item.shortDescription}}</mat-option>
+            </mat-select>
+
+            <mat-error
+              *ngIf="locationDetails.controls['discomName'].hasError('required')"
+            >
+              Discom Name is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+            <mat-label>City</mat-label>
+            <!-- <input type="text" matInput formControlName="city" /> -->
+            <mat-select formControlName="city"  required (selectionChange)="fetchCityZone($event)" >
+              <mat-option *ngFor="let item of cityList" [value]="item.shortCode">{{item.shortDescription}}</mat-option>
+            </mat-select>
+
+            <mat-error
+              *ngIf="locationDetails.controls['city'].hasError('required')"
+            >
+              City is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+            <mat-label>Zone</mat-label>
+            <!-- <input type="text" matInput formControlName="zoneList" /> -->
+            <mat-select formControlName="zone"   (selectionChange)="fetchZoneCircle($event)" >
+              <mat-option *ngFor="let item of zoneList" [value]="item.shortCode">{{item.shortDescription}}</mat-option>
+            </mat-select>
+
+            <mat-error
+              *ngIf="locationDetails.controls['zone'].hasError('required')"
+            >
+              Zone is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+
+</div>
+
+<div fxLayout="column" fxLayoutAlign="space-around  center">
+          <mat-form-field appearance="fill">
+            <mat-label>Circle</mat-label>
+            <!-- <input type="text" matInput formControlName="circle" /> -->
+            <mat-select formControlName="circle"   (selectionChange)="fetchCircleDivision($event)" >
+              <mat-option *ngFor="let item of circleList" [value]="item.shortCode">{{item.shortDescription}}</mat-option>
+            </mat-select>
+            <mat-error
+              *ngIf="locationDetails.controls['circle'].hasError('required')"
+            >
+              Circle is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+            <mat-label>Division</mat-label>
+            <!-- <input type="text" matInput formControlName="division" /> -->
+            <mat-select formControlName="division"   (selectionChange)="fetchDivisionSubDivision($event)" >
+              <mat-option *ngFor="let item of divisionList" [value]="item.shortCode">{{item.shortDescription}}</mat-option>
+            </mat-select>
+            <mat-error
+              *ngIf="locationDetails.controls['division'].hasError('required')"
+            >
+            Division is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+            <mat-label>Sub-Division</mat-label>
+            <!-- <input type="text" matInput formControlName="subdivision" /> -->
+            <mat-select formControlName="subdivision"    >
+              <mat-option *ngFor="let item of subDivisionList" [value]="item.shortCode">{{item.shortDescription}}</mat-option>
+            </mat-select>
+            <mat-error
+              *ngIf="locationDetails.controls['subdivision'].hasError('required')"
+            >
+            Sub-Division is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+
+        </div>
+        </div>
+
+        <mat-card-actions fxLayout="row" fxLayoutAlign="end start">
+          <button mat-raised-button type="button" color="primary" dir="rtl" fxFlexOffset="5" fxFlex="5" matStepperPrevious>Back</button>
+          <button mat-raised-button type="button" color="primary" dir="rtl" fxFlexOffset="5" fxFlex="5" matStepperNext>Next</button>
+
+        </mat-card-actions>
+      </mat-card>
+    </form>
+  </mat-step>
+
+
+  <mat-step [stepControl]="applicationDetails" label="Request Details">
+    <form [formGroup]="applicationDetails" autocomplete="off">
+      <mat-card fxLayout="column" fxFlex>
+        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="20px">
+
+          <mat-form-field  appearance="fill">
+            <mat-label>User Type</mat-label>
+              <mat-select formControlName="userType"  required  >
+              <mat-option *ngFor="let item of userTypeList" [value]="item.shortCode">{{item.shortDescription}}</mat-option>
+            </mat-select>
+            <mat-error
+              *ngIf="applicationDetails.controls['userType'].hasError('required')"
+            >
+            User Type is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field  appearance="fill">
+            <mat-label>Request For</mat-label>
+              <mat-select formControlName="requestFor"  required  >
+              <mat-option *ngFor="let item of requestForList" [value]="item.shortCode">{{item.shortDescription}}</mat-option>
+            </mat-select>
+            <mat-error
+              *ngIf="applicationDetails.controls['requestFor'].hasError('required')"
+            >
+            Request For is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+            <mat-label>Existing VPN User Name</mat-label>
+            <input type="text" matInput formControlName="existingVPNName" />
+            <mat-error
+              *ngIf="applicationDetails.controls['existingVPNName'].hasError('required')"
+            >
+            VPN User Name is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="20px" fxFlex>
+          <mat-form-field  appearance="fill">
+            <mat-label>State</mat-label>
+              <mat-select formControlName="state"  required  (selectionChange)="fetchDiscomInState($event)"  >
+              <mat-option *ngFor="let item of allStatesList" [value]="item.shortCode">{{item.shortDescription}}</mat-option>
+            </mat-select>
+            <mat-error
+              *ngIf="applicationDetails.controls['userType'].hasError('required')"
+            >
+            State is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="20px" fxFlex>
+          <mat-form-field  appearance="fill" fxFlex="40">
+            <mat-label>Discoms</mat-label>
+            <mat-chip-list #chipList aria-label="Discom  selection" multiple
+            formControlName="discomList">
+              <mat-chip
+                *ngFor="let state of selectedDiscoms"
+                (removed)="removeDiscom(state)">
+                {{state.shortDescription}}
+                <button matChipRemove>
+                  <mat-icon>cancel</mat-icon>
+                </button>
+              </mat-chip>
+              <input
+                placeholder="New Discom..."
+                #discomInput
+                [matAutocomplete]="auto"
+                [matChipInputFor]="chipList"
+                [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                [formControl]="stateInputcontrol"
+                >
+                <!--
+                (matChipInputTokenEnd)="addState($event)"> -->
+            </mat-chip-list>
+            <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selectedDiscom($event)">
+              <mat-option *ngFor="let state of filteredDiscom | async" [value]="state">
+                {{state.shortDescription}}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+        </div>
+        <mat-card-actions fxLayout="row" fxLayoutAlign="end start">
+          <button mat-raised-button type="button" color="primary" dir="rtl" fxFlexOffset="5" fxFlex="5" matStepperPrevious>Back</button>
+          <button mat-raised-button type="button" color="primary" dir="rtl" fxFlexOffset="5" fxFlex="5" matStepperNext>Next</button>
+
+        </mat-card-actions>
+
+      </mat-card>
+    </form>
+  </mat-step>
+
+
+  <mat-step [stepControl]="applicationAccess" label="Application Access">
+      <mat-card fxLayout="column" fxFlex>
+        <div fxLayout="row" fxLayoutAlign="end end" fxLayoutGap="20px">
+          <button mat-raised-button  color="primary" type='button'  (click)="addCustomApplication()">Add Custom Application</button>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="20px">
+          <mat-table [dataSource]="appAccessDataSource" class="mat-elevation-z8" fxFlex >
+            <!-- <ng-container [matColumnDef]="column" *ngFor="let column of displayedColumns">
+          <mat-header-cell *matHeaderCellDef > {{column}} </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element[column]}} </mat-cell>
+        </ng-container> -->
+            <ng-container matColumnDef="sNo" >
+              <mat-header-cell fxLayoutAlign="center center" *matHeaderCellDef  class="TableHeader">S.No</mat-header-cell>
+              <mat-cell fxLayoutAlign="center center" *matCellDef="let element; let i = index;" class="TableDataCell" >
+                {{i+1}}
+              </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="applciationName">
+              <mat-header-cell fxLayoutAlign="center center" *matHeaderCellDef  class="TableHeader">Application Name</mat-header-cell>
+              <mat-cell  fxLayoutAlign="center center" *matCellDef="let element; let i = index;" class="TableDataCell" [formGroup]="element">
+
+               <!-- <mat-select formControlName="state" (selectionChange)="fetchPermissions($event)"  required> -->
+                <mat-form-field  appearance="fill">
+                  <input matInput placeholder="Application Name" formControlName="applicationName" >
+                </mat-form-field>
+            <!-- <mat-form-field  appearance="fill">
+              <mat-label>State</mat-label>
+
+                <mat-select formControlName="state"  required (selectionChange)="getDiscomDataForStateChange($event,i)" >
+
+                <mat-option *ngFor="let item of discomList" [value]="item.state">{{item.state}}</mat-option>
+              </mat-select>
+            </mat-form-field> -->
+              </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="accesType">
+              <mat-header-cell fxLayoutAlign="center center" *matHeaderCellDef  class="TableHeader">Access Type</mat-header-cell>
+              <mat-cell *matCellDef="let element;let i = index" class="TableDataCell" [formGroup]="element" fxLayoutAlign="center center">
+
+                <mat-form-field  appearance="fill">
+                  <mat-select formControlName="accesType"  required  [disabled]="!element.getRawValue().isRequired">
+
+                    <mat-option  value="ADMIN">ADMIN</mat-option>
+                    <mat-option  value="MANAGER">MANAGER</mat-option>
+                    <mat-option  value="VIEWER">VIEWER</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="remarks">
+              <mat-header-cell fxLayoutAlign="center center" *matHeaderCellDef  class="TableHeader">Remarks</mat-header-cell>
+              <mat-cell  fxLayoutAlign="center center" *matCellDef="let element; let i = index;" class="TableDataCell" [formGroup]="element">
+                <mat-form-field  appearance="fill" >
+                  <textarea matInput placeholder="Reamrks" formControlName="remarks" [readonly]="!element.getRawValue().isRequired" ></textarea>
+                </mat-form-field>
+              </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="range">
+
+              <mat-header-cell fxLayoutAlign="center center" *matHeaderCellDef  class="TableHeader">Range</mat-header-cell>
+              <mat-cell fxLayoutAlign="center center" *matCellDef="let element;let i = index" class="TableDataCell" [formGroup]="element">
+                <!-- <mat-date-range-input  [rangePicker]="picker" [min]="minDate"> -->
+                  <mat-form-field appearance="fill">
+                <mat-date-range-input  [rangePicker]="picker" [min]="minDate" [hidden]="!element.controls['isRequired'].value" >
+                  <input matStartDate formControlName="start" placeholder="Start date" [disabled]="!element.getRawValue().isRequired">
+                  <input matEndDate formControlName="end" placeholder="End date" [disabled]="!element.getRawValue().isRequired">
+
+                </mat-date-range-input>
+              </mat-form-field>
+                <mat-error *ngIf="element.controls['start'].hasError('matDatepickerMin')">
+                  Check Date Range
+                </mat-error>
+                <mat-error *ngIf="element.controls['end'].hasError('matDatepickerMin')">
+                  Check Date Range
+                </mat-error>
+
+                <mat-datepicker-toggle matSuffix [for]="picker" ></mat-datepicker-toggle>
+                <mat-date-range-picker #picker></mat-date-range-picker>
+              </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="action">
+
+              <mat-header-cell fxLayoutAlign="center center" *matHeaderCellDef  class="TableHeader">Required</mat-header-cell>
+              <mat-cell fxLayoutAlign="center center" *matCellDef="let element;let i = index" class="TableDataCell" [formGroup]="element">
+                <!-- <mat-checkbox  color="primary"   formControlName="isRequired" (change)="appRequiredChanged($event,element.getRawValue().applicationName)" [disabled]="element.getRawValue().applicationName==''"></mat-checkbox> -->
+                <mat-checkbox  color="primary"   formControlName="isRequired"  [disabled]="element.getRawValue().applicationName==''"></mat-checkbox>
+              </mat-cell>
+
+            </ng-container>
+            <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true" ></mat-header-row>
+            <!-- <mat-row
+              matRipple
+              *matRowDef="let row; columns: displayedColumns"
+              (click)="showDetails(row)">
+            </mat-row> -->
+            <mat-row
+              matRipple
+              *matRowDef="let row; columns: displayedColumns;let i = index"
+            ></mat-row>
+          </mat-table>
+        </div>
+
+        <mat-card-actions fxLayout="row" fxLayoutAlign="end start">
+          <button mat-raised-button type="button" color="primary" dir="rtl" fxFlexOffset="5" fxFlex="5" matStepperPrevious>Back</button>
+          <button mat-raised-button type="button" color="primary" dir="rtl" fxFlexOffset="5" fxFlex="5" matStepperNext>Next</button>
+
+        </mat-card-actions>
+
+      </mat-card>
+  </mat-step>
+  <!-- <mat-step [stepControl]="VPNDetails" label="VPN Details" *ngIf="VPNDetails.enabled"> -->
+  <mat-step [stepControl]="VPNDetails" label="VPN Details" >
+    <form [formGroup]="VPNDetails" autocomplete="off">
+      <mat-card>
+        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="20px">
+
+          <mat-form-field appearance="fill">
+            <mat-label>LAN MAC Address</mat-label>
+            <input type="text" matInput formControlName="lanMACAddress" />
+            <mat-error
+              *ngIf="VPNDetails.controls['lanMACAddress'].hasError('required')"
+            >
+            MAC Address is <strong>required</strong>
+            </mat-error>
+            <mat-error
+              *ngIf="VPNDetails.controls['lanMACAddress'].hasError('pattern')"
+            >
+            MAC Address is <strong>Invalid</strong>
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Wifi MAC Address</mat-label>
+            <input type="text" matInput formControlName="wifiMACAddress" />
+            <mat-error
+              *ngIf="VPNDetails.controls['wifiMACAddress'].hasError('required')"
+            >
+            MAC Address is <strong>required</strong>
+            </mat-error>
+            <mat-error
+              *ngIf="VPNDetails.controls['wifiMACAddress'].hasError('pattern')"
+            >
+            MAC Address is <strong>Invalid</strong>
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+            <mat-label>VPN Access From India</mat-label>
+            <mat-select formControlName="vpnAccessFromIndia"  required (selectionChange)="vpnCountryChange($event)" >
+
+              <mat-option  value="Yes">Yes</mat-option>
+              <mat-option  value="No">No</mat-option>
+            </mat-select>
+            <mat-error
+              *ngIf="VPNDetails.controls['vpnAccessFromIndia'].hasError('required')"
+            >
+            VPN Access From India is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+
+
+          <mat-form-field appearance="fill">
+            <mat-label>Country Name</mat-label>
+            <input type="text" matInput formControlName="countryName" />
+            <mat-error
+              *ngIf="VPNDetails.controls['countryName'].hasError('required')"
+            >
+            Country Name is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+
+        </div>
+
+        <mat-card-actions fxLayout="row" fxLayoutAlign="end start">
+          <button mat-raised-button type="button" color="primary" dir="rtl" fxFlexOffset="5" fxFlex="5" matStepperPrevious>Back</button>
+          <button mat-raised-button type="button" color="primary" dir="rtl" fxFlexOffset="5" fxFlex="5" matStepperNext>Next</button>
+
+        </mat-card-actions>
+
+      </mat-card>
+    </form>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>Verify</ng-template>
+    <p>Verify Form Data</p>
+    <div>
+      <button  mat-raised-button type="button" color="primary" dir="rtl" fxFlexOffset="5" fxFlex="5" matStepperPrevious>Back</button>
+      <button  mat-raised-button type="button" color="primary" dir="rtl" fxFlexOffset="5"  (click)="showForm()">View Form</button>
+    </div>
+  </mat-step>
+</mat-stepper>
+
+<div class="overlay" *ngIf="spinner">
+  <div class="spinner">
+      <mat-progress-spinner diameter=50
+                          mode="indeterminate"
+                color="accent">
+    </mat-progress-spinner>
+  </div>
+  </div>
+</ng-container>
+
+
+<ng-container *ngIf="showFinalForm">
+  <app-view-form-before-submit [finalForm]="objectToPass" (editForm)="editForm($event)"></app-view-form-before-submit>
+</ng-container>
+

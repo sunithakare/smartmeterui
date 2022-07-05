@@ -1,0 +1,931 @@
+<div fxLayout="column" class="mat-body-2" id="content1">
+  <div fxLayout="row" fxLayoutAlign="center center">
+    <h1 align="center" style="font-weight: 500" fxFlex>
+      Reference Id :{{ refId }}
+    </h1>
+    <button
+      mat-mini-fab
+      color="primary"
+      (click)="savePDF()"
+      dir="rtl"
+      fxFlexOffset="80px"
+    >
+      <mat-icon>print</mat-icon>
+    </button>
+  </div>
+  <form
+    [formGroup]="userdetails"
+    autocomplete="off"
+    fxLayoutAlign="start center"
+    fxFlex
+  >
+    <mat-card fxFlex>
+      <!-- <mat-card-subtitle  style="color: white; background-color: #014b88;">User Details</mat-card-subtitle> -->
+      <mat-card-title style="color: white; background-color: #014b88"
+        ><h4 style="margin-left: 10px">User Details</h4></mat-card-title
+      >
+      <div fxLayout="row" fxLayoutAlign="start center">
+        <div fxLayout="column" fxLayoutAlign="start start">
+          <mat-label>Salutation</mat-label>
+          <mat-form-field appearance="outline">
+            <input type="text" matInput formControlName="salutation" />
+          </mat-form-field>
+        </div>
+
+        <div fxLayout="column" fxLayoutAlign="start start">
+          <mat-label>First Name</mat-label>
+          <mat-form-field appearance="outline">
+            <input type="text" matInput formControlName="firstName" />
+          </mat-form-field>
+        </div>
+
+        <div fxLayout="column" fxLayoutAlign="start start">
+          <mat-label>Last Name</mat-label>
+          <mat-form-field appearance="outline">
+            <input type="text" matInput formControlName="lastName" />
+          </mat-form-field>
+        </div>
+
+        <div fxLayout="column" fxLayoutAlign="start start">
+          <mat-label>Email</mat-label>
+          <mat-form-field appearance="outline">
+            <input type="text" matInput formControlName="email" />
+          </mat-form-field>
+        </div>
+
+        <div fxLayout="column" fxLayoutAlign="start start">
+          <mat-label>Mobile No</mat-label>
+          <mat-form-field appearance="outline">
+            <input type="text" matInput formControlName="mobileNo" />
+          </mat-form-field>
+        </div>
+      </div>
+    </mat-card>
+  </form>
+  <mat-divider></mat-divider>
+
+  <form
+    [formGroup]="employmentDetails"
+    autocomplete="off"
+    fxLayoutAlign="start center"
+    fxFlex
+  >
+    <mat-card fxFlex>
+      <!-- <mat-card-subtitle  style="color: white; background-color: #014b88;">Employment Details</mat-card-subtitle> -->
+      <mat-card-title style="color: white; background-color: #014b88"
+        ><h4 style="margin-left: 10px">Employment Details</h4></mat-card-title
+      >
+      <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
+        <div fxLayout="column" fxLayoutAlign="start start">
+          <mat-label>Employee Id</mat-label>
+          <mat-form-field appearance="outline">
+            <input type="text" matInput formControlName="employeeId" />
+          </mat-form-field>
+        </div>
+
+        <div fxLayout="column" fxLayoutAlign="start start">
+          <mat-label>Designation</mat-label>
+          <mat-form-field appearance="outline">
+            <input type="text" matInput formControlName="designation" />
+          </mat-form-field>
+        </div>
+
+        <div fxLayout="column" fxLayoutAlign="start start">
+          <mat-label>Department</mat-label>
+          <mat-form-field appearance="outline">
+            <input type="text" matInput formControlName="department" />
+          </mat-form-field>
+        </div>
+      </div>
+    </mat-card>
+  </form>
+
+  <mat-divider></mat-divider>
+  <form
+    [formGroup]="locationDetails"
+    autocomplete="off"
+    fxLayoutAlign="start center"
+    fxFlex
+  >
+    <mat-card fxFlex>
+      <!-- <mat-card-subtitle  style="color: white; background-color: #014b88;">Location Details</mat-card-subtitle> -->
+      <mat-card-title style="color: white; background-color: #014b88"
+        ><h4 style="margin-left: 10px">Location Details</h4></mat-card-title
+      >
+      <div fxLayout="column" fxLayoutAlign="space-around  center">
+        <div fxLayout="row" fxLayoutAlign="start  center" fxLayoutGap="20px">
+          <div fxLayout="column" fxLayoutAlign="start start">
+            <mat-label>Discom Name</mat-label>
+            <mat-form-field appearance="outline">
+              <input type="text" matInput formControlName="discomName" />
+            </mat-form-field>
+          </div>
+
+          <div fxLayout="column" fxLayoutAlign="start start">
+            <mat-label>City</mat-label>
+            <mat-form-field appearance="outline">
+              <input type="text" matInput formControlName="city" />
+            </mat-form-field>
+          </div>
+          <div fxLayout="column" fxLayoutAlign="start start">
+            <mat-label>Zone</mat-label>
+            <mat-form-field appearance="outline">
+              <input type="text" matInput formControlName="zone" />
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div fxLayout="row" fxLayoutAlign="start  center" fxLayoutGap="20px">
+          <div fxLayout="column" fxLayoutAlign="start start">
+            <mat-label>Circle</mat-label>
+            <mat-form-field appearance="outline">
+              <input type="text" matInput formControlName="circle" />
+            </mat-form-field>
+          </div>
+          <div fxLayout="column" fxLayoutAlign="start start">
+            <mat-label>Division</mat-label>
+            <mat-form-field appearance="outline">
+              <input type="text" matInput formControlName="division" />
+            </mat-form-field>
+          </div>
+
+          <div fxLayout="column" fxLayoutAlign="start start">
+            <mat-label>Sub-Division</mat-label>
+            <mat-form-field appearance="outline">
+              <input type="text" matInput formControlName="subdivision" />
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </mat-card>
+  </form>
+  <mat-divider></mat-divider>
+
+  <form
+    [formGroup]="applicationDetails"
+    autocomplete="off"
+    fxLayoutAlign="start center"
+    fxFlex
+  >
+    <mat-card fxFlex>
+      <!-- <mat-card-subtitle  style="color: white; background-color: #014b88;">Application Details</mat-card-subtitle> -->
+      <mat-card-title style="color: white; background-color: #014b88">
+        <h4 style="margin-left: 10px">Application Details</h4>
+      </mat-card-title>
+      <div fxLayout="column" fxLayoutAlign="start center">
+        <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
+          <div fxLayout="column" fxLayoutAlign="start start">
+            <mat-label>User Type</mat-label>
+            <mat-form-field appearance="outline">
+              <input type="text" matInput formControlName="userType" />
+            </mat-form-field>
+          </div>
+
+          <div fxLayout="column" fxLayoutAlign="start start">
+            <mat-label>Request For</mat-label>
+            <mat-form-field appearance="outline">
+              <input type="text" matInput formControlName="requestFor" />
+            </mat-form-field>
+          </div>
+
+          <div fxLayout="column" fxLayoutAlign="start start">
+            <mat-label>Existing VPN User Name</mat-label>
+            <mat-form-field appearance="outline">
+              <input type="text" matInput formControlName="existingVPNName" />
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div
+          fxLayout="row"
+          fxLayoutAlign="start center"
+          fxLayoutGap="20px"
+          fxFlex
+        >
+          <div fxLayout="column" fxLayoutAlign="start start">
+            <mat-label>State</mat-label>
+            <mat-form-field appearance="outline">
+              <input type="text" matInput formControlName="state" />
+            </mat-form-field>
+          </div>
+
+          <div fxLayout="column" fxLayoutAlign="start start">
+            <mat-label>Discoms</mat-label>
+            <mat-form-field appearance="outline" fxFlex="40">
+              <mat-chip-list
+                #chipList
+                aria-label="State  selection"
+                multiple
+                formControlName="discomList"
+              >
+                <mat-chip *ngFor="let state of selectedDiscoms">
+                  {{ state.shortDescription }}
+                </mat-chip>
+                <!--
+                (matChipInputTokenEnd)="addState($event)"> -->
+              </mat-chip-list>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </mat-card>
+  </form>
+</div>
+<div fxLayout="column" class="mat-body-2" id="content2">
+  <mat-divider></mat-divider>
+  <mat-card>
+    <!-- <mat-card-subtitle style="color: white; background-color: #014b88;">Application Access</mat-card-subtitle> -->
+    <mat-card-title style="color: white; background-color: #014b88"
+      ><h4 style="margin-left: 10px">Application Access</h4></mat-card-title
+    >
+
+    <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="20px">
+      <mat-table matSort [dataSource]="appAccessDataSource" fxFlex>
+        <!-- <ng-container [matColumnDef]="column" *ngFor="let column of displayedColumns">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> {{column}} </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element[column]}} </mat-cell>
+        </ng-container> -->
+        <ng-container matColumnDef="sNo">
+          <mat-header-cell
+            fxLayoutAlign="center center"
+            *matHeaderCellDef
+            mat-sort-header
+            class="TableHeader"
+            >S.No</mat-header-cell
+          >
+          <mat-cell
+            fxLayoutAlign="center center"
+            *matCellDef="let element; let i = index"
+            class="TableDataCell"
+          >
+            {{ i + 1 }}
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="applciationName">
+          <mat-header-cell
+            fxLayoutAlign="center center"
+            *matHeaderCellDef
+            mat-sort-header
+            class="TableHeader"
+            >Application Name</mat-header-cell
+          >
+          <mat-cell
+            fxLayoutAlign="center center"
+            *matCellDef="let element; let i = index"
+            class="TableDataCell"
+            [formGroup]="element"
+          >
+            <!-- <mat-select formControlName="state" (selectionChange)="fetchPermissions($event)"  required> -->
+            <mat-form-field appearance="outline">
+              <input
+                matInput
+                placeholder="Application Name"
+                formControlName="applicationName"
+              />
+            </mat-form-field>
+            <!-- <mat-form-field  appearance="outline">
+              <mat-label>State</mat-label>
+
+                <mat-select formControlName="state"  required (selectionChange)="getDiscomDataForStateChange($event,i)" >
+
+                <mat-option *ngFor="let item of stateList" [value]="item.state">{{item.state}}</mat-option>
+              </mat-select>
+            </mat-form-field> -->
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="accesType">
+          <mat-header-cell
+            fxLayoutAlign="center center"
+            *matHeaderCellDef
+            mat-sort-header
+            class="TableHeader"
+            >Access Type</mat-header-cell
+          >
+          <mat-cell
+            *matCellDef="let element; let i = index"
+            class="TableDataCell"
+            [formGroup]="element"
+            fxLayoutAlign="center center"
+          >
+            <!-- <mat-form-field appearance="outline">
+              <mat-select formControlName="accesType" required>
+                <mat-option value="ADMIN">ADMIN</mat-option>
+                <mat-option value="MANAGER">MANAGER</mat-option>
+                <mat-option value="VIEWER">VIEWER</mat-option>
+              </mat-select>
+            </mat-form-field> -->
+
+            <mat-form-field appearance="outline">
+              <input
+                matInput
+                placeholder="Access Type"
+                formControlName="accesType"
+              />
+            </mat-form-field>
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="remarks">
+          <mat-header-cell
+            fxLayoutAlign="center center"
+            *matHeaderCellDef
+            class="TableHeader"
+            >Remarks</mat-header-cell
+          >
+          <mat-cell
+            fxLayoutAlign="center center"
+            *matCellDef="let element; let i = index"
+            class="TableDataCell"
+            [formGroup]="element"
+          >
+            <mat-form-field appearance="fill">
+              <textarea
+                matInput
+                placeholder="Reamrks"
+                formControlName="remarks"
+              ></textarea>
+            </mat-form-field>
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="status">
+          <mat-header-cell
+            fxLayoutAlign="center center"
+            *matHeaderCellDef
+            class="TableHeader"
+            >Status</mat-header-cell
+          >
+          <mat-cell
+            *matCellDef="let element; let i = index"
+            class="TableDataCell"
+            [formGroup]="element"
+            fxLayoutAlign="center center"
+          >
+            <mat-form-field appearance="outline">
+              <mat-label>Status</mat-label>
+              <mat-select
+                formControlName="status"
+                required
+                [ngStyle]="{
+                  'background-color':
+                    element.getRawValue().status === 'Approved'
+                      ? 'green'
+                      : element.getRawValue().status === 'Reject'
+                      ? 'red'
+                      : 'yellow',
+                  color:
+                    element.getRawValue().status === 'Approved'
+                      ? 'white'
+                      : element.getRawValue().status === 'Reject'
+                      ? 'white'
+                      : 'black'
+                }"
+              >
+                <mat-option
+                  value="Approved"
+                  style="background-color: green; color: white"
+                  >Approved</mat-option
+                >
+                <mat-option
+                  value="Reject"
+                  style="background-color: red; color: white"
+                >
+                  <span style="background-color: red; color: white">
+                    Reject</span
+                  >
+                </mat-option>
+                <mat-option value="Pending" style="background-color: yellow"
+                  >Pending</mat-option
+                >
+              </mat-select>
+            </mat-form-field>
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="range">
+          <mat-header-cell
+            fxLayoutAlign="center center"
+            *matHeaderCellDef
+            mat-sort-header
+            class="TableHeader"
+            >Range</mat-header-cell
+          >
+          <mat-cell
+            fxLayoutAlign="center center"
+            *matCellDef="let element; let i = index"
+            class="TableDataCell"
+            [formGroup]="element"
+          >
+            <!-- <mat-date-range-input  [rangePicker]="picker" [min]="minDate"> -->
+            <mat-date-range-input [rangePicker]="picker">
+              <input
+                matStartDate
+                formControlName="start"
+                placeholder="Start date"
+              />
+              <input matEndDate formControlName="end" placeholder="End date" />
+            </mat-date-range-input>
+
+            <mat-error
+              *ngIf="element.controls['start'].hasError('matDatepickerMin')"
+            >
+              Check Date Range
+            </mat-error>
+            <mat-error
+              *ngIf="element.controls['end'].hasError('matDatepickerMin')"
+            >
+              Check Date Range
+            </mat-error>
+
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="picker"
+            ></mat-datepicker-toggle>
+            <mat-date-range-picker #picker></mat-date-range-picker>
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="action">
+          <mat-header-cell
+            fxLayoutAlign="center center"
+            *matHeaderCellDef
+            mat-sort-header
+            class="TableHeader"
+            >Required</mat-header-cell
+          >
+          <mat-cell
+            fxLayoutAlign="center center"
+            *matCellDef="let element; let i = index"
+            class="TableDataCell"
+            [formGroup]="element"
+          >
+            <mat-checkbox
+              color="primary"
+              formControlName="isRequired"
+            ></mat-checkbox>
+          </mat-cell>
+        </ng-container>
+        <mat-header-row
+          *matHeaderRowDef="displayedColumns; sticky: true"
+        ></mat-header-row>
+        <!-- <mat-row
+              matRipple
+              *matRowDef="let row; columns: displayedColumns"
+              (click)="showDetails(row)">
+            </mat-row> -->
+        <mat-row
+          matRipple
+          *matRowDef="let row; columns: displayedColumns; let i = index"
+        ></mat-row>
+      </mat-table>
+    </div>
+  </mat-card>
+  <mat-divider></mat-divider>
+</div>
+<div fxLayout="column" class="mat-body-2" id="content3">
+  <form
+    [formGroup]="VPNDetails"
+    autocomplete="off"
+    fxLayoutAlign="start center"
+    fxFlex
+  >
+    <mat-card fxFlex>
+      <!-- <mat-card-subtitle  style="color: white; background-color: #014b88;">VPN Details</mat-card-subtitle> -->
+      <mat-card-title style="color: white; background-color: #014b88"
+        ><h4 style="margin-left: 10px">VPN Details</h4></mat-card-title
+      >
+      <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
+        <div fxLayout="column" fxLayoutAlign="start start">
+          <mat-label>LAN MAC Address</mat-label>
+          <mat-form-field appearance="fill">
+            <input type="text" matInput formControlName="lanMACAddress" />
+          </mat-form-field>
+        </div>
+        <div fxLayout="column" fxLayoutAlign="start start">
+          <mat-label>Wifi MAC Address</mat-label>
+          <mat-form-field appearance="fill">
+            <input type="text" matInput formControlName="wifiMACAddress" />
+          </mat-form-field>
+        </div>
+
+        <div fxLayout="column" fxLayoutAlign="start start">
+          <mat-label>VPN Access From India</mat-label>
+          <mat-form-field appearance="fill">
+            <input type="text" matInput formControlName="vpnAccessFromIndia" />
+          </mat-form-field>
+        </div>
+
+        <div fxLayout="column" fxLayoutAlign="start start">
+          <mat-label>Country Name</mat-label>
+          <mat-form-field appearance="fill">
+            <input type="text" matInput formControlName="countryName" />
+          </mat-form-field>
+        </div>
+      </div>
+    </mat-card>
+  </form>
+  <mat-divider></mat-divider>
+
+  <form [formGroup]="remarksData" autocomplete="off">
+    <mat-card>
+      <!-- <mat-card-subtitle  style="color: white; background-color: #014b88;">VPN Details</mat-card-subtitle> -->
+      <mat-card-title style="color: white; background-color: #014b88"
+        ><h4 style="margin-left: 10px">User Remarks</h4></mat-card-title
+      >
+      <div fxLayoutAlign="start center">
+        <textarea
+          matInput
+          formControlName="userRemarks"
+          style="border: 1px solid; width: 50%"
+          placeholder="Enter Remarks"
+          readonly
+        ></textarea>
+      </div>
+    </mat-card>
+  </form>
+  <mat-divider></mat-divider>
+
+  <ng-container *ngIf="approverRemarks.getRawValue().length > 0">
+    <mat-card fxLayout="column" fxFlex>
+      <!-- <mat-card-subtitle style="color: blueviolet;font: message-box;">Approver Remarks</mat-card-subtitle> -->
+      <mat-card-title style="color: white; background-color: #014b88"
+        ><h4 style="margin-left: 10px">Approver Remarks</h4></mat-card-title
+      >
+
+      <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="20px">
+        <mat-table [dataSource]="approverRemarksDataSource" fxFlex>
+          <ng-container matColumnDef="sNo">
+            <mat-header-cell
+              fxLayoutAlign="center center"
+              *matHeaderCellDef
+              class="TableHeader"
+              >S.No</mat-header-cell
+            >
+            <mat-cell
+              fxLayoutAlign="center center"
+              *matCellDef="let element; let i = index"
+              class="TableDataCell"
+            >
+              {{ i + 1 }}
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="approverLevel">
+            <mat-header-cell
+              fxLayoutAlign="center center"
+              *matHeaderCellDef
+              class="TableHeader"
+              >Approver Level</mat-header-cell
+            >
+            <mat-cell
+              fxLayoutAlign="center center"
+              *matCellDef="let element; let i = index"
+              class="TableDataCell"
+            >
+              <span>Approver {{ element.get("approverLevel").value }} </span>
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="approverName">
+            <mat-header-cell
+              fxLayoutAlign="center center"
+              *matHeaderCellDef
+              class="TableHeader"
+              >Approver Name</mat-header-cell
+            >
+            <mat-cell
+              *matCellDef="let element; let i = index"
+              class="TableDataCell"
+              fxLayoutAlign="center center"
+            >
+              <span>{{ element.get("approverName").value }} </span>
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="changedDate">
+            <mat-header-cell
+              fxLayoutAlign="center center"
+              *matHeaderCellDef
+              class="TableHeader"
+              >Approver/Rejected Date</mat-header-cell
+            >
+
+            <mat-cell
+              fxLayoutAlign="center center"
+              *matCellDef="let element; let i = index"
+              class="TableDataCell"
+              [formGroup]="element"
+            >
+              <span
+                >{{ element.get("approvedDate").value | date: "MM/dd/yyyy" }}
+              </span>
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="remarks">
+            <mat-header-cell
+              fxLayoutAlign="center center"
+              *matHeaderCellDef
+              class="TableHeader"
+              >Remarks</mat-header-cell
+            >
+            <mat-cell
+              fxLayoutAlign="center center"
+              *matCellDef="let element; let i = index"
+              class="TableDataCell"
+            >
+              <span>{{ element.get("remarks").value }} </span>
+            </mat-cell>
+          </ng-container>
+
+          <mat-header-row
+            *matHeaderRowDef="displayedApproverRemarks; sticky: true"
+          ></mat-header-row>
+          <!-- <mat-row
+          matRipple
+          *matRowDef="let row; columns: displayedColumns"
+          (click)="showDetails(row)">
+        </mat-row> -->
+          <mat-row
+            matRipple
+            *matRowDef="
+              let row;
+              columns: displayedApproverRemarks;
+              let i = index
+            "
+          ></mat-row>
+        </mat-table>
+      </div>
+    </mat-card>
+  </ng-container>
+
+  <ng-container
+    *ngIf="
+      applicationDetails.getRawValue().status == 'Approved' ||
+      (applicationDetails.getRawValue().status == 'Completed' && listview)
+    "
+  >
+    <div
+      fxLayout="row"
+      fxLayoutAlign="end end"
+      fxLayoutGap="20px"
+      *ngIf="!listview"
+    >
+      <button
+        mat-raised-button
+        color="primary"
+        type="button"
+        (click)="addSpocData()"
+      >
+        <mat-icon>add</mat-icon> Add Data
+      </button>
+    </div>
+
+    <mat-card fxLayout="column" fxFlex>
+      <!-- <mat-card-subtitle style="color: blueviolet;font: message-box;">Approver Remarks</mat-card-subtitle> -->
+      <mat-card-title style="color: white; background-color: #014b88"
+        ><h4 style="margin-left: 10px">Resources Required</h4></mat-card-title
+      >
+
+      <table mat-table [dataSource]="spocDetailDataSource" fxFlex>
+        <ng-container matColumnDef="username">
+          <mat-header-cell *matHeaderCellDef class="TableHeader"
+            >VPN User Name</mat-header-cell
+          >
+          <mat-cell
+            *matCellDef="let element; let i = index"
+            [formGroup]="element"
+            class="TableDataCell"
+          >
+            <mat-form-field appearance="outline">
+              <input
+                matInput
+                placeholder="userName"
+                formControlName="username"
+              />
+            </mat-form-field>
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="appUrls">
+          <mat-header-cell *matHeaderCellDef class="TableHeader"
+            >App Url</mat-header-cell
+          >
+          <mat-cell
+            *matCellDef="let element; let i = index"
+            [formGroup]="element"
+            class="TableDataCell"
+          >
+            <mat-form-field appearance="outline">
+              <input
+                matInput
+                placeholder="App Urls"
+                formControlName="appUrls"
+              />
+            </mat-form-field>
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="ouName">
+          <mat-header-cell *matHeaderCellDef class="TableHeader"
+            >OU Name</mat-header-cell
+          >
+          <mat-cell
+            *matCellDef="let element; let i = index"
+            [formGroup]="element"
+            class="TableDataCell"
+          >
+            <mat-form-field appearance="outline">
+              <input matInput placeholder="OU Url" formControlName="ouName" />
+            </mat-form-field>
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="securityGroups">
+          <mat-header-cell *matHeaderCellDef class="TableHeader"
+            >Security Groups</mat-header-cell
+          >
+          <mat-cell
+            *matCellDef="let element; let i = index"
+            [formGroup]="element"
+            class="TableDataCell"
+          >
+            <mat-form-field appearance="outline">
+              <input
+                matInput
+                placeholder="groups"
+                formControlName="securityGroups"
+              />
+            </mat-form-field>
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="systemDestinationIpSubnets">
+          <mat-header-cell *matHeaderCellDef class="TableHeader"
+            >System Destination (Ip/Subnets)</mat-header-cell
+          >
+          <mat-cell
+            *matCellDef="let element; let i = index"
+            [formGroup]="element"
+            class="TableDataCell"
+          >
+            <mat-form-field appearance="outline">
+              <input
+                matInput
+                placeholder="Ip/Subnets"
+                formControlName="systemDestinationIpSubnets"
+              />
+            </mat-form-field>
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="serviceSshHttps">
+          <mat-header-cell *matHeaderCellDef class="TableHeader"
+            >Service</mat-header-cell
+          >
+          <mat-cell
+            *matCellDef="let element; let i = index"
+            [formGroup]="element"
+            class="TableDataCell"
+          >
+            <mat-form-field appearance="outline">
+              <input
+                matInput
+                placeholder="eg. ssh/http"
+                formControlName="serviceSshHttps"
+              />
+            </mat-form-field>
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="customPorts">
+          <mat-header-cell *matHeaderCellDef class="TableHeader"
+            >Custom Ports</mat-header-cell
+          >
+          <mat-cell
+            *matCellDef="let element; let i = index"
+            [formGroup]="element"
+            class="TableDataCell"
+          >
+            <mat-form-field appearance="outline">
+              <input
+                matInput
+                placeholder="Custom Ports"
+                formControlName="customPorts"
+              />
+            </mat-form-field>
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="action">
+          <mat-header-cell *matHeaderCellDef class="TableHeader"
+            >Action</mat-header-cell
+          >
+          <mat-cell
+            *matCellDef="let element; let i = index"
+            class="TableDataCell"
+            [formGroup]="element"
+          >
+            <button
+              mat-raised-button
+              type="button"
+              color="warn"
+              (click)="removeSpocData(i)"
+              title="Remove Data"
+            >
+              <mat-icon>delete_forever</mat-icon>
+            </button>
+          </mat-cell>
+        </ng-container>
+        <ng-container *ngIf="listview">
+          <mat-header-row *matHeaderRowDef="displayedSpocData"></mat-header-row>
+          <mat-row
+            *matRowDef="let row; columns: displayedSpocData; let i = index"
+          ></mat-row>
+        </ng-container>
+        <ng-container *ngIf="!listview">
+          <mat-header-row *matHeaderRowDef="displayedSpocData"></mat-header-row>
+          <mat-row
+            *matRowDef="let row; columns: displayedSpocData; let i = index"
+          ></mat-row>
+        </ng-container>
+      </table>
+    </mat-card>
+  </ng-container>
+
+  <form
+    [formGroup]="remarksData"
+    autocomplete="off"
+    *ngIf="
+      applicationDetails.getRawValue().status == 'Approved' ||
+      (applicationDetails.getRawValue().status == 'Completed' && listview)
+    "
+  >
+    <mat-card>
+      <!-- <mat-card-subtitle  style="color: white; background-color: #014b88;">VPN Details</mat-card-subtitle> -->
+      <mat-card-title style="color: white; background-color: #014b88"
+        ><h4 style="margin-left: 10px">Spoc Remarks</h4></mat-card-title
+      >
+      <div fxLayoutAlign="start center">
+        <textarea
+          matInput
+          formControlName="spocRemarks"
+          style="border: 1px solid; width: 50%"
+          placeholder="Enter Remarks"
+          [readonly]="listview"
+        ></textarea>
+      </div>
+    </mat-card>
+  </form>
+  <mat-divider></mat-divider>
+</div>
+<div
+  fxLayout="row"
+  fxLayoutAlign="center center"
+  style="margin: 20px"
+  *ngIf="
+    applicationDetails.getRawValue().status != 'Completed' &&
+    applicationDetails.getRawValue().status != 'Approved'
+  "
+  fxLayoutGap="30px"
+>
+  <button
+    mat-raised-button
+    type="button"
+    color="primary"
+    (click)="submitData('Approved')"
+  >
+    Approve
+  </button>
+
+  <button
+    mat-raised-button
+    type="button"
+    color="warn"
+    (click)="submitData('Reject')"
+  >
+    Reject
+  </button>
+  <!-- <button
+      mat-raised-button
+      type="button"
+      color="primary"
+      (click)="SavePDF()"
+      [disabled]="!accepted"
+    >SavePDF
+    </button> -->
+</div>
+
+<div
+  fxLayout="row"
+  fxLayoutAlign="center center"
+  style="margin: 20px"
+  *ngIf="applicationDetails.getRawValue().status == 'Approved'"
+  fxLayoutGap="30px"
+>
+  <button
+    mat-raised-button
+    type="button"
+    color="primary"
+    (click)="submitCompletedData()"
+  >
+    Mark As Completed
+  </button>
+</div>
+<div class="overlay" *ngIf="spinner">
+  <div class="spinner">
+    <mat-progress-spinner diameter="50" mode="indeterminate" color="accent">
+    </mat-progress-spinner>
+  </div>
+</div>

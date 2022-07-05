@@ -1,0 +1,85 @@
+<form [formGroup]="rolesForm" autocomplete="off" (ngSubmit)="saveRoleData()">
+  <mat-card>
+      <div fxLayout="row" fxLayoutAlign="space-around center">
+        <mat-form-field  appearance="fill">
+          <mat-label>Role Name</mat-label>
+          <input type="text" matInput formControlName="roleName"  >
+          <mat-error *ngIf="rolesForm.controls['roleName'].hasError('required')">
+            Role Name is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" >
+          <mat-label>Role Desc</mat-label>
+          <input type="text" matInput formControlName="roleDesc"  >
+          <mat-error *ngIf="rolesForm.controls['roleDesc'].hasError('required')">
+            Role Desc is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+        <ng-container *ngIf="isEditable">
+          <mat-form-field appearance="fill" >
+            <mat-label>Module</mat-label>
+            <mat-select formControlName="module" (selectionChange)="fetchPermissions($event)" >
+              <mat-option *ngFor="let mod of moduleList" [value]="mod.module">{{mod.module}}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="rolesForm.controls['module'].hasError('required')">
+              Module is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+      </ng-container>
+
+        <mat-form-field appearance="fill" >
+          <mat-label>Role Type</mat-label>
+          <mat-select formControlName="roleType" [disabled]="!isEditable  || isNavigation">
+            <mat-option *ngFor="let type of roleTypeList" [value]="type.shortCode">{{type.shortCode}}</mat-option>
+          </mat-select>
+          <mat-error *ngIf="rolesForm.controls['roleType'].hasError('required')">
+            Role Type is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+        <div cdkDropListGroup  fxLayout="row" fxLayoutAlign="center start" >
+
+          <mat-divider></mat-divider>
+          <ng-container *ngIf="isEditable">
+            <div class="multiselect-container" >
+              <h2>Permission List</h2>
+
+              <div style="max-height: 500px;overflow-y:auto;"
+                cdkDropList
+                [cdkDropListData]="permissionsList"
+                class="multiselect-list"
+
+                (cdkDropListDropped)="drop($event)">
+                <div class="multiselect-box" *ngFor="let item of permissionsList" matTooltip={{item.desc}} cdkDrag>{{item.privilegeType}}:{{item.privilegeName}}</div>
+              </div>
+            </div>
+
+        </ng-container>
+          <div class="multiselect-container">
+            <h2>Asigned Permission</h2>
+
+            <div style="max-height: 500px;overflow-y:auto;"
+              cdkDropList
+              [cdkDropListData]="asignedPermission"
+              class="multiselect-list"
+              (cdkDropListDropped)="drop($event)">
+              <div class="multiselect-box" *ngFor="let item of asignedPermission" matTooltip={{item.desc}}  cdkDrag>{{item.privilegeType}}:{{item.privilegeName}}</div>
+            </div>
+          </div>
+        </div>
+
+      <mat-card-actions fxLayout="row" fxLayoutAlign="end start" *ngIf="isEditable" >
+        <button mat-raised-button type="submit" color="primary" dir="rtl" fxFlexOffset="10" fxFlex="10">Save</button>
+  </mat-card-actions>
+    </mat-card>
+    <div class="overlay" *ngIf="spinner">
+      <div class="spinner">
+          <mat-progress-spinner diameter=50
+                              mode="indeterminate"
+                    color="accent">
+        </mat-progress-spinner>
+      </div>
+      </div>
+  </form>

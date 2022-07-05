@@ -1,0 +1,109 @@
+
+  <div class="mat-typography" fxLayoutAlign="center center">
+    <h1>System User Creation</h1>
+  </div>
+<mat-tab-group mat-stretch-tabs
+color="primary"
+[(selectedIndex)]="selectedIndex"
+#tabGroup
+class="mat-elevation-z8"
+>
+
+
+<mat-tab label="List" >
+  <mat-accordion>
+    <!-- <mat-expansion-panel hideToggle > -->
+    <!-- <mat-expansion-panel (opened)="fetchRoleTypeList()" > -->
+    <mat-expansion-panel  >
+      <mat-expansion-panel-header >
+        <mat-panel-title>
+          Table Filter
+        </mat-panel-title>
+        <mat-panel-description>
+          Expand Table Filter
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <ng-template matExpansionPanelContent>
+
+</ng-template>
+    </mat-expansion-panel>
+  </mat-accordion>
+
+  <div fxLayout="column">
+    <mat-progress-bar
+      mode="indeterminate"
+      *ngIf="isLoading"
+    ></mat-progress-bar>
+    <mat-table matSort [dataSource]="dataSource" class="mat-elevation-z8">
+      <!-- <ng-container [matColumnDef]="column" *ngFor="let column of displayedColumns">
+    <mat-header-cell *matHeaderCellDef mat-sort-header> {{column}} </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element[column]}} </mat-cell>
+  </ng-container> -->
+      <ng-container matColumnDef="id">
+        <mat-header-cell *matHeaderCellDef mat-sort-header class="TableHeader">System Id</mat-header-cell>
+        <mat-cell *matCellDef="let element" class="TableDataCell">
+          {{ element["id"] }}
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="userName">
+        <mat-header-cell *matHeaderCellDef mat-sort-header class="TableHeader">User Id</mat-header-cell>
+        <mat-cell *matCellDef="let element" class="TableDataCell">
+          {{ element["userName"] }}
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="firstName">
+        <mat-header-cell *matHeaderCellDef mat-sort-header class="TableHeader">First Name</mat-header-cell>
+        <mat-cell *matCellDef="let element" class="TableDataCell">
+          {{ element["firstName"] }}
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="employeeId">
+        <mat-header-cell *matHeaderCellDef mat-sort-header class="TableHeader">Employee Id</mat-header-cell>
+        <mat-cell *matCellDef="let element" class="TableDataCell">
+          {{ element["employeeId"] }}
+        </mat-cell>
+      </ng-container>
+      <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+      <mat-row
+        matRipple
+        *matRowDef="let row; columns: displayedColumns" (click)="showDetails(row)"
+      ></mat-row>
+    </mat-table>
+
+    <mat-paginator
+      [length]="totalRows"
+      [pageSize]="pageSize"
+      [pageIndex]="currentPage"
+      [pageSizeOptions]="pageSizeOptions"
+      showFirstLastButtons
+      (page)="onChangePage($event)"
+      aria-label="Select page"
+    ></mat-paginator>
+    <!-- <pdf-viewer
+src="../../assets/WHOLE LIFE ASSURANCES_PLI.pdf"
+
+[show-all]="true"
+
+></pdf-viewer> -->
+    <!-- <button mat-button (click)="openDialog()">Open dialog</button> -->
+    <!--
+<app-pdfdialog></app-pdfdialog> -->
+  </div>
+</mat-tab>
+
+<mat-tab label="Detail">
+  <app-user-details [isEditable]="isDetailsEditable" [userdetails]="userDetail" [isNavigation]="isNavigation" (dataSaved)="loadListTab()"></app-user-details>
+</mat-tab>
+</mat-tab-group>
+<div class="overlay" *ngIf="spinner">
+<div class="spinner">
+  <mat-progress-spinner diameter="50" mode="indeterminate" color="accent">
+  </mat-progress-spinner>
+</div>
+</div>
+
+<div style="z-index:2; position : fixed;bottom : 5%;left: 95%; margin-bottom : 1%;" *ngIf="selectedIndex==0 && isDetailsEditable" >
+<button mat-fab color="primary" (click)="addNewUser()" *ngIf="isDetailsEditable" title="Add New User">
+<mat-icon>add</mat-icon>
+</button>
+</div>

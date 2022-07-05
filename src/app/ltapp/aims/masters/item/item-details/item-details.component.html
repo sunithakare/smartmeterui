@@ -1,0 +1,84 @@
+<form [formGroup]="itemForm" (submit)="saveItem()"  autocomplete="off" (keydown.enter)="$event.preventDefault()" (keydown.shift.enter)="$event.preventDefault()">
+  
+  <mat-card>
+  <div fxLayout="column" fxLayoutAlign="space-around ">
+    <div fxLayout="row" fxLayoutAlign="space-around center">
+      <mat-form-field appearance="fill">
+        <mat-label>Item Group</mat-label>
+         <mat-select formControlName="itemGroup" required>
+          <mat-option *ngFor="let item of storeCode" [value]="item.itemGroup">{{item.itemGroup}}</mat-option>
+      </mat-select>
+      <mat-error
+              *ngIf="itemForm.controls['itemGroup'].hasError('required')">
+              Item Group Name is <strong>required</strong>
+            </mat-error>
+    </mat-form-field>
+     
+    <mat-form-field appearance="fill">
+      <mat-label>Supplier</mat-label>
+       <mat-select formControlName="supplier" required>
+        <mat-option *ngFor="let item of SupplierCode" [value]="item.supplier">{{item.supplier}}</mat-option>
+    </mat-select>
+    <mat-error
+            *ngIf="itemForm.controls['supplier'].hasError('required')">
+            Supplier is <strong>required</strong>
+          </mat-error>
+  </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Item Category</mat-label>
+         <mat-select formControlName="itemCategory" required>
+          <mat-option *ngFor="let item of CategoryCode" [value]="item.itemCategory">{{item.itemCategory}}</mat-option>
+      </mat-select>
+      <mat-error
+              *ngIf="itemForm.controls['itemCategory'].hasError('required')">
+              Item Category is <strong>required</strong>
+            </mat-error>
+    </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Item Model Name</mat-label>
+          <input type="text" matInput formControlName="itemModelName">
+      </mat-form-field>
+
+    </div>
+    <div fxLayout="row" fxLayoutAlign="space-around center">
+      
+      <mat-form-field appearance="outline">
+        <mat-label>Unit Of Measurement</mat-label>
+        <mat-select formControlName="uom">
+          <mat-option *ngFor="let item of uom" [value]="item.name">{{item.name}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Item HSN</mat-label>
+        <input type="text" matInput formControlName="itemHsn">
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Description</mat-label>
+        <input type="text" matInput formControlName="itemDescription">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Remarks</mat-label>
+        <input type="text" matInput formControlName="remarks">
+      </mat-form-field>
+
+
+    </div>
+    <div fxLayout="row" fxLayoutAlign="start start" style="margin-top: 0px; margin-left: 80px;">
+      
+      <mat-form-field appearance="outline">
+        <mat-label>Warranty Month</mat-label>
+        <input type="text" matInput formControlName="warrantyMonth">
+      </mat-form-field>
+    </div>   
+  </div>
+  
+  <mat-card-actions fxLayout="row" fxLayoutAlign="center start" >
+    <button mat-raised-button type="button" (click)="backToList()" color="primary" dir="rtl" fxFlex="10">Cancel</button>
+    <button mat-raised-button type="submit" color="primary" dir="rtl"  fxFlex="10">Save</button>
+    
+</mat-card-actions>
+</mat-card>
+</form>
+

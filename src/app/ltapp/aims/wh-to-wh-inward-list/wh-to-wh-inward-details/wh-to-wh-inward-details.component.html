@@ -1,0 +1,459 @@
+<form [formGroup]="whtowhinwardimportform" (submit)="saveWHtoWhinwardimportData()" autocomplete="off" (keydown.enter)="$event.preventDefault()" enctype="multipart/form-data"
+(keydown.shift.enter)="$event.preventDefault()">
+
+<mat-card *ngIf="!showSerialData">
+  <div style="margin-left: 50px;margin-right: 100px;">
+        <div fxLayout="row"fxLayoutAlign="space-between start">
+              <div fxLayout="column" fxLayoutAlign="start start">
+                <mat-form-field appearance="outline">
+                  <mat-label>DiscomFrom</mat-label>
+              <mat-select formControlName="discomFrom" MatFormFieldControl (selectionChange)="findWarehouseByDiscom($event)">
+                  <mat-option [value]="null" disabled>Select DiscomFrom</mat-option>
+                  <mat-option *ngFor="let item of discomDDValue " [value]=item.shortCode>{{item.shortCode}}</mat-option>
+                </mat-select>
+                </mat-form-field>
+              </div>
+              <div fxLayout="column" fxLayoutAlign="start start">
+                <mat-form-field appearance="outline">
+                  <mat-label>Receiver</mat-label>
+                  <mat-select formControlName="receiver">
+                  <mat-option *ngFor="let item of senderDDValue" [value]="item.warehouseName" >{{item.warehouseName}}</mat-option>
+              </mat-select>
+              </mat-form-field>
+            </div>
+            <div fxLayout="column" fxLayoutAlign="start start">
+              <mat-form-field appearance="outline">
+                <mat-label>Discom To</mat-label>
+                <mat-select formControlName="discomTo" (selectionChange)="findReciverWarehouseByDiscom($event)">
+                <mat-option *ngFor="let item of reciverDiscomDDValue" [value]="item.shortCode">{{item.shortCode}}</mat-option>
+            </mat-select>
+            </mat-form-field>
+          </div>
+          <div fxLayout="column" fxLayoutAlign="start start">
+            <mat-form-field appearance="outline">
+              <mat-label>Sender</mat-label>
+          <mat-select formControlName="sender">
+              <mat-option *ngFor="let item of reciverWHDDValue " [value]="item.warehouseName">{{item.warehouseName}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+          </div>
+        </div>
+
+             <div fxLayout="row" fxLayoutAlign="space-between start" style="margin-top: 20px">
+              <div fxLayout="column" fxLayoutAlign="start start">
+                <mat-form-field appearance="outline">
+                  <mat-label>DC No</mat-label>
+                  <input type="text"  matInput formControlName="dcNo">
+              </mat-form-field>
+            </div>
+              <div fxLayout="column" fxLayoutAlign="start start">
+                <mat-form-field appearance="outline">
+                    <mat-label>DC Date</mat-label>
+                    <input matInput [matDatepicker]="indentPicker" formControlName="dcDate">
+                    <mat-datepicker-toggle matSuffix [for]="indentPicker"></mat-datepicker-toggle>
+                    <mat-datepicker #indentPicker></mat-datepicker>
+                </mat-form-field>
+            </div>
+              <div fxLayout="column" fxLayoutAlign="start start">
+                <mat-form-field appearance="outline">
+                  <mat-label>GIN No</mat-label>
+                  <input type="number"  matInput formControlName="ginNo">
+                  <mat-error
+                  *ngIf="whtowhinwardimportform.controls['ginNo'].hasError('pattern')">
+                  Gin No not allowed <strong>WhiteSpases</strong>
+                </mat-error>
+              </mat-form-field>
+            </div>
+              <div fxLayout="column" fxLayoutAlign="start start">
+                <mat-form-field appearance="outline">
+                  <mat-label>Inward Date</mat-label>
+                  <input matInput [matDatepicker]="inwardPicker" formControlName="inwardDate">
+                  <mat-datepicker-toggle matSuffix [for]="inwardPicker"></mat-datepicker-toggle>
+                  <mat-datepicker #inwardPicker></mat-datepicker>
+                </mat-form-field>
+              </div>
+            </div>
+            <div fxLayout="row" fxLayoutAlign="space-between start" style="margin-top: 20px">
+              <div fxLayout="column" fxLayoutAlign="start start">
+                <mat-form-field appearance="fill">
+                  <mat-label>Item Group</mat-label>
+                  <mat-select (selectionChange)="itemGroupLookUp($event)" formControlName="itemGroup">
+                      <mat-option *ngFor="let item of itemGroupValues" [value]="item.itemGroup">{{item.itemGroup}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+            </div>
+              <div fxLayout="column" fxLayoutAlign="start start">
+                <mat-form-field appearance="outline">
+                  <mat-label>Item Name</mat-label>
+                  <mat-select formControlName="itemModelName" (selectionChange)="itemNameLookUp($event)">
+                  <mat-option *ngFor="let item of itemNameValues" [value]="item.itemModelName">{{item.itemModelName}}</mat-option>
+              </mat-select>
+              </mat-form-field>
+            </div>
+              <div fxLayout="column" fxLayoutAlign="start start">
+                <mat-form-field appearance="outline">
+                  <mat-label>Item Supplier</mat-label>
+                  <input type="text"  matInput formControlName="supplier" >
+              </mat-form-field>
+            </div>
+          <div fxLayout="column" fxLayoutAlign="start start">
+                <mat-form-field appearance="outline">
+                    <mat-label>Item Category</mat-label>
+                    <input type="text"  matInput formControlName="itemCategory" >
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div fxLayout="row" fxLayoutAlign="space-between start" style="margin-top: 20px">
+              <div fxLayout="column" fxLayoutAlign="start start">
+                <mat-form-field appearance="outline">
+                  <mat-label>Item Status</mat-label>
+                  <mat-select formControlName="itemStatus">
+                  <mat-option *ngFor="let item of Itemstatus" [value]="item.name">{{item.name}}</mat-option>
+              </mat-select>
+              </mat-form-field>
+            </div>
+              <div fxLayout="column" fxLayoutAlign="start start">
+                <mat-form-field appearance="outline">
+                  <mat-label>Quantity</mat-label>
+                  <input type="number"  matInput formControlName="quantity">
+                  <mat-error
+                  *ngIf="whtowhinwardimportform.controls['quantity'].hasError('pattern')">
+                  Quantity not allowed <strong>WhiteSpases</strong>
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div fxLayout="column" fxLayoutAlign="start start">
+              <mat-form-field appearance="outline">
+                <mat-label>Transporter</mat-label>
+                <input type="text"  matInput formControlName="transporter">
+            </mat-form-field>
+          </div>
+          <div fxLayout="column" fxLayoutAlign="start start">
+            <mat-form-field appearance="outline">
+              <mat-label>LR No.</mat-label>
+              <input type="number"  matInput  formControlName="lrNo">
+              <mat-error
+                  *ngIf="whtowhinwardimportform.controls['lrNo'].hasError('pattern')">
+                  Quantity not allowed <strong>WhiteSpases</strong>
+                </mat-error>
+          </mat-form-field>
+        </div>
+            </div>
+          </div>
+
+          <div fxLayout="row"fxLayoutAlign="space-between start" style="margin-left: 50px;margin-right: 100px;">
+            <div fxLayout="row" fxLayoutAlign="space-between start" fxLayoutGap="150px" style="margin-top: 20px">
+              <div fxLayout="row" fxLayoutAlign="start start">
+                <mat-form-field appearance="outline">
+                  <mat-label>L R Date</mat-label>
+                  <input matInput [matDatepicker]="lrPicker" formControlName="lrDate">
+                  <mat-datepicker-toggle matSuffix [for]="lrPicker"></mat-datepicker-toggle>
+                  <mat-datepicker #lrPicker></mat-datepicker>
+                </mat-form-field>
+            </div>
+              <div fxLayout="column" fxLayoutAlign="start start">
+                <mat-form-field appearance="outline">
+                    <mat-label>Vehicle No.</mat-label>
+                    <input type="text" input #vehicleNo (input)="vehicleNo.value=vehicleNo.value.toUpperCase()"  matInput formControlName="vehicleNo">
+                </mat-form-field>
+              </div>
+              <div fxLayout="row" fxLayoutAlign="start start">
+                <mat-form-field appearance="outline">
+                  <mat-label>Driver Name</mat-label>
+                  <input type="text"  matInput formControlName="driverName">
+              </mat-form-field>
+            </div>
+              <div fxLayout="column" fxLayoutAlign="start start">
+                <mat-form-field appearance="outline">
+                  <mat-label>Contact No.</mat-label>
+                  <input type="number"  matInput formControlName="contactNo">
+                  <mat-error
+                  *ngIf="whtowhinwardimportform.controls['contactNo'].hasError('pattern')"
+                >
+                  Enter 10 digit Number <strong>Start with [6-9]</strong>
+                </mat-error>
+                <mat-error
+                  *ngIf="whtowhinwardimportform.controls['contactNo'].hasError('pattern')">
+                  Quantity not allowed <strong>WhiteSpases</strong>
+                </mat-error>
+              </mat-form-field>
+              </div>
+              <!-- <div fxLayout="column" fxLayoutAlign="start start">
+              <button
+              mat-raised-button
+              type="button"
+              color="primary"
+              (click)="showSerialNoListDetails()"
+            >
+              Show Serial Data <mat-icon>left</mat-icon>
+            </button>
+          </div> -->
+            </div>
+          </div>
+
+
+          <div style="margin-left: 50px;margin-right: 100px;">
+            <div
+    fxLayout="row"
+    fxLayoutAlign="start start"
+    style="margin-top: 20px ;"
+    >
+    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
+        <mat-form-field appearance="outline" [style.width.px]="500">
+          <mat-label>Remark</mat-label>
+          <textarea
+            matInput
+            rows="5"
+            cols="100"
+            formControlName="remark"
+          ></textarea>
+        </mat-form-field>
+
+        <!-- <mat-checkbox class="example-margin"
+          >Skip File Upload</mat-checkbox> -->
+         <!-- <mat-radio-group aria-label="Select an option" fxLayoutGap="20px">
+          <mat-radio-button (click)="scannerTrue()" value="1">Scanner</mat-radio-button>
+          <mat-radio-button (click)="serialTrue()" value="2">Manual Serial</mat-radio-button>
+          <mat-radio-button (click)="groupTrue()" value="3">Manual Group</mat-radio-button>
+          <mat-radio-button (click)="QuantityTrue()" value="4">Quantity</mat-radio-button>
+
+        </mat-radio-group> -->
+
+        <mat-radio-group #tableVisiblity="matRadioGroup"  fxLayoutGap="20px">
+          <mat-radio-button value="1">Scanner</mat-radio-button>
+          <mat-radio-button value="2">Manual Serial</mat-radio-button>
+          <mat-radio-button [checked]="defaultCheckedMannualSerial" value="3">Manual Group</mat-radio-button>
+          <mat-radio-button value="4">Quantity</mat-radio-button>
+        </mat-radio-group>
+
+      </div>
+    </div>
+    </div>
+    <!-- <button
+    mat-raised-button
+    type="button"
+    color="primary"
+    (click)="showSerialNoListDetails()"
+  >
+    Show Serial Data <mat-icon>left</mat-icon>
+  </button> -->
+  <div fxLayout="row" fxLayoutAlign="center center" style="margin-top: 20px">
+    <div fxLayout="column" fxLayoutAlign="start start">
+      <input hidden type="file" #uploader (change)="uploaddataFile($event)" />
+      <button
+        mat-raised-button
+        type="button"
+        color="primary"
+        (click)="uploader.click()"
+      >
+      Document Upload <mat-icon>upload</mat-icon>
+      </button>
+    </div>
+  </div>
+  <!-- <div fxLayout="row" fxLayoutAlign="center center" style="margin-top: 20px"> -->
+
+<!-- </div> -->
+  <mat-card-actions
+  fxLayout="row"
+  fxLayoutAlign="center start"
+  style="margin-top: 20px"
+>
+  <button mat-raised-button type="submit" color="primary" fxFlex="8">Import</button>
+  <button
+    mat-raised-button
+    type="submit"
+    (click)="backToList()" fxFlex="8"
+    color="primary"
+  >
+    Cancel
+  </button>
+</mat-card-actions>
+
+
+   <!-- <div *ngIf="showSerialData">
+    <app-display-serial-no-list [serialNoList]="serialNoList" (returnToDetails)="showDetailsView()"></app-display-serial-no-list>
+  </div> -->
+
+  <!-- <div *ngIf="scannerVisiablity"> -->
+    <div *ngIf="tableVisiblity.value=='1'">
+      <h1>Scanner</h1>
+
+      <div fxLayout="row" fxLayoutAlign="end end" fxLayoutGap="20px">
+        <!-- <button mat-raised-button  color="primary" type='button'  (click)="createApprover()" *ngIf="isEditable && isNavigation " >Create Approver <mat-icon>forward</mat-icon></button> -->
+        <button mat-raised-button  color="primary" type='button'  (click)="addNewScanner()"> <mat-icon>add</mat-icon> Add</button>
+      </div>
+      <div fxLayout="row" fxLayoutAlign="center center">
+      <mat-table  [dataSource]="dataSource" class="mat-elevation-z8" fxFlex >
+
+        <ng-container matColumnDef="srNo" >
+          <mat-header-cell fxLayoutAlign="center center" *matHeaderCellDef  class="TableHeader">Sr.No</mat-header-cell>
+          <mat-cell fxLayoutAlign="center center" *matCellDef="let element; let i = index;" class="TableDataCell" >
+            {{i+1}}
+          </mat-cell>
+        </ng-container>
+    <ng-container matColumnDef="action">
+
+      <mat-header-cell fxLayoutAlign="center center" *matHeaderCellDef  class="TableHeader">Action</mat-header-cell>
+      <mat-cell fxLayoutAlign="center center" *matCellDef="let element;let i = index" class="TableDataCell" [formGroup]="element">
+        <button mat-raised-button type="button" color="warn" (click)="removeScanner(i)" title="Remove Row"><mat-icon>delete_forever</mat-icon></button>
+      </mat-cell>
+
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true" ></mat-header-row>
+    <!-- <mat-row
+      matRipple
+      *matRowDef="let row; columns: displayedColumns"
+      (click)="showDetails(row)">
+    </mat-row> -->
+    <mat-row
+      matRipple
+      *matRowDef="let row; columns: displayedColumns;let i = index"
+    ></mat-row>
+
+
+    </mat-table>
+    </div>
+    <!-- </mat-grid-tile> -->
+    </div>
+
+
+    <div *ngIf="tableVisiblity.value=='2'">
+
+    <h1>Manual Serial</h1>
+
+        <div fxLayout="row" fxLayoutAlign="end end" fxLayoutGap="20px">
+          <!-- <button mat-raised-button  color="primary" type='button'  (click)="createApprover()" *ngIf="isEditable && isNavigation " >Create Approver <mat-icon>forward</mat-icon></button> -->
+          <button mat-raised-button  color="primary" type='button'  (click)="addNewMannualSerial()"> <mat-icon>add</mat-icon> Add</button>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="center center">
+        <mat-table  [dataSource]="dataSerialSource" class="mat-elevation-z8" fxFlex >
+
+          <ng-container matColumnDef="srNo" >
+            <mat-header-cell fxLayoutAlign="center center" *matHeaderCellDef  class="TableHeader">Sr.No</mat-header-cell>
+            <!-- <mat-cell fxLayoutAlign="center center" *matCellDef="let element; let i = index;" class="TableDataCell" > -->
+              <mat-cell *matCellDef="let element;let i = index" class="TableDataCell" [formGroup]="element" fxLayoutAlign="center center">
+              <!-- {{i+1}} -->
+              <mat-form-field  appearance="outline">
+                <mat-label>SrNo</mat-label>
+
+                <input type="text" formControlName="srNo" matInput >
+              </mat-form-field>
+            </mat-cell>
+          </ng-container>
+
+
+      <ng-container matColumnDef="action">
+
+        <mat-header-cell fxLayoutAlign="center center" *matHeaderCellDef  class="TableHeader">Action</mat-header-cell>
+        <mat-cell fxLayoutAlign="center center" *matCellDef="let element;let i = index" class="TableDataCell" [formGroup]="element">
+          <button mat-raised-button type="button" color="warn" (click)="removeMannualSerial(i)" title="Remove Row"><mat-icon>delete_forever</mat-icon></button>
+        </mat-cell>
+
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true" ></mat-header-row>
+      <!-- <mat-row
+        matRipple
+        *matRowDef="let row; columns: displayedColumns"
+        (click)="showDetails(row)">
+      </mat-row> -->
+      <mat-row
+        matRipple
+        *matRowDef="let row; columns: displayedColumns;let i = index"
+      ></mat-row>
+
+
+    </mat-table>
+    </div>
+    <!-- </mat-grid-tile> -->
+    </div>
+
+
+    <div *ngIf="tableVisiblity.value=='3'">
+
+    <h1>Manual Group</h1>
+
+        <div fxLayout="row" fxLayoutAlign="end end" fxLayoutGap="20px">
+          <!-- <button mat-raised-button  color="primary" type='button'  (click)="createApprover()" *ngIf="isEditable && isNavigation " >Create Approver <mat-icon>forward</mat-icon></button> -->
+          <button mat-raised-button  color="primary" type='button'  (click)="addNewMannualGroup()"> <mat-icon>add</mat-icon> Add</button>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="center center">
+        <mat-table  [dataSource]="datagroupSource" class="mat-elevation-z8" fxFlex >
+
+          <!-- <ng-container matColumnDef="srNo" >
+            <mat-header-cell fxLayoutAlign="center center" *matHeaderCellDef  class="TableHeader">Sr.No</mat-header-cell>
+              <mat-cell *matCellDef="let element;let i = index" class="TableDataCell" [formGroup]="element" fxLayoutAlign="center center">
+
+              <mat-form-field  appearance="outline">
+                <mat-label>SrNo</mat-label>
+
+                <input type="text" matInput formControlName="srNo">
+              </mat-form-field>
+              </mat-cell>
+              </ng-container> -->
+
+              <ng-container matColumnDef="internalSrNo" >
+                <mat-header-cell fxLayoutAlign="center center" *matHeaderCellDef  class="TableHeader">From</mat-header-cell>
+                <!-- <mat-cell fxLayoutAlign="center center" *matCellDef="let element; let i = index;" class="TableDataCell" > -->
+                  <mat-cell *matCellDef="let element;let i = index" class="TableDataCell" [formGroup]="element" fxLayoutAlign="center center">
+
+
+              <mat-form-field  appearance="outline">
+                <mat-label>From</mat-label>
+
+                <input type="text" matInput formControlName="internalSrNo">
+              </mat-form-field>
+
+              </mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="latestSrNo" >
+                <mat-header-cell fxLayoutAlign="center center" *matHeaderCellDef  class="TableHeader">To</mat-header-cell>
+                <!-- <mat-cell fxLayoutAlign="center center" *matCellDef="let element; let i = index;" class="TableDataCell" > -->
+                  <mat-cell *matCellDef="let element;let i = index" class="TableDataCell" [formGroup]="element" fxLayoutAlign="center center">
+
+              <mat-form-field  appearance="outline">
+                <mat-label>To</mat-label>
+
+                <input type="text" matInput formControlName="latestSrNo">
+              </mat-form-field>
+            </mat-cell>
+          </ng-container>
+
+
+      <ng-container matColumnDef="action">
+
+        <mat-header-cell fxLayoutAlign="center center" *matHeaderCellDef  class="TableHeader">Action</mat-header-cell>
+        <mat-cell fxLayoutAlign="center center" *matCellDef="let element;let i = index" class="TableDataCell" [formGroup]="element">
+          <button mat-raised-button type="button" color="warn" (click)="removeMannualGroup(i)" title="Remove Row"><mat-icon>delete_forever</mat-icon></button>
+        </mat-cell>
+
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="MannualGroupColumns; sticky: true" ></mat-header-row>
+      <!-- <mat-row
+        matRipple
+        *matRowDef="let row; columns: displayedColumns"
+        (click)="showDetails(row)">
+      </mat-row> -->
+      <mat-row
+        matRipple
+        *matRowDef="let row; columns: MannualGroupColumns;let i = index"
+      ></mat-row>
+
+
+    </mat-table>
+    </div>
+    </div>
+    <!-- <div *ngIf="tableVisiblity.value=='4'">Quantity -->
+    <!-- <mat-form-field appearance="outline"> -->
+    <!-- <input matInput type="text"> -->
+    <!-- </mat-form-field> -->
+    <!-- </div> -->
+    <!-- </mat-grid-list> -->
+
+    </mat-card>
+    </form>
+<!-- {{this.whtowhinwardimportform.getRawValue()|json}} -->

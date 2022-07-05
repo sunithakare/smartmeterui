@@ -1,0 +1,58 @@
+.mat-input-element:disabled{
+  font-size: larger;
+  font-weight: 400;
+  color: black;
+}
+
+.spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -moz-transform: translateX(-50%) translateY(-50%);
+  -webkit-transform: translateX(-50%) translateY(-50%);
+  transform: translateX(-50%) translateY(-50%);
+}
+
+.overlay{
+  height:100vh;
+  width:100%;
+  background-color:rgba(0, 0, 0, 0.286);
+  z-index:    10;
+  top:        0;
+  left:       0;
+  position:   fixed;
+}
+/* .mat-form-field-label{
+
+  color: black;
+  font-weight: 500;
+}
+.mat-form-field-appearance-outline.mat-form-field-disabled .mat-form-field-label {
+  color: black;
+  font-weight: 500;
+}
+
+.mat-form-field-wrapper {
+  padding-bottom: .2em;
+}
+ */
+
+.mat-row:nth-child(odd){
+  background: rgba(0,0,0,0.025);
+}
+.TableHeader{
+  background: rgb(135, 197, 222);
+  font-weight: bolder;
+  font-size: large;
+}
+
+.TableDataCell{
+  font-size: medium;
+}
+.mat-column-sNo {
+  max-width: 80px;
+  }
+
+  .mat-column-action {
+  max-width: 110px;
+  }

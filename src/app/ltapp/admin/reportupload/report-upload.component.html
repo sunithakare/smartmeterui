@@ -1,0 +1,112 @@
+<div class="mat-typography" fxLayoutAlign="center center">
+  <h1>RFP 18/19 Upload</h1>
+</div>
+
+
+<form [formGroup]="uploadForm" autocomplete="off" (ngSubmit)="uploadReport()">
+  <mat-card fxLayout="column">
+    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
+      <mat-form-field appearance="fill" style="margin-left: 10px">
+        <mat-label>State</mat-label>
+        <mat-select formControlName="state" name="state">
+          <mat-option *ngFor="let item of stateList" [value]="item.state">
+            {{ item.state }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" style="margin-left: 10px">
+        <mat-label>Discom</mat-label>
+        <mat-select formControlName="discom" name="discomname">
+          <mat-option
+            *ngFor="let discom of discomList"
+            [value]="discom.discomName"
+          >
+            {{ discom.discomName }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+
+    </div>
+    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
+      <mat-form-field appearance="fill">
+        <mat-label>Year</mat-label>
+        <mat-select formControlName="year">
+          <mat-option *ngFor="let year of yearSelectorList" [value]="year">{{
+            year
+          }}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="uploadForm.controls['year'].hasError('required')">
+          Year is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Select Quarter</mat-label>
+        <mat-select formControlName="quarter">
+          <mat-option value="Q1">Q1(JAN-MAR)</mat-option>
+          <mat-option value="Q2">Q2(APR-JUN)</mat-option>
+          <mat-option value="Q3">Q3(JUL-SEP)</mat-option>
+          <mat-option value="Q4">Q4(OCT-DEC)</mat-option>
+        </mat-select>
+        <mat-error *ngIf="uploadForm.controls['quarter'].hasError('required')">
+          Quarter is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="20px"   fxFlexOffset="3">
+      <div fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="20px" fxFlex="20">
+        <mat-label>File Type</mat-label>
+        <mat-radio-group formControlName="type" fxLayout="column" fxLayoutGap="10px">
+          <mat-radio-button value="LOG">Log</mat-radio-button>
+          <mat-radio-button value="REPORT">Report</mat-radio-button>
+          <mat-error *ngIf="uploadForm.controls['type'].hasError('required')">
+            File Type is <strong>required</strong>
+          </mat-error>
+        </mat-radio-group>
+      </div>
+      <div fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="20px" fxFlex="20">
+        <mat-label>Report Type</mat-label>
+        <mat-radio-group formControlName="report" fxLayout="column" fxLayoutGap="10px" >
+          <mat-radio-button value="RFP18">RFP 18</mat-radio-button>
+          <mat-radio-button value="RFP19">RFP 19</mat-radio-button>
+          <mat-error *ngIf="uploadForm.controls['report'].hasError('required')">
+            Report Type is <strong>required</strong>
+          </mat-error>
+        </mat-radio-group>
+      </div>
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="start center"
+    fxFlexOffset="5">
+      <div fxLayout="column" fxLayoutAlign="start center">
+
+          <input
+          type="file"
+          id="fileInput"
+          (change)="selectFile($event)"
+          name="fileInput" [disabled]="uploadForm.invalid"
+        />
+      </div>
+    </div>
+    <mat-card-actions fxLayout="column" fxLayoutAlign="start start"  >
+      <button
+        mat-raised-button
+        type="submit"
+        color="primary"
+        dir="ltr"
+        fxFlex="10"
+        fxFlexOffset="5" [disabled]="uploadForm.invalid || file==null"
+      >
+      <mat-icon>cloud_upload</mat-icon> Upload
+      </button>
+    </mat-card-actions>
+  </mat-card>
+  <div class="overlay" *ngIf="spinner">
+    <div class="spinner">
+      <mat-progress-spinner diameter="50" mode="indeterminate" color="accent">
+      </mat-progress-spinner>
+    </div>
+  </div>
+</form>
